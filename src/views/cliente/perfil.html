@@ -1,0 +1,49 @@
+
+<body class="body--perfil">
+  <div class="perfil__container">
+    <h2 class="perfil__title">Mi Perfil</h2>
+    <form id="perfilForm" class="perfil__form">
+      <div class="perfil__group">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" required>
+      </div>
+      <div class="perfil__group">
+        <label for="correo">Correo</label>
+        <input type="email" id="correo" name="correo" required>
+      </div>
+      <div class="perfil__group">
+           <label for="rol">Rol</label>
+        <input type="text" id="rol" name="rol"  readonly>
+      <!-- </div>
+            <div class="perfil__group">
+           <label for="rol">Actualizar Contraseña</label>
+        <input type="text" id="contrasena" name="contrasena"  required>
+      </div> -->
+
+      <hr>
+      <div class="perfil__group">
+        <label for="direccion">Dirección</label>
+        <input type="text" id="direccion" name="direccion" required>
+      </div>
+      <div class="perfil__group">
+        <label for="ciudad">Ciudad</label>
+        <input type="text" id="ciudad" name="ciudad" required>
+      </div>
+      <div class="perfil__group">
+        <label for="departamento">Departamento</label>
+        <input type="text" id="departamento" name="departamento" required>
+      </div>
+      <div class="perfil__group">
+        <label for="codigo_postal">Código Postal</label>
+        <input type="text" id="codigo_postal" name="codigo_postal" required>
+      </div>
+      <div class="perfil__group">
+        <label for="observaciones">Observaciones</label>
+        <textarea id="observaciones" name="observaciones"></textarea>
+      </div>
+      <button type="submit" class="perfil__button">Guardar Cambios</button>
+    </form>
+    <div id="perfilMensaje" class="perfil__mensaje"></div>
+  </div>
+</body>
+

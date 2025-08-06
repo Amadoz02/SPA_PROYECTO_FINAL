@@ -94,12 +94,16 @@ export const post = async (endpoint, objeto) => {
  */
 export const patch = async (endpoint, data) => {
   try {
+    console.log(data);
     const response = await fetch(url + endpoint, {
+
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         'usuarioId': idUsuario ? idUsuario : ''
       },
+      
+      
       body: JSON.stringify(data)
     });
     return await handleResponse(response);

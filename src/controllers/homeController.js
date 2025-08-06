@@ -1,8 +1,8 @@
 
 import  initProductoController  from './productoController.js';
 import  mostrarFavoritos  from './favoritosController.js';
-// Importar el nuevo controlador
 import carritoController from './carrito_fixed.js';
+import perfilController from './perfilController.js';
 
 
 
@@ -46,10 +46,12 @@ export default function homeController() {
         console.log(`Sección '${section}' cargada correctamente.`);
         if (section === "productos") {
           initProductoController();
-        }else if (section === "favoritos") {
+        } else if (section === "favoritos") {
           mostrarFavoritos();
-        }else if (section === "carrito") {
+        } else if (section === "carrito") {
           await carritoController();
+        } else if (section === "perfil") {
+          await perfilController();
         }
       })
       .catch(err => {
@@ -159,7 +161,7 @@ export default function homeController() {
   // Función para manejar el hash y cargar la sección correspondiente
   function handleInternalHash() {
     const hash = location.hash.replace('#', '');
-    if (hash === "favoritos" || hash === "carrito") {
+    if (["favoritos", "carrito", "perfil", "productos"].includes(hash)) {
       loadHomeSection(hash);
     } else {
       // Por defecto, siempre cargar productos
