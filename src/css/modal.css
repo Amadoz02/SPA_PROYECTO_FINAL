@@ -1,0 +1,143 @@
+
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Botón de información */
+.card-top-buttons {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  z-index: 2;
+}
+
+.info-button {
+  background: rgba(0, 0, 0, 0.5);
+  margin: 8px 0 0 0;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.info-button:hover {
+  background: var(--color-primary);
+  box-shadow: 0 0 8px var(--color-primary);
+}
+
+.info-icon {
+  width: 18px;
+  height: 18px;
+  color: white;
+}
+
+/* Overlay del modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+/* Contenido del modal */
+.modal-content {
+  background: var(--color-black);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow: hidden;
+  padding: 24px;
+  position: relative;
+  border: 1px solid var(--color-primary);
+  color: var(--color-white);
+  font-family: var(--font-text);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.modal-content::before {
+  content: '';
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(var(--color-accent), transparent);
+  border-radius: 50%;
+  opacity: 0.3;
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: var(--color-white);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.modal-close:hover {
+  color: var(--color-accent);
+  transform: scale(1.5);
+}
+
+
+
+
+
+/* Detalles del modal */
+.modal-details {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  font-size: 1.3rem;
+  line-height: 1.5;
+}
+
+.modal-details p {
+  margin: 0;
+  color: var(--color-white);
+  font-family: var(--font-text);
+}
+
+/* Títulos opcionales */
+.modal-content h2, .modal-content h3 {
+  font-family: var(--font-title);
+  color: var(--color-accent);
+  margin-bottom: 12px;
+}
+.modal-title {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  color: var(--color-accent);
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .modal-details {
+    grid-template-columns: 1fr 1fr;
+  }
+}
