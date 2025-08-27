@@ -1,0 +1,24 @@
+<!-- compras.html migrada -->
+<section class="compras-section">
+  <h2 class="compras-title">Mis Compras</h2>
+  <!-- Spinner de carga -->
+  <div id="loadingSpinner" class="spinner" style="display: none;">Cargando...</div>
+  <!-- Mensaje de sin compras -->
+  <div id="noCompras" class="no-compras" style="display: none;">
+    No tienes compras registradas.
+  </div>
+  <!-- Contenedor de compras -->
+  <div id="comprasList" class="compras-list"></div>
+  <!-- Paginación -->
+  <div id="pagination" class="pagination" style="display: none;">
+    <button id="prevPage">Anterior</button>
+    <span id="pageInfo">Página 1 de 1</span>
+    <button id="nextPage">Siguiente</button>
+  </div>
+  <!-- Modal de detalles -->
+  <div id="compraModal" class="modal" style="display: none;">
+    <div class="modal-content" id="compraDetails">
+      <!-- Aquí se inyectará el contenido de la compra -->
+    </div>
+  </div>
+</section>

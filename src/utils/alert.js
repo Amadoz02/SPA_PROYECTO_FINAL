@@ -17,7 +17,13 @@ export const success = (mensaje = 'Operación realizada con éxito') => {
     icon: 'success',
     title: mensaje,
     confirmButtonText: 'Aceptar',
+    customClass: {
+      confirmButton: 'btn--Yesalert',
+      cancelButton: 'btn--Notalert',
+      title: 'text-primary'
+    },
     allowOutsideClick: false
+    
   });
 };
 
@@ -27,26 +33,60 @@ export const info = (titulo, mensaje) => {
     icon: 'info',
     title: titulo,
     text: mensaje,
+    customClass: {
+      confirmButton: 'btn--Yesalert',
+      cancelButton: 'btn--Notalert',
+      title: 'text-primary'
+    },
   });
 }
 
-// Alerta de error que recibe tu respuesta del backend
-export const error = (respuesta) => {
+export const error = (respuesta, titulo='Se produjo un error') => {
   let mensaje = 'Error desconocido.';
 
-  if (respuesta.hasOwnProperty('errors') && Array.isArray(respuesta.errors) && respuesta.errors.length > 0) {
+  if (typeof respuesta === 'string') {
+    mensaje = respuesta;
+  } else if (respuesta?.errors?.length > 0) {
     mensaje = respuesta.errors.map(err => `${err}`).join('<br>');
-  } else if (respuesta.message) {
+  } else if (respuesta?.message) {
     mensaje = `${respuesta.message}`;
   }
 
   return Swal.fire({
     ...configuracionBase,
     icon: 'error',
-    title: 'Se produjo un error',
+    title: titulo,
     html: mensaje,
     confirmButtonText: 'Cerrar',
+    customClass: {
+      confirmButton: 'btn--Yesalert',
+      cancelButton: 'btn--Notalert',
+      title: 'text-primary'
+    },
   });
+};
 
-  console.warn('Respuesta del servidor:', respuesta);
+
+// Alerta de confirmación con colores del aplicativo
+export const confirm = (titulo, mensaje) => {
+  return Swal.fire({
+    ...configuracionBase,
+    title: titulo,
+    text: mensaje,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#007bff',
+    cancelButtonColor: '#dc3545',
+    confirmButtonText: 'Sí, continuar',
+    cancelButtonText: 'Cancelar',
+    reverseButtons: true,
+    customClass: {
+      confirmButton: 'btn btn--Yesalert',
+      cancelButton: 'btn btn--Notalert',
+      title: 'text-primary',
+      icon: 'text-warning'
+    },
+    buttonsStyling: false,
+    allowOutsideClick: false
+  });
 };

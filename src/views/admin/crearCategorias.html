@@ -1,0 +1,28 @@
+ <main>
+
+  <div class="form-container">
+    <h2>Agregar Nueva Categoría</h2>
+    <form id="category-form">
+      <label for="category-name">Nombre de la categoría</label>
+      <input
+        type="text"
+        id="category-name"
+        name="category-name"
+        placeholder="Ej: Tecnología"
+        required
+      />
+
+      <label for="category-desc">Descripción</label>
+      <textarea
+        id="category-desc"
+        name="category-desc"
+        rows="4"
+        placeholder="Describe la categoría..."
+        required
+      ></textarea>
+
+      <button type="submit">Agregar</button>
+    </form>
+  </div>
+  </main>
+  <script type="module" src="./categoriasController.js"></script>

@@ -1,5 +1,7 @@
-import { get } from '../utils/manejo_api.js';
+import { get } from '../utils/manejo_api_optimizado.js';
 import { crearCardProducto } from '../utils/productUtils.js'; // Importar funciones reutilizables
+import { AddProductoAlCarrito } from '../utils/cartUtils.js';
+import { error, info } from '../utils/alert.js';
 
 export default async function favoritosController() {
   const productGrid = document.querySelector('.product-grid');
@@ -7,6 +9,7 @@ export default async function favoritosController() {
     console.error('No se encontró el contenedor de productos favoritos');
     return;
   }
+ 
 
   // Función para cargar productos favoritos
   async function loadFavoritos() {
@@ -14,12 +17,14 @@ export default async function favoritosController() {
     console.log('ID usuario en favoritosController:', idUsuario);
     if (!idUsuario) {
       productGrid.innerHTML = '<p>Debe iniciar sesión para ver sus favoritos.</p>';
+      await info('Inicio de sesión requerido', 'Debe iniciar sesión para ver sus favoritos.');
       return;
     }
 
     try {
       const response = await fetch(`http://localhost:8080/helder/api/favoritos/usuario/${idUsuario}`);
       console.log('Respuesta API favoritos:', response);
+      
       if (!response.ok) {
         throw new Error('Error al obtener favoritos: ' + response.status);
       }
@@ -29,7 +34,7 @@ export default async function favoritosController() {
       productGrid.innerHTML = '';
 
       if (!favoritos || favoritos.length === 0) {
-        productGrid.innerHTML = '<p>No tienes productos favoritos.</p>';
+        productGrid.innerHTML = '<p class="text">No tienes productos favoritos.</p>';
         return;
       }
 
@@ -42,6 +47,7 @@ export default async function favoritosController() {
           }
           console.log('Producto obtenido:', producto);
           const card = crearCardProducto(producto, true, idUsuario); // Usar la función reutilizable
+          
           productGrid.appendChild(card);
         } catch (error) {
           console.error('Error al obtener producto favorito:', error);
@@ -53,10 +59,17 @@ export default async function favoritosController() {
       }
     } catch (error) {
       console.error('Error cargando favoritos:', error);
-      productGrid.innerHTML = '<p>Error al cargar los productos favoritos.</p>';
+      productGrid.innerHTML = '<p class="text">Error al cargar los productos favoritos.</p>';
+      await error({ message: 'Error al cargar los productos favoritos.' });
     }
   }
 
   // Cargar favoritos al iniciar
   loadFavoritos();
+  AddProductoAlCarrito(productGrid, sessionStorage.getItem("id_usuario")); // Inicializar funcionalidad de agregar al carrito
+  
+  // Actualizar contador de favoritos después de cargar
+  if (window.actualizarContadores) {
+    window.actualizarContadores();
+  }
 }

@@ -2,9 +2,9 @@
  * Modal de pago para el carrito de compras
  * Muestra métodos de pago disponibles y permite seleccionar uno
  */
-
-import { get } from '../../utils/manejo_api_optimizado.js';
-
+ import { confirm } from '../../utils/alert.js';
+import { get,post,put,del } from '../../utils/manejo_api_optimizado.js';
+    //  const { get } = await import('../../utils/manejo_api_optimizado.js');
 export class PaymentModal {
   constructor() {
     this.modal = null;
@@ -42,8 +42,8 @@ export class PaymentModal {
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn-secondary" id="cancel-payment">Cancelar</button>
-            <button type="button" class="btn-primary" id="confirm-payment">Confirmar Pago</button>
+            <button type="button" class="btn--Notalert" id="cancel-payment">Cancelar</button>
+            <button type="button" class="btn--Yesalert" id="confirm-payment">Confirmar Pago</button>
           </div>
         </div>
       </div>
@@ -57,16 +57,31 @@ export class PaymentModal {
   async loadPaymentMethods() {
     try {
       const response = await get('metodos');
-      this.paymentMethods = response?.data || response || [];
+      console.log('Métodos de pago recibidos:', response);
+      
+      // Manejar diferentes estructuras de respuesta
+      if (Array.isArray(response)) {
+        this.paymentMethods = response;
+      } else if (response?.data && Array.isArray(response.data)) {
+        this.paymentMethods = response.data;
+      } else if (response?.metodos && Array.isArray(response.metodos)) {
+        this.paymentMethods = response.metodos;
+      } else {
+        this.paymentMethods = [];
+      }
+      
       this.renderPaymentMethods();
     } catch (error) {
       console.error('Error al cargar métodos de pago:', error);
-      this.paymentMethods = [
-        { id: 1, nombre: 'Tarjeta de Crédito' },
-        { id: 2, nombre: 'Tarjeta de Débito' },
-        { id: 3, nombre: 'Transferencia Bancaria' },
-        { id: 4, nombre: 'PayPal' }
-      ];
+      // Métodos de respaldo solo si no hay datos
+      if (this.paymentMethods.length === 0) {
+        this.paymentMethods = [
+          { id: 1, nombre: 'Tarjeta de Crédito' },
+          { id: 2, nombre: 'Tarjeta de Débito' },
+          { id: 3, nombre: 'Transferencia Bancaria' },
+          { id: 4, nombre: 'PayPal' }
+        ];
+      }
       this.renderPaymentMethods();
     }
   }
@@ -77,10 +92,17 @@ export class PaymentModal {
     
     this.paymentMethods.forEach(method => {
       const option = document.createElement('option');
-      option.value = method.id;
-      option.textContent = method.nombre;
+      option.value = method.id || method.id_metodo; // Manejar diferentes nombres de propiedad
+      option.textContent = method.nombre || method.tipo;
+      option.dataset.methodName = method.nombre || method.tipo; // Guardar nombre para referencia
       select.appendChild(option);
     });
+    
+    // Verificar que los valores se han establecido correctamente
+    console.log('Opciones renderizadas:', Array.from(select.options).map(opt => ({
+      value: opt.value,
+      text: opt.textContent
+    })));
   }
 
   bindEvents() {
@@ -130,16 +152,74 @@ export class PaymentModal {
 
     const selectedMethodName = this.paymentMethods.find(m => m.id == selectedMethod)?.nombre;
     
-    // Aquí iría la lógica para procesar el pago
-    console.log('Procesando pago con:', selectedMethodName);
-    
-    // Simular procesamiento
-    this.hide();
-    
-    // Mostrar confirmación
-    import('../../utils/alert.js').then(({ success }) => {
-      success(`Pago procesado exitosamente con ${selectedMethodName}`);
-    });
+    // Confirmar la venta antes de procesar
+   
+    const confirmacion = await confirm(
+      'Confirmar Venta',
+      `¿Estás seguro de que deseas confirmar la compra ?`
+    );
+
+    if (!confirmacion.isConfirmed) {
+      return; // El usuario canceló la acción
+    }
+
+    try {
+      // Obtener el ID del carrito del usuario actual
+      const idUsuario = sessionStorage.getItem('id_usuario');
+      if (!idUsuario) {
+        alert('Debes iniciar sesión para completar la compra');
+        return;
+      }
+
+      // Obtener el carrito actual para obtener el ID
+ 
+      const carritoResponse = await get(`carritos/usuario/${idUsuario}`);
+      const idCarrito = carritoResponse?.id_carrito || carritoResponse?.data?.id_carrito;
+
+      if (!idCarrito) {
+        alert('No se pudo obtener el carrito de compras');
+        return;
+      }
+
+      // Preparar datos para la venta
+      const ventaData = {
+        id_carrito: idCarrito,
+        id_metodo: parseInt(selectedMethod),
+        estado: 'Exitosa'
+      };
+      console.log('Datos de la venta:', ventaData);
+      // Realizar POST a ventas
+
+      const response = await post('ventas', ventaData);
+
+      console.log('Venta procesada exitosamente:', response);
+      
+      // Cerrar modal
+      this.hide();
+      
+      // Mostrar confirmación de éxito
+      const { success } = await import('../../utils/alert.js');
+      await success('¡Compra realizada exitosamente!');
+      
+      // carrito después de la compra
+      try {
+        await put(`carritos/${idCarrito}`, { estado: 'Cerrado', id_usuario: parseInt(idUsuario)});
+      } catch (error) {
+        console.warn('Error al limpiar carrito:', error);
+      }
+      
+      // Recargar la página para reflejar los cambios
+      window.location.reload();
+      
+    } catch (error) {
+      console.error('Error al procesar la venta:', error);
+      
+      // Mostrar error al usuario
+      const { error: showError } = await import('../../utils/alert.js');
+      await showError({
+        message: 'Error al procesar la compra: ' + (error.message || 'Error desconocido')
+      });
+    }
   }
 
   destroy() {

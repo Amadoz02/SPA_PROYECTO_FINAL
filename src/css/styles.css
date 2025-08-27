@@ -1,4 +1,3 @@
-
 @import url(./formularios.css);
 @import url(./custom_propertis.css);
 @import url(./home.css);
@@ -8,6 +7,10 @@
 @import url(./modal.css);
 @import url(./carrito.css);
 @import url(./perfil.css);
+@import url(./compras.css);
+@import url(./admin.css);
+@import url(./tablas.css);
+@import url(./tallas-radio.css);
 
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_left_alt");
 :root {
@@ -16,7 +19,7 @@
   --color-primary: #00b0a8;
   --color-accent: #f3c622;
   --color-secondary: #0a3d3c;
-
+  --color-error: #c70000;
   --color-overlay: rgba(0, 0, 0, 0.45);
   --font-title: 'Bebas Neue', sans-serif;
   --font-text: 'Urbanist', sans-serif;
@@ -29,9 +32,12 @@
   box-sizing: border-box;
 }
 
-
-
-
+.error-msg {
+  color: red;
+  font-size: 0.85em;
+  margin-top: 4px;
+  display: block;
+}
 
 /*LOGIN STYLES*/
 .body--login {
@@ -46,12 +52,13 @@
   min-height: max-content;
 }
 
-
-
+.hidden {
+  display: none;
+  justify-self: center;
+}
 
 /* === REGISTRO === */
 .body--register {
-
   background-image: url('../resources/img23.jpg');
   background-size: cover;
   background-position: center;
@@ -61,9 +68,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-
-  
 }
 .body--register::before {
   content: "";
@@ -83,7 +87,7 @@
   opacity: 1;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
 }
- .register__group {
+.register__group {
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -102,9 +106,114 @@
 }
 
 
+/* Choices.js custom styles para selects en registro */
+/* Choices.js custom styles para selects en registro */
+.choices {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  border-radius: 10px;
+  background: none;
+}
+.choices__inner {
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  border: none;
+  color: var(--color-white);
+  font-size: 1rem;
+  font-family: var(--font-text);
+  min-height: 44px;
+  box-shadow: none;
+  padding: 0.7rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.choices__list--dropdown {
+  background-color: #222;
+  border-radius: 10px;
+  color: var(--color-white);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  border: none;
+  margin-top: 2px;
+  padding: 0.5rem 0.2rem;
+}
+.choices__list--dropdown .choices__input {
+  background: #222;
+  color: var(--color-white);
+  border-radius: 8px;
+  border: 1px solid #333;
+  margin: 0.3rem 0.5rem;
+  padding: 0.5rem 0.7rem;
+  font-size: 1rem;
+  font-family: var(--font-text);
+}
+.choices__list--dropdown .choices__item {
+  margin: 2px 0;
+}
+ 
+.choices__item--selectable {
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  border-radius: 8px;
+  margin: 2px 0;
+}
+.choices__item--selectable.is-highlighted {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border-radius: 8px;
+}
+.choices__input {
+  background: transparent;
+  color: var(--color-white);
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  padding: 0.5rem 0.7rem;
+}
+.choices__placeholder {
+  color: #aaa;
+  font-size: 1rem;
+  font-family: var(--font-text);
+}
 
+.compras-title{
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-white);
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-
+div.swal2-actions{
+  gap: 10px;
+}
+button.btn--Yesalert{
+  width: fit-content;
+  padding: 5px 10px;
+  display: flex;
+  font-size: 1.5rem;
+  background-color: var(--color-primary);
+}
+button.btn--Notalert{
+  width: fit-content;
+  padding: 5px 10px;
+  display: flex;
+  margin: 0 50px 0 0;
+  font-size: 1.5rem;
+  background-color: var(--color-secondary);
+}
+button.btn--Yesalert:hover,
+button.btn--Notalert:hover {
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  transition: all 0.3s ease;
+}
+.modal-footer {
+  padding-top: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
 
 /* Tablets */
 @media (max-width: 768px) {

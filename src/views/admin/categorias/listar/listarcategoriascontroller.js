@@ -1,0 +1,1 @@
+//se puede listar(visualizar) y eliminar categorias

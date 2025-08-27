@@ -10,18 +10,20 @@
       <!-- Logo de la tienda -->
 
       <h1 class="home__logo ">Urban<span class="home__logo--highlight">Pro</span></h1>
-      <a href="/src/views/admin/subir_imagen.html">subirimg</a>
       <!-- Barra de búsqueda -->
       <form class="home__search">
         <input type="text" class="home__search-input" placeholder="Buscar productos..." />
         <button type="submit" class="home__search-btn">
           <i data-lucide="search" class="home__search-icon"></i>
         </button>
+  
+
       </form>
 
       <!-- Navegación principal del usuario -->
       <nav class="home__nav">
-        <a href="#bienvenido" class="home__nav-link">Log Aut</a>
+        <a href="#compra" id="btn-ver-compras" class="home__nav-link">Mis Compras</a>
+        <a href="#" id="logout-btn" class="home__nav-link">Cerrar Sesión</a>
 
         <a href="#perfil" class="home__nav-link">Perfil</a>
 
@@ -44,6 +46,8 @@
     <!-- Menú lateral con categorías -->
     <aside class="home__sidebar">
       <ul class="home__menu"></ul>
+      <button id="filtrarBtn" class="sidebar-filter-btn btn">Filtrar</button>
+
     </aside>
 
     <!-- Contenido principal con productos -->

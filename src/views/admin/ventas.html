@@ -1,0 +1,87 @@
+<header class="admin-header">
+<h1>Panel de Administración</h1>
+<nav>
+  <ul>
+    
+    <li><a href="#listProductos">Productos</a></li>
+        <li><a href="#listCategorias_Tallas">Categorías y Tallas</a></li>
+        <li><a href="#listUsers">Usuarios</a></li>
+        <li><a href="#listVentas">Ventas y Métodos de Pago</a></li>
+        <li><a href="#perfilAdmin">Mi Perfil</a></li>
+        <li><a href="#" id="logoutBtn">Cerrar Sesión</a></li>
+    <li><a href="#metodosPago" class="btn-metodos-pago">Gestionar Métodos de Pago</a></li>
+       
+  </ul>
+</nav>
+</header>
+<section class="admin-section">
+  <h2>Gestión de Ventas</h2>
+
+</section>
+
+  <!-- Spinner de carga -->
+  <div id="loadingSpinner" class="spinner" style="display: none;">Cargando...</div>
+
+  <!-- Mensaje de sin compras -->
+  <div id="noCompras" class="no-compras" style="display: none;">
+    No tienes compras registradas.
+  </div>
+
+  <!-- Contenedor de compras -->
+  <div id="comprasList" class="compras-list"></div>
+
+  <!-- Paginación -->
+  <div id="pagination" class="pagination" style="display: none;">
+    <button id="prevPage">Anterior</button>
+    <span id="pageInfo">Página 1 de 1</span>
+    <button id="nextPage">Siguiente</button>
+  </div>
+
+  <!-- Modal de detalles -->
+  <div id="compraModal" class="modal" style="display: none;">
+    <div class="modal-content" id="compraDetails">
+      <!-- Aquí se inyectará el contenido de la compra -->
+    </div>
+  </div>
+</section>
+
+
+  <!-- Estilos para el botón de métodos de pago -->
+  <style>
+.btn-metodos-pago {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.btn-metodos-pago:hover {
+  background-color: #218838;
+}
+
+.admin-header nav ul {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.admin-header nav ul li {
+  list-style: none;
+}
+
+.admin-header nav ul li a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.admin-header nav ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+  </style>
+  

@@ -54,3 +54,34 @@
   /* Solo aplica overlay en login/register, no en home SPA */
 }
 
+.btn-delete{
+  background-color: var(--color-accent);
+  border: none;
+  border-radius: 12px;
+  padding: 5px;
+  font-weight: 900;
+  font-size: 0.8rem;
+  text-align: center;
+  cursor: pointer;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+.btn-edit{
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 12px;
+  padding: 5px;
+  font-weight: 900;
+  font-size: 0.8rem;
+  text-align: center;
+  cursor: pointer;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+.btn-edit:hover, .btn-delete:hover{
+  background-color: var(--color-secondary);
+  color: var(--color-accent);
+  transition: 0.5s;
+}

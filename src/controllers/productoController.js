@@ -1,61 +1,30 @@
-import { get, post } from '../utils/manejo_api.js';
-import { crearCardProducto } from '../utils/productUtils.js'; // Importar funciones reutilizables
+import { get } from '../utils/manejo_api_optimizado.js';
+import { crearCardProducto } from '../utils/productUtils.js';
 import {createInfoButton} from '../utils/modalUtils.js';
+import obtenerProductosFiltrados from '../utils/manejo_filter.js';
+import { AddProductoAlCarrito } from '../utils/cartUtils.js';
+import { error, info } from '../utils/alert.js';
+
 export default function initProductoController() {
   const productGrid = document.getElementById('product-grid');
-  const idUsuario = sessionStorage.getItem("id_usuario"); // Obtén el ID del usuario desde sessionStorage
-
-  function AddProductoAlCarrito() {
-    productGrid.addEventListener("click", async (e) => {
-      // Verifica si se hizo click en un botón con la clase 'product-card__btn'
-      if (e.target.closest(".product-card__btn")) {
-        const boton = e.target.closest(".product-card__btn");
-        // Obtener cantidad seleccionada
-        const productCard = boton.closest('.product-card');
-        const cantidad = parseInt(productCard.querySelector('.quantity-input')?.value) || 1;
-        
-        // Extrae el ID del producto desde data-id
-        const idProducto = boton.dataset.id;
-        
-        console.log(`ID del usuario: ${idUsuario}, ID del producto: ${idProducto}`);
-        if (!idUsuario) {
-          alert("Debes iniciar sesión para agregar productos al carrito.");
-          return;
-        }
-        
-        const detalle = {
-          id_producto: parseInt(idProducto),
-          cantidad: cantidad
-           // Este valor se calculará en el backend
-        };
-        console.log("detalle del carrito:", detalle, "idUsuario:", parseInt(idUsuario));
-        
-        try {
-          const res = await post("detalles_carrito", detalle);
-          alert("Producto agregado al carrito.");
-          console.log("Respuesta del servidor:", res);
-        } catch (error) {
-          console.error("Error al agregar al carrito:", error);
-          alert("Error de conexión con el servidor.");
-        }
-      }
-    });
-  }
+  const idUsuario = localStorage.getItem("id_usuario");
+  console.log("id de usuario: ", idUsuario);
+  
 
   // Función para obtener los favoritos de un usuario
   async function obtenerFavoritosUsuario(idUsuario) {
     try {
       const response = await get(`favoritos/usuario/${idUsuario}`);
-      return response || []; // Asegurarse de que siempre se retorne un array
+      return response || [];
     } catch (error) {
       console.error("Error cargando favoritos del usuario:", error);
-      return []; // Para que la app no se rompa
+      return [];
     }
   }
 
   async function cargarProductos() {
     try {
-      const productos = await get('productos');
+      const productos = await get('productos/activos');
       console.log("productos:", productos);
       
       const favoritosUsuario = idUsuario
@@ -68,13 +37,14 @@ export default function initProductoController() {
       productGrid.innerHTML = '';
       for (const producto of productos) {
         const esFavorito = favoritosIds.includes(producto.id_producto);
-        productGrid.appendChild(crearCardProducto(producto, esFavorito, idUsuario)); // Usar la función reutilizable
+        productGrid.appendChild(crearCardProducto(producto, esFavorito, idUsuario));
       }
 
       if (window.lucide) lucide.createIcons();
     } catch (e) {
       console.error('Error al cargar productos:', e);
       productGrid.innerHTML = '<p class="text">Error al cargar productos.</p>';
+      await error({ message: 'Error al cargar productos.' });
     }
   }
 
@@ -84,6 +54,92 @@ export default function initProductoController() {
   });
 
   // Inicializar carga
-  AddProductoAlCarrito();
+  AddProductoAlCarrito(productGrid, idUsuario);
+
+  document.getElementById('filtrarBtn')?.addEventListener('click', async () => {
+    const getSeleccionados = (name) => {
+      return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`))
+        .map(input => parseInt(input.value));
+    };
+
+    const id_genero = getSeleccionados('genero');
+    const id_categoria = getSeleccionados('categoria');
+    const id_talla = getSeleccionados('talla');
+
+    const filtros = {
+      id_genero,
+      id_categoria,
+    };
+
+    try {
+      const productos = await obtenerProductosFiltrados(filtros);
+
+      const favoritosUsuario = idUsuario
+        ? await obtenerFavoritosUsuario(idUsuario)
+        : [];
+
+      const favoritosIds = favoritosUsuario.map(fav => fav.idProducto || fav.id_producto);
+
+      productGrid.innerHTML = '';
+      for (const producto of productos) {
+        const esFavorito = favoritosIds.includes(producto.id_producto);
+        productGrid.appendChild(crearCardProducto(producto, esFavorito, idUsuario));
+      }
+
+      if (window.lucide) lucide.createIcons();
+
+    } catch (error) {
+      console.error('Error al filtrar productos:', error);
+      productGrid.innerHTML = '<p class="text">No se pudieron cargar los productos filtrados.</p>';
+      await error({ message: 'No se pudieron cargar los productos filtrados.' });
+    }
+  });
+
+  const searchForm = document.querySelector('.home__search');
+  const searchInput = document.querySelector('.home__search-input');
+
+  //cargar cuando le de al boton de búsqueda
+  searchForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const termino = searchInput.value.trim().toLowerCase();
+
+    if (!termino) {
+      cargarProductos(); // Si no hay búsqueda, carga todo
+      return;
+    }
+
+    try {
+      const productos = await get('productos/activos');
+      const favoritosUsuario = idUsuario
+        ? await obtenerFavoritosUsuario(idUsuario)
+        : [];
+
+      const favoritosIds = favoritosUsuario.map(fav => fav.idProducto || fav.id_producto);
+
+      // Filtrar productos por coincidencia en el nombre
+      const coincidencias = productos.filter(p =>
+        p.nombre.toLowerCase().includes(termino)
+      );
+
+      if (coincidencias.length === 0) {
+        await info('Sin resultados', 'No hay productos como el que estás buscando en este momento.');
+        cargarProductos(); // Volver a mostrar todos
+        return;
+      }
+
+      productGrid.innerHTML = '';
+      for (const producto of coincidencias) {
+        const esFavorito = favoritosIds.includes(producto.id_producto);
+        productGrid.appendChild(crearCardProducto(producto, esFavorito, idUsuario));
+      }
+
+      if (window.lucide) lucide.createIcons();
+    } catch (error) {
+      console.error('Error en la búsqueda de productos:', error);
+      productGrid.innerHTML = '<p class="text">Error al buscar productos.</p>';
+      await error({ message: 'Error al buscar productos.' });
+    }
+  });
+
   cargarProductos();
 }

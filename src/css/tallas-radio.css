@@ -1,0 +1,88 @@
+/* Estilos para los radio buttons de tallas */
+/* .product-card__tallas {
+  margin: 10px 0;
+} */
+
+.product-card__tallas-title {
+  font-size: 14px;
+  font-weight: 600;
+  /* margin-bottom: 8px; */
+  color: var(--text-color);
+}
+
+.product-card__tallas-radio {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: space-around;
+  margin-bottom: 5px;
+}
+
+.talla-radio-label {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 6px 12px;
+  border: 1px solid var(--color-secondary);
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  background-color: var(--color-accent);
+}
+
+.talla-radio-label:hover:not(.talla-agotada) {
+  color: var(--color-accent);
+  background-color: var(--color-secondary);
+}
+
+.talla-radio {
+  display: none;
+}
+
+.talla-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.talla-radio:checked + .talla-text {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.talla-radio-label:has(.talla-radio:checked) {
+    color: var(--color-accent);
+  background-color: var(--color-secondary);
+}
+
+.talla-agotada {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--disabled-bg);
+  border-color: var(--disabled-border);
+}
+
+.talla-agotada .talla-text {
+  color: var(--disabled-text);
+}
+
+.product-card__stock {
+  font-size: 13px;
+  color: var(--text-secondary);
+  
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .product-card__tallas-radio {
+    gap: 6px;
+  }
+  
+  .talla-radio-label {
+    padding: 4px 10px;
+  }
+  
+  .talla-text {
+    font-size: 12px;
+  }
+}

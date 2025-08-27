@@ -1,10 +1,11 @@
+import { confirm, error, info } from "./alert"; 
 /**
  * Módulo optimizado para manejo de peticiones API
  * Incluye manejo robusto de errores y respuestas vacías
  */
-
-const url = 'http://localhost:8080/helder/api/';
-const idUsuario = parseInt(sessionStorage.getItem("id_usuario"));
+export const API_BASE_URL = 'http://localhost:8080/helder/api/';
+const url = API_BASE_URL;
+const idUsuario = parseInt(localStorage.getItem("id_usuario"));
 
 /**
  * Función auxiliar para manejar respuestas HTTP de forma robusta
@@ -13,7 +14,7 @@ const idUsuario = parseInt(sessionStorage.getItem("id_usuario"));
  */
 const handleResponse = async (response) => {
   // Manejar respuestas exitosas sin contenido (204)
-  if (response.status === 204) {
+  if (response.status === 204 || response.status === 205 || response.status === null  || response === null) {
     return { success: true, message: 'Operación exitosa', status: 204 };
   }
   
@@ -55,8 +56,17 @@ const handleResponse = async (response) => {
  */
 export const get = async (endpoint) => {
   try {
-    const response = await fetch(url + endpoint);
-    return await handleResponse(response);
+    const token = localStorage.getItem('token');
+    console.log("si hay token?: ", token);//si hay, pues me lo imprime
+    
+    const response = await fetch(url + endpoint, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+      }
+    });
+    let data = await handleResponse(response);
+    return data;
   } catch (error) {
     console.error('Error en GET:', error);
     throw error;
@@ -69,13 +79,15 @@ export const get = async (endpoint) => {
  * @param {Object} objeto - Datos a enviar
  * @returns {Promise<Object>} - Respuesta del servidor
  */
-export const post = async (endpoint, objeto) => {
+export const post = async (endpoint, objeto,id_Usuario=null) => {
   try {
+    const token = localStorage.getItem('token');
     const response = await fetch(url + endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'usuarioId': idUsuario ? idUsuario : ''
+        'usuarioId': id_Usuario ? id_Usuario : '',
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
       },
       body: JSON.stringify(objeto)
     });
@@ -94,16 +106,14 @@ export const post = async (endpoint, objeto) => {
  */
 export const patch = async (endpoint, data) => {
   try {
-    console.log(data);
+    const token = localStorage.getItem('token');
     const response = await fetch(url + endpoint, {
-
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'usuarioId': idUsuario ? idUsuario : ''
+        'usuarioId': idUsuario ? idUsuario : '',
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
       },
-      
-      
       body: JSON.stringify(data)
     });
     return await handleResponse(response);
@@ -121,10 +131,12 @@ export const patch = async (endpoint, data) => {
  */
 export const put = async (endpoint, objeto) => {
   try {
+    const token = localStorage.getItem('token');
     const response = await fetch(url + endpoint, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
       },
       body: JSON.stringify(objeto)
     });
@@ -142,10 +154,12 @@ export const put = async (endpoint, objeto) => {
  */
 export const del = async (endpoint) => {
   try {
+    const token = localStorage.getItem('token');
     const response = await fetch(url + endpoint, {
       method: 'DELETE',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
       }
     });
     return await handleResponse(response);

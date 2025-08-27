@@ -141,3 +141,58 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* Estilos para la sección de tallas */
+.tallas-section {
+  margin-top: 20px;
+  padding: 0 5px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  grid-column: span 2;
+  font-size: 1rem;
+}
+
+.tallas-section h4 {
+  margin-bottom: 10px;
+  color: var(--color-accent);
+  font-size: 1.3rem;
+}
+
+.tallas-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 6px;
+}
+
+.tallas-table th,
+.tallas-table td {
+  padding: 5px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tallas-table th {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-accent);
+  font-weight: bold;
+}
+
+.tallas-table tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tallas-table td {
+  color: var(--color-white);
+}
+
+@media (max-width: 480px) {
+  .tallas-table {
+    font-size: 0.9rem;
+  }
+  
+  .tallas-table th,
+  .tallas-table td {
+    padding: 8px;
+  }
+}

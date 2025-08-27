@@ -1,8 +1,12 @@
 /* Estilos para el carrito */
 
-
+.modal-close{
+ top: 10px;
+  right: 17px;
+  font-size: 2rem;
+}
 .cart-item {
-  background-color: #666;
+  background-color: #696565;
   display: grid;
   grid-template-columns: 100px 2fr 1fr 1fr 50px;
   gap: 20px;
@@ -21,7 +25,9 @@
 
 .cart-item__title {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  font-weight: 400;
   color: var(--color-primary);
 }
 
@@ -83,4 +89,52 @@
 .cart-summary {
   margin-top: 30px;
   padding: 20px;
+}
+
+/* Estilos para dropdowns de métodos de pago y otros selectores */
+.payment-dropdown,
+.cart-dropdown {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  background-color: white;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+}
+
+.payment-dropdown:hover,
+.cart-dropdown:hover {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.payment-dropdown:focus,
+.cart-dropdown:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.payment-dropdown option,
+.cart-dropdown option {
+  padding: 8px;
+  background-color: white;
+  color: #333;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  .payment-dropdown,
+  .cart-dropdown {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
 }

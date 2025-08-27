@@ -9,6 +9,7 @@
 }
 .perfil__container {
   background: rgba(0,0,0,0.85);
+  justify-self: center;
   padding: 2.5rem 2rem;
   border-radius: 18px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.6);

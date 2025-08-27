@@ -1,0 +1,96 @@
+<header class="admin-header">
+<h1>Panel de Administración</h1>
+<nav>
+  <ul>
+    
+   <li><a href="#listProductos">Productos</a></li>
+        <li><a href="#listCategorias_Tallas">Categorías y Tallas</a></li>
+        <li><a href="#listUsers">Usuarios</a></li>
+        <li><a href="#listVentas">Ventas y Métodos de Pago</a></li>
+        <li><a href="#perfilAdmin">Mi Perfil</a></li>
+        <li><a href="#" id="logoutBtn">Cerrar Sesión</a></li>
+  </ul>
+</nav>
+</header>
+<section class="admin-section">
+  <button onclick="openUsuarioForm()" class="btn--Yesalert">➕ Nuevo Usuario</button>
+
+  <h2>Gestión de Usuarios</h2>
+  <div class="perfil__container hidden" id="perfilContainer">
+    <h2 class="perfil__title">Perfil</h2>
+    <form id="perfilForm" class="perfil__form" novalidate>
+
+      <div class="perfil__group">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <span class="error-msg" id="error-nombre"></span>
+      </div>
+
+      <div class="perfil__group">
+        <label for="correo">Correo</label>
+        <input type="email" id="correo" name="correo" required>
+        <span class="error-msg" id="error-correo"></span>
+      </div>
+
+      <div class="perfil__group">
+        <label for="estado">Estado</label>
+        <select id="estado" name="estado" required>
+          <option value="Activo">Activo</option>
+          <option value="Inactivo">Inactivo</option>
+        </select>
+        <span class="error-msg" id="error-estado"></span>
+      </div>
+
+      <div class="perfil__group">
+        <label for="rol">Rol</label>
+        <select id="rol" name="rol" required></select>
+        <span class="error-msg" id="error-rol"></span>
+      </div>
+
+      <div class="perfil__group" id="grupoContrasena" style="display: none;">
+        <label for="contrasena">Contraseña</label>
+        <input type="password" id="contrasena" name="contrasena" required>
+        <span class="error-msg" id="error-contrasena"></span>
+      </div>
+
+      <hr>
+
+      <div class="perfil__group">
+        <label for="direccion">Dirección</label>
+        <input type="text" id="direccion" name="direccion" required>
+        <span class="error-msg" id="error-direccion"></span>
+      </div>
+
+      <div class="perfil__group">
+        <label for="ciudad">Ciudad</label>
+        <input type="text" id="ciudad" name="ciudad" required>
+        <span class="error-msg" id="error-ciudad"></span>
+      </div>
+
+      <div class="perfil__group">
+        <label for="departamento">Departamento</label>
+        <input type="text" id="departamento" name="departamento" required>
+        <span class="error-msg" id="error-departamento"></span>
+      </div>
+
+      <div class="perfil__group">
+        <label for="codigo_postal">Código Postal</label>
+        <input type="text" id="codigo_postal" name="codigo_postal" required>
+        <span class="error-msg" id="error-codigo_postal"></span>
+      </div>
+
+      <div class="perfil__group">
+        <label for="observaciones">Observaciones (opcional)</label>
+        <textarea id="observaciones" name="observaciones"></textarea>
+        <!-- No necesita span porque es opcional -->
+      </div>
+
+      <button type="submit" class="perfil__button">Guardar Cambios</button>
+      <div id="perfilMensaje" class="perfil__mensaje"></div>
+
+    </form>
+  </div>
+  <div id="usuarios-container">
+    <!-- Aquí se listarán los usuarios -->
+  </div>
+</section>

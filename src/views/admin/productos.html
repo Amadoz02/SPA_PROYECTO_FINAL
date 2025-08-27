@@ -1,0 +1,135 @@
+<header class="admin-header">
+<h1>Panel de Administración</h1>
+<nav>
+  <ul>
+    
+    <li><a href="#listProductos">Productos</a></li>
+        <li><a href="#listCategorias_Tallas">Categorías y Tallas</a></li>
+        <li><a href="#listUsers">Usuarios</a></li>
+        <li><a href="#listVentas">Ventas y Métodos de Pago</a></li>
+        <li><a href="#perfilAdmin">Mi Perfil</a></li>
+        <li><a href="#" id="logoutBtn">Cerrar Sesión</a></li>
+  </ul>
+</nav>
+</header>
+<section class="admin-section">
+  <h2>Gestión de Productos</h2>
+  <div id="productos-container">
+    <!-- Aquí se listarán los productos -->
+  </div>
+</section>
+<div id="mensajeSistema" class="mensaje-sistema" style="display: none;"></div>
+
+<!-- Modal para agregar nuevo producto -->
+<div id="modalNuevoProducto" class="modal">
+  <div class="modal-content modal-producto">
+    <div class="modal-header">
+      <h3>Agregar Nuevo Producto</h3>
+      <span class="close" id="cerrarModalNuevoProducto">&times;</span>
+    </div>
+    
+    <form id="formNuevoProducto" class="form-producto">
+      <div class="form-grid">
+        <!-- Información básica -->
+        <div class="form-section">
+          <h4>Información Básica</h4>
+          
+          <div class="form-group">
+            <label for="nombreProducto">Nombre del Producto *</label>
+            <input type="text" id="nombreProducto" name="nombre" required maxlength="100">
+          </div>
+          
+          <div class="form-group">
+            <label for="descripcionProducto">Descripción *</label>
+            <textarea id="descripcionProducto" name="descripcion" required maxlength="500" rows="3"></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="precioProducto">Precio *</label>
+            <input type="number" id="precioProducto" name="precio" required min="0" step="0.01">
+          </div>
+        </div>
+        
+        <!-- Categorización -->
+        <div class="form-section">
+          <h4>Categorización</h4>
+          
+          <div class="form-group">
+            <label for="categoriaProducto">Categoría *</label>
+            <select id="categoriaProducto" name="id_categoria" required>
+              <option value="">Seleccione una categoría</option>
+            </select>
+          </div>
+          
+          <!-- Eliminado: select de talla única, ahora se maneja dinámicamente en la tabla de tallas -->
+          
+          <div class="form-group">
+            <label for="generoProducto">Género *</label>
+            <select id="generoProducto" name="id_genero" required>
+              <option value="">Seleccione un género</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="estadoProducto">Estado *</label>
+            <select id="estadoProducto" name="estado" required>
+              <option value="Activo">Activo</option>
+              <option value="Inactivo">Inactivo</option>
+            </select>
+          </div>
+
+          <!-- Sección de Tallas y Stocks -->
+          <div class="form-section">
+            <h4>Tallas y Stocks</h4>
+            <div id="tallasContainer">
+              <table id="tallasTable" style="width: 100%; margin-bottom: 10px;">
+                <thead>
+                  <tr>
+                    <th>Talla</th>
+                    <th>Stock</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="tallasBody">
+                  <!-- Las filas de tallas se agregarán dinámicamente -->
+                </tbody>
+              </table>
+              <button type="button" id="agregarTallaBtn" class="btn-agregar-talla">
+                + Agregar Talla
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Imágenes -->
+        <div class="form-section">
+          <h4>Imágenes del Producto</h4>
+          <div class="form-group">
+            <label for="imagenesProducto">Imágenes (máx. 5)</label>
+            <input type="file" id="imagenesProducto" name="imagenes" multiple accept="image/*" max="5">
+            <div id="previewImagenes" class="preview-imagenes"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <button type="button" class="btn-cancelar" id="cancelarNuevoProducto">Cancelar</button>
+        <button type="submit" class="btn-guardar" id="guardarNuevoProducto">Guardar Producto</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="galeriaModal">
+  <div class="modal-content">
+    <button id="cerrarGaleria">Cerrar</button>
+
+    <div id="galeriaImagenes"></div>
+
+    <input type="file" id="nuevaImagenInput" />
+    <input type="text" id="descripcionImagenInput" placeholder="Descripción" />
+    <button id="subirImagenBtn">Subir imagen</button>
+  </div>
+</div>
+
+<link rel="stylesheet" href="../../../src/css/modalProducto.css">

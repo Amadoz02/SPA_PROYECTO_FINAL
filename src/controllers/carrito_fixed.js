@@ -2,7 +2,7 @@
  * Controlador optimizado para el carrito de compras
  * Soluciona el problema de eliminación de productos
  */
-  import { info } from '../utils/alert.js';
+  import { info, confirm } from '../utils/alert.js';
   import { PaymentModal } from '../views/js/paymentModal.js';
 import { get, del, patch } from '../utils/manejo_api_optimizado.js';
 
@@ -11,7 +11,8 @@ export default async function carritoController() {
   const cartTotal = document.getElementById('cart-total');
   const checkoutBtn = document.getElementById('checkout-btn');
   const idUsuario = sessionStorage.getItem('id_usuario');
-
+  console.log('ID usuario en carritoController:', idUsuario);
+  
   if (!idUsuario) {
     cartItemsContainer.innerHTML = `
       <div class="empty-cart">
@@ -25,6 +26,8 @@ export default async function carritoController() {
   async function getCartItems() {
     try {
       const response = await get(`detalles_carrito/usuario/${idUsuario}`);
+      console.log(response);
+      
       return response?.data || response || [];
     } catch (error) {
       console.error('Error al obtener items del carrito:', error);
@@ -49,7 +52,7 @@ export default async function carritoController() {
         cartItemsContainer.innerHTML = `
           <div class="empty-cart">
             <p class="text">Tu carrito está vacío</p>
-            <a href="#productos" class="continue-shopping">Continuar comprando</a>
+            <a href="#home" class="continue-shopping text">Continuar comprando</a>
           </div>
         `;
         updateCartTotals(0);
@@ -76,7 +79,7 @@ export default async function carritoController() {
           </div>
           <div class="cart-item__details">
             <h3 class="cart-item__title">${product.nombre}</h3>
-            <p class="cart-item__category">${product.categoria}</p>
+            <p class="cart-item__size">Talla: ${item.talla || 'N/A'}</p>
             <p class="cart-item__price">$${product.precio.toFixed(2)} c/u</p>
           </div>
           <div class="cart-item__quantity">
@@ -145,6 +148,7 @@ export default async function carritoController() {
       btn.addEventListener('click', async (e) => {
         const detalleId = e.target.closest('button').dataset.detalleId;
         await removeFromCart(detalleId);
+        window.actualizarContadores()
       });
     });
   }
@@ -164,13 +168,25 @@ export default async function carritoController() {
       if (newQuantity < 1) {
         await removeFromCart(detalleId);
       } else {
+        console.log(currentItem);
+        
         // Usar fetch directamente para evitar problemas de CORS o configuración
-        await patch(`detalles_carrito/${detalleId}`, { cantidad: newQuantity });
+        await patch(`detalles_carrito/${detalleId}`, {
+          cantidad: newQuantity,
+          id_talla_producto: currentItem.id_talla_producto
+        });
+
 
         // Actualizar vista
-      await renderCartItems();
-      }
+  await renderCartItems();
+  
+  // Actualizar contador de carrito después de cargar
+  if (window.actualizarContadores) {
+    window.actualizarContadores();
+  }
+}
     } catch (error) {
+      await info("no puedes agregar mas a carrito", "ya tienes el limite de stock agregado en tu carrito.")
       console.error('Error al actualizar cantidad:', error);
     }
   }
@@ -207,7 +223,12 @@ export default async function carritoController() {
   const paymentModal = new PaymentModal();
 
   checkoutBtn.addEventListener('click', async () => {
-    const result = await info('Confirmar Compra', '¿Deseas proceder a confirmar la compra?');
+    const cartItems = await getCartItems();
+    if (cartItems.length === 0) {
+      info('No hay productos en el carrito.');
+      return;
+      }
+    const result = await confirm('Confirmar Compra', '¿Deseas proceder a confirmar la compra?');
     if (result.isConfirmed) {
       // Show modal with current total
       const totalText = cartTotal.textContent || '$0.00';

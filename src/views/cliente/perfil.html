@@ -1,8 +1,8 @@
-
 <body class="body--perfil">
   <div class="perfil__container">
     <h2 class="perfil__title">Mi Perfil</h2>
-    <form id="perfilForm" class="perfil__form">
+    <form id="perfilForm" class="perfil__form" novalidate>
+      <!-- Información básica -->
       <div class="perfil__group">
         <label for="nombre">Nombre</label>
         <input type="text" id="nombre" name="nombre" required>
@@ -12,15 +12,14 @@
         <input type="email" id="correo" name="correo" required>
       </div>
       <div class="perfil__group">
-           <label for="rol">Rol</label>
-        <input type="text" id="rol" name="rol"  readonly>
-      <!-- </div>
-            <div class="perfil__group">
-           <label for="rol">Actualizar Contraseña</label>
-        <input type="text" id="contrasena" name="contrasena"  required>
-      </div> -->
+        <label for="rol">Rol</label>
+        <input type="text" id="rol" name="rol" readonly>
+      </div>
 
+     
+      <!-- Información de dirección -->
       <hr>
+      <h3 class="perfil__subtitle">Dirección</h3>
       <div class="perfil__group">
         <label for="direccion">Dirección</label>
         <input type="text" id="direccion" name="direccion" required>
@@ -38,12 +37,26 @@
         <input type="text" id="codigo_postal" name="codigo_postal" required>
       </div>
       <div class="perfil__group">
-        <label for="observaciones">Observaciones</label>
+        <label for="observaciones">Observaciones (opcional)</label>
         <textarea id="observaciones" name="observaciones"></textarea>
       </div>
+
       <button type="submit" class="perfil__button">Guardar Cambios</button>
     </form>
     <div id="perfilMensaje" class="perfil__mensaje"></div>
+    <!-- Sección de contraseña -->
+       <hr>
+       <h3 class="perfil__subtitle">Actualizar Contraseña</h3>
+      
+       <div class="perfil__group">
+         <label for="nuevaContrasena">Nueva Contraseña</label>
+         <input type="password" id="nuevaContrasena" name="nuevaContrasena" placeholder="Mínimo 6 caracteres">
+       </div>
+       <div class="perfil__group">
+         <label for="confirmarContrasena">Confirmar Nueva Contraseña</label>
+         <input type="password" id="confirmarContrasena" name="confirmarContrasena" placeholder="Repite la nueva contraseña">
+       </div>
+       <button type="button" id="btnActualizarContrasena" class="perfil__button perfil__button--secondary">Actualizar Contraseña</button>
   </div>
-</body>
 
+</body>

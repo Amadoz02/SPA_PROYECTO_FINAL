@@ -130,11 +130,20 @@
   color: var(--color-light);
 }
 
+.resultados-container {
+  margin-top: 1rem;
+}
+.resultado-item {
+  padding: 0.5rem;
+  border-bottom: 1px solid #ccc;
+}
+
+
 /* SIDEBAR FIJO */
 .home__sidebar {
   grid-area: sidebar;
   width: 250px;
-  height: 100%;
+  height: calc(100vh - 70px); /* Altura total menos el header */
   background-color: var(--color-secondary);
   padding: 2rem 1rem;
   display: flex;
@@ -142,6 +151,8 @@
   gap: 1.5rem;
   overflow-y: auto;
   z-index: 999;
+  position: sticky;
+  top: 70px; /* Alineado con el header */
 }
 
 .home__menu {

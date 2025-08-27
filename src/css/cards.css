@@ -32,7 +32,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   width: 285px; /* tamaño fijo para evitar deformaciones */
-  height: 430px; /* altura fija para uniformidad */
+  height: 450px; /* altura fija para uniformidad */
   margin: 0.2rem;
 }
 
@@ -192,7 +192,7 @@
 .product-card__stock {
   font-size: 0.9rem;
   color: var(--color-white);
-  margin: 0.2rem 0.5rem;
+  /* margin: 0.2rem 0.5rem; */
   letter-spacing: 2px;
 }
 

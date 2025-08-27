@@ -6,6 +6,8 @@
  */
 export function showProductModal(product) {
   // Crear elementos del modal
+  
+  console.log("Mostrando modal para el producto:", product);
   const modalOverlay = document.createElement('div');
   modalOverlay.className = 'modal-overlay';
   
@@ -23,9 +25,28 @@ export function showProductModal(product) {
       <p><strong>Descripción:</strong> ${product.descripcion || 'No disponible'}</p>
       <p><strong>Precio:</strong> $${product.precio || '0'}</p>
       <p><strong>Categoría:</strong> ${product.categoria || 'N/A'}</p>
-      <p><strong>Talla:</strong> ${product.talla || 'N/A'}</p>
       <p><strong>Género:</strong> ${product.genero || 'N/A'}</p>
-      <p><strong>Stock disponible:</strong> ${product.stock || '0'}</p>
+      
+      <div class="tallas-section">
+        ${product.tallas && product.tallas.length > 0 ? `
+          <table class="tallas-table">
+            <thead>
+              <tr>
+                <th>Talla</th>
+                <th>Stock disponible</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${product.tallas.map(talla => `
+                <tr>
+                  <td>${talla.talla || 'N/A'}</td>
+                  <td>${talla.stock || 0}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        ` : '<p>No hay tallas disponibles</p>'}
+      </div>
     </div>
   `;
   

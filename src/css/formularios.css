@@ -23,6 +23,9 @@
   background: rgba(0,0,0,0.55);
   z-index: 0;
 }
+.form__error{
+  color: var(--color-error);
+}
 
 .form__content {
   position: relative;
