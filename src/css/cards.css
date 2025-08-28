@@ -32,7 +32,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   width: 285px; /* tamaño fijo para evitar deformaciones */
-  height: 450px; /* altura fija para uniformidad */
+  height: 460px; /* altura fija para uniformidad */
   margin: 0.2rem;
 }
 

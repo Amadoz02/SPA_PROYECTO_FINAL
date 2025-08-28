@@ -1,0 +1,23 @@
+<header class="home__header">
+  <h1 class="home__logo">Urban<span class="home__logo--highlight">Pro</span></h1>
+  <form class="home__search">
+    <input type="text" class="home__search-input" placeholder="Buscar productos..." />
+    <button type="submit" class="home__search-btn">
+      <i data-lucide="search" class="home__search-icon"></i>
+    </button>
+  </form>
+  <nav class="home__nav">
+    <a href="#/cliente/compras" id="btn-ver-compras" class="home__nav-link">Mis Compras</a>
+    <a href="#" id="logout-btn" class="home__nav-link">Cerrar Sesión</a>
+    <a href="#/cliente/perfil" class="home__nav-link">Perfil</a>
+    <a href="#/cliente/home" id="nav-home" class="home__nav-link">Inicio</a>
+    <a href="#/cliente/favoritos" id="favoritesBtn" class="home__icon-btn" title="Favoritos">
+      <i data-lucide="heart" class="home__icon"></i>
+      <span class="home__icon-count">2</span>
+    </a>
+    <a href="#/cliente/carrito" class="home__icon-btn" id="cart-toggle" title="Carrito">
+      <i data-lucide="shopping-cart" class="home__icon"></i>
+      <span class="home__icon-count" id="cart-count">0</span>
+    </a>
+  </nav>
+</header>

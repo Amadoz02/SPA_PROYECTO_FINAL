@@ -64,7 +64,7 @@ export default function initProductoController() {
 
     const id_genero = getSeleccionados('genero');
     const id_categoria = getSeleccionados('categoria');
-    const id_talla = getSeleccionados('talla');
+  
 
     const filtros = {
       id_genero,
@@ -73,6 +73,12 @@ export default function initProductoController() {
 
     try {
       const productos = await obtenerProductosFiltrados(filtros);
+
+      if (!Array.isArray(productos) || productos.length === 0) {
+        await info('Sin resultados', 'No hay productos que coincidan con el filtro. Se mostrarán todos los productos.');
+        await cargarProductos();
+        return;
+      }
 
       const favoritosUsuario = idUsuario
         ? await obtenerFavoritosUsuario(idUsuario)
