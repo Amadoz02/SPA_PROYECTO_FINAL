@@ -1,12 +1,14 @@
+import { get } from "./manejo_api_optimizado";
+
 export default async function obtenerProductosFiltrados(filtros) {
-    const baseUrl = "http://localhost:8080/helder/api/productos/filtrar/";
+    const baseUrl = "productos/filtrar/";
 
     // Construimos los parámetros dinámicamente
     const params = new URLSearchParams();
 
-    if (filtros.id_talla && filtros.id_talla.length > 0) {
-        filtros.id_talla.forEach(t => params.append("id_talla", t));
-    }
+    // if (filtros.id_talla && filtros.id_talla.length > 0) {
+    //     filtros.id_talla.forEach(t => params.append("id_talla", t));
+    // }
 
     if (filtros.id_categoria && filtros.id_categoria.length > 0) {
         filtros.id_categoria.forEach(c => params.append("id_categoria", c));
@@ -19,10 +21,8 @@ export default async function obtenerProductosFiltrados(filtros) {
     const url = `${baseUrl}?${params.toString()}`;
 
     try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error("Error al obtener productos filtrados");
-
-        const productos = await response.json();
+        const productos = await get(url);
+       
         console.log("Productos filtrados:", productos);
         return productos;
     } catch (error) {

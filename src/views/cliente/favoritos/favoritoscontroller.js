@@ -11,7 +11,7 @@ export default async function favoritoscontroller() {
     return;
   }
   async function loadFavoritos() {
-    const idUsuario = sessionStorage.getItem("id_usuario");
+    const idUsuario = localStorage.getItem("id_usuario");
     if (!idUsuario) {
       productGrid.innerHTML = '<p>Debe iniciar sesión para ver sus favoritos.</p>';
       await info('Inicio de sesión requerido', 'Debe iniciar sesión para ver sus favoritos.');

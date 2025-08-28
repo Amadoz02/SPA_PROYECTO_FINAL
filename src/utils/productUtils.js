@@ -29,7 +29,10 @@ export function crearBotonFavorito(producto, esFavorito, idUsuario) {
             const url = `http://localhost:8080/helder/api/favoritos${esFavorito ? '' : `/${idUsuario}/${idProducto}`}`;
             const options = {
                 method: esFavorito ? 'POST' : 'DELETE',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                  'Content-Type': 'application/json',
+                  ...(localStorage.getItem('token') ? { 'Authorization': `Bearer ${localStorage.getItem('token')}` } : {})
+                },
                 body: esFavorito ? JSON.stringify(favorito) : undefined
             };
 
