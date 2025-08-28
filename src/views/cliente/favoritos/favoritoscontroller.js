@@ -59,13 +59,13 @@ export default async function favoritoscontroller() {
     } catch (error) {
       console.error('Error cargando favoritos:', error);
       productGrid.innerHTML = '<p class="text">Error al cargar los productos favoritos.</p>';
-      error('Error al cargar los productos favoritos.');
+  error('No tienes autorización para ver los favoritos. (401)', 'Error de autenticación');
     }
   }
 
   // Cargar favoritos al iniciar
   await loadFavoritos();
-  AddProductoAlCarrito(productGrid, localStorage.getItem("id_usuario") || sessionStorage.getItem("id_usuario"));
+  AddProductoAlCarrito(productGrid, localStorage.getItem("id_usuario"));
 
   // Actualizar contador de favoritos después de cargar
   if (window.actualizarContadores) {
