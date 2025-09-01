@@ -52,7 +52,7 @@ export default async function carritoController() {
         cartItemsContainer.innerHTML = `
           <div class="empty-cart">
             <p class="text">Tu carrito está vacío</p>
-            <a href="#home" class="continue-shopping text">Continuar comprando</a>
+            <a href="#/cliente/home" class="continue-shopping text">Continuar comprando</a>
           </div>
         `;
         updateCartTotals(0);

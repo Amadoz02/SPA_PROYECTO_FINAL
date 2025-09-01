@@ -41,6 +41,7 @@ export default function homecontroller() {
     document.getElementById('favoritesBtn')?.addEventListener('click', (e) => {
       e.preventDefault();
       location.hash = '/cliente/favoritos';
+      location.reload();
     });
     document.getElementById('cart-toggle')?.addEventListener('click', (e) => {
       e.preventDefault();

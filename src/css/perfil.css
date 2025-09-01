@@ -144,8 +144,8 @@ select::-webkit-scrollbar-thumb {
   }
 
   .bloque {
-    max-width: 100%;
-    width: 100%;
+    max-width: 600px;
+    min-width: 300px;
     padding: 1rem 0;
   }
 

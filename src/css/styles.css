@@ -21,6 +21,7 @@
   --color-secondary: #0a3d3c;
   --color-error: #c70000;
   --color-overlay: rgba(0, 0, 0, 0.45);
+  --color-contrast: #3096af;
   --font-title: 'Bebas Neue', sans-serif;
   --font-text: 'Urbanist', sans-serif;
   --transition-fast: 0.3s ease;
@@ -31,6 +32,81 @@
   padding: 0;
   box-sizing: border-box;
   
+}
+.navbar-hamburger.open span {
+  background: transparent;
+}
+.navbar-hamburger.open span::before {
+  transform: rotate(45deg);
+  top: 0;
+}
+.navbar-hamburger.open span::after {
+  transform: rotate(-45deg);
+  top: 0;
+}
+
+/* HAMBURGER MENU STYLES */
+.navbar-hamburger {
+  display: none;
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1200;
+}
+.navbar-hamburger span,
+.navbar-hamburger span:before,
+.navbar-hamburger span:after {
+  display: block;
+  background: var(--color-white);
+  height: 3px;
+  width: 28px;
+  border-radius: 2px;
+  position: relative;
+  transition: all 0.3s;
+}
+.navbar-hamburger span:before {
+  content: '';
+  position: absolute;
+  top: -9px;
+  left: 0;
+}
+.navbar-hamburger span:after {
+  content: '';
+  position: absolute;
+  top: 9px;
+  left: 0;
+}
+
+/* RESPONSIVE NAVBAR */
+@media (max-width: 780px) {
+  .home__nav {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    background: var(--color-secondary);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    display: none;
+    z-index: 1100;
+  }
+  /* Forzar visibilidad del menú hamburguesa cuando está abierto */
+  .home__nav.open {
+    display: flex !important; /* Se fuerza el display para evitar conflictos con otros estilos */
+  }
+  .navbar-hamburger {
+    display: block;
+  }
+}
+span{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .error-msg {

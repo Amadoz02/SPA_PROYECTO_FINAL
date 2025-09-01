@@ -38,6 +38,9 @@ export function loadNavbar() {
                         <i data-lucide="search" class="home__search-icon"></i>
                     </button>
                 </form>
+                <button class="navbar-hamburger" id="navbar-hamburger" aria-label="Abrir menú">
+                  <span></span>
+                </button>
                 <nav class="home__nav">
                     <a href="#/cliente/home" id="nav-home" class="home__nav-link">Inicio</a>
                     <a href="#/cliente/compras" id="btn-ver-compras" class="home__nav-link">Mis Compras</a>
@@ -70,22 +73,53 @@ export function loadNavbar() {
     }
 
     navbarContent.innerHTML = html;
-    // Mostrar barra de búsqueda solo en cliente/home
-    if (window.location.hash === '#/cliente/home') {
-        document.getElementById('home-search-form').style.display = '';
-    }
-    // Inicializar iconos de Lucide
-    if (window.lucide) {
-        window.lucide.createIcons();
-    }
-    // Actualizar contadores del navbar tras renderizarlo
-    setTimeout(() => {
-        if (typeof updateNavbarCounters === 'function') {
-            updateNavbarCounters();
-        } else if (window.updateNavbarCounters) {
-            window.updateNavbarCounters();
+        // Mostrar barra de búsqueda solo en cliente/home
+        if (window.location.hash === '#/cliente/home') {
+                document.getElementById('home-search-form').style.display = '';
         }
-    }, 1);
+        // Inicializar iconos de Lucide
+        if (window.lucide) {
+                window.lucide.createIcons();
+        }
+        // Actualizar contadores del navbar tras renderizarlo
+        setTimeout(() => {
+                if (typeof updateNavbarCounters === 'function') {
+                        updateNavbarCounters();
+                } else if (window.updateNavbarCounters) {
+                        window.updateNavbarCounters();
+                }
+        }, 1);
+
+       // Script para menú hamburguesa
+setTimeout(() => {
+    const hamburger = document.getElementById('navbar-hamburger');
+    const nav = document.querySelector('.home__nav');
+
+    if (!hamburger || !nav) {
+        console.warn('Menú hamburguesa no cargado aún.');
+        return;
+    }
+
+    function closeMenu() {
+        nav.classList.remove('open');
+        hamburger.classList.remove('open');
+    }
+
+    hamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        nav.classList.toggle('open');
+        hamburger.classList.toggle('open');
+    });
+
+    document.addEventListener('click', function (e) {
+        if (nav.classList.contains('open') && !nav.contains(e.target) && e.target !== hamburger) {
+            closeMenu();
+        }
+    });
+
+    window.addEventListener('hashchange', closeMenu);
+}, 50); // Aumenta el tiempo si aún falla
+
     
 }
 

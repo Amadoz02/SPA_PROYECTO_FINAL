@@ -1,7 +1,8 @@
 /* ==== SECCIÓN COMPRAS ==== */
 .compras-section {
   padding: 1rem;
-  max-width: 900px;
+  min-width: 700px;
+  max-width: 1200px;
   margin: auto;
   font-family: Arial, sans-serif;
 }

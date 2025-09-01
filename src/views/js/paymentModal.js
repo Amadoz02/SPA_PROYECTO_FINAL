@@ -24,7 +24,7 @@ export class PaymentModal {
         <div class="modal-content">
           <div class="modal-header">
             <h2>Confirmar Compra</h2>
-            <button class="modal-close">&times;</button>
+            <button class="modal-close"><i data-lucide="x"></i></button>
           </div>
           <div class="modal-body">
             <div class="payment-section">
@@ -53,7 +53,7 @@ export class PaymentModal {
     document.body.insertAdjacentHTML('beforeend', modalHTML);
     this.modal = document.getElementById('payment-modal');
   }
-
+  
   async loadPaymentMethods() {
     try {
       const response = await get('metodos');
@@ -227,4 +227,9 @@ export class PaymentModal {
       this.modal.remove();
     }
   }
+  // Crear íconos de Lucide
+  
+}
+if (window.lucide) {
+  lucide.createIcons();
 }

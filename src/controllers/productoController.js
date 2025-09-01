@@ -159,7 +159,10 @@ export default function initProductoController() {
       productGrid.innerHTML = '<p class="text">Error al buscar productos.</p>';
       await error({ message: 'Error al buscar productos.' });
     }
+
+
   });
+  
 
   cargarProductos();
 }
