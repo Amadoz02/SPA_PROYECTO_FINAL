@@ -1,8 +1,12 @@
 // favoritoscontroller.js
-import { get } from '../../../utils/manejo_api_optimizado.js';
+import { get, tokenExpirado, refreshToken } from '../../../utils/manejo_api_optimizado.js';
 import { crearCardProducto } from '../../../utils/productUtils.js';
 import { AddProductoAlCarrito } from '../../../utils/cartUtils.js';
 import { error, info } from '../../../utils/alert.js';
+import { updateNavbarCounters } from '../../../utils/navbarUtils.js';
+
+// Bandera global para evitar duplicidad en la carga de favoritos
+window._loadingFavoritos = false;
 
 export default async function favoritoscontroller() {
   const productGrid = document.querySelector('.product-grid');
@@ -10,44 +14,40 @@ export default async function favoritoscontroller() {
     console.error('No se encontró el contenedor de productos favoritos');
     return;
   }
+  const token = localStorage.getItem('token');
 
+  // Función para cargar productos favoritos
   async function loadFavoritos() {
-    const idUsuario = localStorage.getItem("id_usuario") || sessionStorage.getItem("id_usuario");
-    const token = localStorage.getItem("token") || sessionStorage.getItem("token");
-    console.log('ID usuario en favoritoscontroller:', idUsuario);
+    if (window._loadingFavoritos) return;
+    window._loadingFavoritos = true;
+    const idUsuario = localStorage.getItem("id_usuario");
+    console.log('ID usuario en favoritosController:', idUsuario);
     if (!idUsuario) {
       productGrid.innerHTML = '<p>Debe iniciar sesión para ver sus favoritos.</p>';
-      info('Inicio de sesión requerido', 'Debe iniciar sesión para ver sus favoritos.');
+      await info('Inicio de sesión requerido', 'Debe iniciar sesión para ver sus favoritos.');
+      window._loadingFavoritos = false;
       return;
     }
     try {
-      const response = await fetch(`http://localhost:8080/helder/api/favoritos/usuario/${idUsuario}`,
-        {
-          headers: {
-            'Authorization': token ? `Bearer ${token}` : ''
-          }
-        }
-      );
-      console.log('Respuesta API favoritos:', response);
-      if (!response.ok) {
-        throw new Error('Error al obtener favoritos: ' + response.status);
-      }
-      const favoritos = await response.json();
+      const favoritos = await get(`favoritos/usuario/${idUsuario}`);
       console.log('Datos favoritos recibidos:', favoritos);
       productGrid.innerHTML = '';
       if (!favoritos || favoritos.length === 0) {
         productGrid.innerHTML = '<p class="text">No tienes productos favoritos.</p>';
+        window._loadingFavoritos = false;
         return;
       }
       for (const favorito of favoritos) {
         try {
-          const producto = await get(`productos/${favorito.idProducto || favorito.id_producto}`);
+          console.log('Obteniendo producto para favorito:', favorito);
+          
+          const producto = await get(`productos/${favorito.idProducto}` );
           if (!producto) {
             console.warn('Producto no encontrado para favorito:', favorito);
             continue;
           }
           console.log('Producto obtenido:', producto);
-          const card = crearCardProducto(producto, true, idUsuario);
+          const card = crearCardProducto(producto, true, idUsuario); // Usar la función reutilizable
           productGrid.appendChild(card);
         } catch (error) {
           console.error('Error al obtener producto favorito:', error);
@@ -59,16 +59,16 @@ export default async function favoritoscontroller() {
     } catch (error) {
       console.error('Error cargando favoritos:', error);
       productGrid.innerHTML = '<p class="text">Error al cargar los productos favoritos.</p>';
-  error('No tienes autorización para ver los favoritos. (401)', 'Error de autenticación');
+      await error({ message: 'Error al cargar los productos favoritos.' });
     }
+    window._loadingFavoritos = false;
   }
 
   // Cargar favoritos al iniciar
-  await loadFavoritos();
-  AddProductoAlCarrito(productGrid, localStorage.getItem("id_usuario"));
-
+  loadFavoritos();
+  AddProductoAlCarrito(productGrid, localStorage.getItem("id_usuario")); // Inicializar funcionalidad de agregar al carrito
+  
   // Actualizar contador de favoritos después de cargar
-  if (window.actualizarContadores) {
-    window.actualizarContadores();
-  }
+  updateNavbarCounters();
+
 }

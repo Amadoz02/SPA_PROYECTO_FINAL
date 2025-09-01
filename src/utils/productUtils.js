@@ -1,5 +1,6 @@
 import {createInfoButton} from '../utils/modalUtils.js';
-import favoritosController from '../controllers/favoritosController.js';
+import favoritosController from '../views/cliente/favoritos/favoritoscontroller.js';
+import { updateNavbarCounters } from './navbarUtils.js';
 // utils/productUtils.js
 export function crearBotonFavorito(producto, esFavorito, idUsuario) {
     const btn = document.createElement('button');
@@ -37,11 +38,11 @@ export function crearBotonFavorito(producto, esFavorito, idUsuario) {
             };
 
             const response = await fetch(url, options);
-            window.actualizarContadores();
-            if (location.hash === '#favoritos') {
-                
-                favoritosController(); // Recargar favoritos si estamos en la vista de favoritos
-              
+            await updateNavbarCounters();
+            // Solo recargar favoritos si no hay otra carga en proceso
+            if (location.hash === '#/cliente/favoritos' && !window._loadingFavoritos) {
+                favoritosController();
+                await updateNavbarCounters();
             }
             if (!response.ok) throw new Error(`${esFavorito ? 'Agregar' : 'Eliminar'} favorito falló`);
             console.log(`Producto ${esFavorito ? 'agregado a' : 'eliminado de'} favoritos:`, idProducto);
@@ -52,7 +53,10 @@ export function crearBotonFavorito(producto, esFavorito, idUsuario) {
 
     return btn;
 }
-
+// Actualizar contador de favoritos después de cargar
+  
+    
+  
 export function crearCarruselImagenes(producto) {
     const container = document.createElement('div');
     container.className = 'product-card__carousel';

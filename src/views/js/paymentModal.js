@@ -165,7 +165,7 @@ export class PaymentModal {
 
     try {
       // Obtener el ID del carrito del usuario actual
-      const idUsuario = sessionStorage.getItem('id_usuario');
+      const idUsuario = localStorage.getItem('id_usuario');
       if (!idUsuario) {
         alert('Debes iniciar sesión para completar la compra');
         return;
@@ -185,7 +185,7 @@ export class PaymentModal {
       const ventaData = {
         id_carrito: idCarrito,
         id_metodo: parseInt(selectedMethod),
-        estado: 'Exitosa'
+        id_estado_venta: 1
       };
       console.log('Datos de la venta:', ventaData);
       // Realizar POST a ventas

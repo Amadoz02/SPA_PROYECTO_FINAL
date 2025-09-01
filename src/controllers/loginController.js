@@ -1,8 +1,14 @@
 import {info, success, confirm, error} from '../utils/alert.js';
 import { router } from '../Router/router.js';
+import { loadNavbar, setupLogoutHandler } from '../utils/navbarUtils.js';
+
 export default function loginController() {
   const form = document.querySelector(".form__group");
   if (!form) return;
+
+  setupLogoutHandler();
+
+  loadNavbar();
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -32,6 +38,9 @@ export default function loginController() {
         localStorage.setItem("nombre_rol", result.usuario.rol.nombre);
 
         success("Inicio de sesión exitoso", `Bienvenido, ${result.usuario.nombre}`);
+
+        loadNavbar();
+
         // Redirigir según el rol
         if (result.usuario.rol.nombre === "admin" || result.usuario.rol.nombre === "SuperAdministrador") {
           location.hash = "/admin/dashboard";

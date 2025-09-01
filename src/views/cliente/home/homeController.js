@@ -1,5 +1,6 @@
 import manejoApi from '../../../utils/manejo_api_optimizado.js';
 import productosController from '../../../controllers/productoController.js';
+import { updateNavbarCounters } from '../../../utils/navbarUtils.js';
 
 export default function homecontroller() {
   // Vincula el buscador cuando el form exista (después de cargar la vista)
@@ -33,20 +34,7 @@ export default function homecontroller() {
       cont.id = 'resultados-busqueda';
       main.prepend(cont);
     }
-    cont.innerHTML = '';
-    if (!Array.isArray(productos) || productos.length === 0) {
-      cont.innerHTML = '<p class="text">No se encontraron productos.</p>';
-      return;
-    }
-    productos.forEach(p => {
-      // const item = document.createElement('div');
-      // item.classList.add('resultado-item');
-      // item.innerHTML = `
-      //   <h4>${p.nombre}</h4>
-      //   <p>${p.descripcion || 'Sin descripción'}</p>
-      // `;
-      cont.appendChild(item);
-    });
+   
   }
 
   function addInternalListeners() {
@@ -158,33 +146,5 @@ export default function homecontroller() {
   addInternalListeners();
 
   // Función para actualizar contadores desde la API
-  async function actualizarContadores() {
-    const idUsuario = localStorage.getItem('id_usuario');
-    if (!idUsuario) return;
-    try {
-      // Obtener cantidad de favoritos
-      const favoritosResponse = await manejoApi.get(`favoritos/usuario/${idUsuario}`);
-      const favoritosCount = Array.isArray(favoritosResponse) ? favoritosResponse.length : 0;
-      // Obtener cantidad de items en carrito
-      const carritoResponse = await manejoApi.get(`detalles_carrito/usuario/${idUsuario}`);
-      const carritoCount = Array.isArray(carritoResponse) ? carritoResponse.length : 0;
-      setFavoritesCount(favoritosCount);
-      setCartCount(carritoCount);
-      console.log('Contadores actualizados - Favoritos:', favoritosCount, 'Carrito:', carritoCount);
-    } catch (error) {
-      console.error('Error al actualizar contadores:', error);
-    }
-  }
-
-  function setFavoritesCount(count) {
-    const el = document.querySelector('.home__icon-count');
-    if (el) el.textContent = count;
-  }
-  function setCartCount(count) {
-  actualizarContadores();
-  // Exponer función global para ser llamada desde otros módulos
-  window.actualizarContadores = actualizarContadores;
-  window.setFavoritesCount = setFavoritesCount;
-  window.setCartCount = setCartCount;
-  }
+  updateNavbarCounters();
 }

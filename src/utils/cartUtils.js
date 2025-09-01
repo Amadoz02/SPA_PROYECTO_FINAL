@@ -1,5 +1,7 @@
+
 import { post } from './manejo_api_optimizado.js';
-import { success, error,info } from './alert.js';
+import { success, error, info } from './alert.js';
+
 
 /**
  * Función para agregar productos al carrito desde cualquier vista
@@ -14,7 +16,6 @@ export function AddProductoAlCarrito(container, idUsuario) {
     if (e.target.closest(".product-card__btn")) {
       const boton = e.target.closest(".product-card__btn");
       
-      
       // Obtener cantidad seleccionada
       const productCard = boton.closest('.product-card');
       const cantidad = parseInt(productCard.querySelector('.quantity-input')?.value) || 1;
@@ -25,8 +26,8 @@ export function AddProductoAlCarrito(container, idUsuario) {
       // Obtener la talla seleccionada
       const tallaSeleccionada = productCard.querySelector('input[type="radio"][name^="talla-"]:checked');
       
-     // Cambiar la forma de acceder a data_talla
-        const idTalla = tallaSeleccionada ? parseInt(tallaSeleccionada.dataset.talla) : null;
+      // Cambiar la forma de acceder a data_talla
+      const idTalla = tallaSeleccionada ? parseInt(tallaSeleccionada.dataset.talla) : null;
       
       console.log(`ID del usuario: ${idUsuario}, ID del producto: ${idProducto}, ID de talla: ${idTalla}`);
       
@@ -46,7 +47,6 @@ export function AddProductoAlCarrito(container, idUsuario) {
       }
       
       const detalle = {
-        id_producto: parseInt(idProducto),
         id_talla_producto: idTalla,
         cantidad: cantidad
       };
@@ -56,13 +56,13 @@ export function AddProductoAlCarrito(container, idUsuario) {
       try {
         const res = await post("detalles_carrito", detalle, parseInt(idUsuario));
         await success("Producto agregado al carrito.");
-        window.actualizarContadores()
+        // Actualiza los contadores del navbar tras agregar al carrito
+        import('./navbarUtils.js').then(mod => mod.updateNavbarCounters());
         console.log("Respuesta del servidor:", res);
       } catch (error) {
         console.error("Error al agregar al carrito:", error);
 
-        await info("no puedes agregar mas a carrito", "ya tienes el limite de stock agregado en tu carrito.")
-       
+        await info("no puedes agregar mas a carrito", "ya tienes el limite de stock agregado en tu carrito.");
       }
     }
   });
@@ -74,7 +74,7 @@ export function AddProductoAlCarrito(container, idUsuario) {
  */
 export function initAddToCart(containerSelector) {
   const container = document.querySelector(containerSelector);
-  const idUsuario = sessionStorage.getItem("id_usuario");
+  const idUsuario = localStorage.getItem("id_usuario");
   
   if (container && idUsuario) {
     AddProductoAlCarrito(container, idUsuario);

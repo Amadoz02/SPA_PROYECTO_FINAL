@@ -1,0 +1,66 @@
+
+<!-- editar.html para editar perfil -->
+<div class="perfil__container">
+  <form id="editarPerfilForm" class="perfil__form" novalidate>
+    <div class="bloque">
+      <h2 class="perfil__title">Editar Perfil</h2>
+      <div class="perfil__group">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre">
+        <span id="error-nombre" class="error"></span>
+      </div>
+      <div class="perfil__group">
+        <label for="correo">Correo</label>
+        <input type="email" id="correo" name="correo">
+        <span id="error-correo" class="error"></span>
+      </div>
+      <div class="perfil__group">
+        <label for="rol">Rol</label>
+        <input type="text" id="rol" name="rol" readonly>
+      </div>
+      <hr>
+      <hr>
+      <h3 class="perfil__subtitle">Cambiar Contraseña</h3>
+      <div class="perfil__group">
+        <label for="nuevaContrasena">Nueva Contraseña</label>
+        <input type="password" id="nuevaContrasena" name="nuevaContrasena" placeholder="Mínimo 6 caracteres">
+      </div>
+      <div class="perfil__group">
+        <label for="confirmarContrasena">Confirmar Nueva Contraseña</label>
+        <input type="password" id="confirmarContrasena" name="confirmarContrasena" placeholder="Repite la nueva contraseña">
+      </div>
+      <button type="button" id="btnActualizarContrasena" class="perfil__button perfil__button--secondary">Actualizar Contraseña</button>
+      
+    </div>
+    <div class="bloque">
+      <h3 class="perfil__subtitle">Dirección</h3>
+      <div class="perfil__group">
+        <label for="direccion">Dirección</label>
+        <input type="text" id="direccion" name="direccion">
+        <span id="error-direccion" class="error"></span>
+      </div>
+      <div class="perfil__group">
+        <label for="departamento">Departamento</label>
+        <select id="departamento" name="departamento" ></select>
+        <span id="error-departamento" class="error"></span>
+      </div>
+      <div class="perfil__group">
+        <label for="ciudad">Ciudad/Municipio</label>
+        <select id="ciudad" name="ciudad"></select>
+        <span id="error-ciudad" class="error"></span>
+      </div>
+      <div class="perfil__group">
+        <label for="codigo_postal">Código Postal</label>
+        <input type="text" id="codigo_postal" name="codigo_postal">
+        <span id="error-codigo_postal" class="error"></span>
+      </div>
+      <div class="perfil__group">
+        <label for="observaciones">Observaciones (opcional)</label>
+        <textarea id="observaciones" name="observaciones"></textarea>
+      </div>
+      <button type="submit" class="perfil__button perfil__button--primary">Guardar Cambios</button>
+        <button type="button" class="perfil__button perfil__button--secondary" onclick="location.hash='#/cliente/perfil'">Cancelar</button>
+        <div id="editarPerfilMensaje" class="perfil__mensaje" hidden></div>
+    </div>
+  </form>
+</div>

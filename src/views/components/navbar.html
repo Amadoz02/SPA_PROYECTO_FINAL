@@ -3,6 +3,7 @@
   <div id="navbar-content"></div>
 </header>
 <script>
+  
 (function() {
   // Detectar rol
   const rol = localStorage.getItem('rol');
@@ -41,7 +42,7 @@
           <a href="#/cliente/home" id="nav-home" class="home__nav-link">Inicio</a>
           <a href="#/cliente/favoritos" id="favoritesBtn" class="home__icon-btn" title="Favoritos">
             <i data-lucide="heart" class="home__icon"></i>
-            <span class="home__icon-count">2</span>
+            <span class="home__icon-count" id="favorites-count">6</span>
           </a>
           <a href="#/cliente/carrito" class="home__icon-btn" id="cart-toggle" title="Carrito">
             <i data-lucide="shopping-cart" class="home__icon"></i>

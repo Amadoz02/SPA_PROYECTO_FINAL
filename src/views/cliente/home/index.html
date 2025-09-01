@@ -1,40 +1,11 @@
-<!-- Vista Home Cliente migrada -->
-
-<!-- Contenedor principal -->
+<!-- Vista Home Cliente - Solo contenido principal -->
 <div class="home">
-  <header class="home__header">
-    <!-- Logo de la tienda -->
-    <h1 class="home__logo">Urban<span class="home__logo--highlight">Pro</span></h1>
-    <!-- Barra de búsqueda -->
-    <form class="home__search">
-      <input type="text" class="home__search-input" placeholder="Buscar productos..." />
-      <button type="submit" class="home__search-btn">
-        <i data-lucide="search" class="home__search-icon"></i>
-      </button>
-    </form>
-    <!-- Navegación principal del usuario -->
-    <nav class="home__nav">
-      <a href="#compra" id="btn-ver-compras" class="home__nav-link">Mis Compras</a>
-      <a href="#" id="logout-btn" class="home__nav-link">Cerrar Sesión</a>
-      <a href="#perfil" class="home__nav-link">Perfil</a>
-      <a href="#home" id="nav-home" class="home__nav-link">Inicio</a>
-      <!-- Icono de favoritos con contador -->
-      <a href="#favoritos" id="favoritesBtn" class="home__icon-btn" title="Favoritos">
-        <i data-lucide="heart" class="home__icon"></i>
-        <span class="home__icon-count">2</span>
-      </a>
-      <!-- Icono de carrito con contador -->
-      <a href="#carrito" class="home__icon-btn" id="cart-toggle" title="Carrito">
-        <i data-lucide="shopping-cart" class="home__icon"></i>
-        <span class="home__icon-count" id="cart-count">0</span>
-      </a>
-    </nav>
-  </header>
-  <!-- Encabezado del sitio -->
   <!-- Menú lateral con categorías -->
   <aside class="home__sidebar">
     <ul class="home__menu"></ul>
     <button id="filtrarBtn" class="sidebar-filter-btn btn">Filtrar</button>
+    <button id="refreshfiltrarBtn" class="sidebar-filter-btn btn">Refrescar</button>
+
   </aside>
   <!-- Contenido principal con productos -->
   <main id="home-main-content" class="home__main">

@@ -68,6 +68,7 @@
   max-height: 90vh;
   overflow: hidden;
   padding: 24px;
+ 
   position: relative;
   border: 1px solid var(--color-primary);
   color: var(--color-white);

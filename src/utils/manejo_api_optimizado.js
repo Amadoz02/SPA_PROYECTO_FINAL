@@ -1,3 +1,14 @@
+// Verifica si el token JWT está expirado
+export function tokenExpirado(token) {
+  if (!token) return true;
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const now = Math.floor(Date.now() / 1000);
+    return payload.exp < now;
+  } catch {
+    return true;
+  }
+}
 import { confirm, error, info } from "./alert"; 
 /**
  * Módulo optimizado para manejo de peticiones API
@@ -53,7 +64,7 @@ const handleResponse = async (response) => {
  * Refresca el accessToken usando el refreshToken
  */
 export const refreshToken = async () => {
-  info("Refrescando token...");
+  // info("Refrescando token...");
   console.log("Refrescando token...");
   
   const refreshToken = localStorage.getItem('refreshToken');

@@ -55,12 +55,26 @@ export default function initProductoController() {
 
   // Inicializar carga
   AddProductoAlCarrito(productGrid, idUsuario);
+  document.getElementById('refreshfiltrarBtn')?.addEventListener('click', async () => {
+    await info('Refrescando productos', 'Cargando los productos más recientes...');
+    //des chekear filtros si los hay
+    const checkboxes = document.querySelectorAll('.home__sidebar input[type="checkbox"]');
+    checkboxes.forEach(checkbox => checkbox.checked = false);
+    //limpiar barra de búsqueda si los hay
+    let searchInput = document.querySelector('.home__search-input');
+    searchInput.value = '';
 
+    await cargarProductos();
+  });
   document.getElementById('filtrarBtn')?.addEventListener('click', async () => {
     const getSeleccionados = (name) => {
       return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`))
         .map(input => parseInt(input.value));
     };
+    if (getSeleccionados('genero').length === 0 && getSeleccionados('categoria').length === 0) {
+        await info('Elige algun fitro', 'Por favor, selecciona al menos un filtro para continuar.');
+        return;
+    }
 
     const id_genero = getSeleccionados('genero');
     const id_categoria = getSeleccionados('categoria');

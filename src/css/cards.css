@@ -5,10 +5,9 @@
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
   width: 100%;
-  margin: 1rem 0;
    overflow-y: hidden;
+   /* padding: 1rem; */
 }
 /* Contenedor general para las cards, si existe */
 .product-grid {
@@ -33,7 +32,7 @@
   text-align: center;
   width: 285px; /* tamaño fijo para evitar deformaciones */
   height: 460px; /* altura fija para uniformidad */
-  margin: 0.2rem;
+
 }
 
 .product-card:hover {

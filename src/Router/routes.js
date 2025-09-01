@@ -109,7 +109,7 @@ export const routes = [
     // Rutas PUBLICAS
     {
         path: '/bienvenida',
-        view: '/public/views/public/bienvenida.html',
+        view: '/views/public/bienvenida.html',
         controller: null,
         role: null
     },
@@ -146,7 +146,13 @@ export const routes = [
     {
         path: '/cliente/perfil',
         view: '/src/views/cliente/perfil/index.html',
-        controller: '/src/views/cliente/perfil/perfilcontroller.js',
+        controller: '/src/views/cliente/perfil/perfilController.js',
+        role: 'cliente'
+    },
+    {
+        path: '/cliente/perfil/editar',
+        view: '/src/views/cliente/perfil/editar/editar.html',
+        controller: '/src/views/cliente/perfil/editar/editarcontroller.js',
         role: 'cliente'
     }
 ];
