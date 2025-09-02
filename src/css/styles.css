@@ -295,6 +295,16 @@ button.btn--Notalert:hover {
 
 /* Tablets */
 @media (max-width: 768px) {
+  
+.compras-section{
+  min-width: 90vw;
+  margin: 2rem 10px;
+}
+.compra-body{
+  gap: 1rem;
+}
+
+
   .welcome__content {
     padding: 2rem;
     align-items: center;
@@ -332,10 +342,12 @@ button.btn--Notalert:hover {
 
     min-width: fit-content;
   }
+  
 }
 
 /* Smartphones */
 @media (max-width: 480px) {
+  
   .welcome__content {
     padding: 1.5rem;
   }
@@ -598,6 +610,7 @@ button.btn--Notalert:hover {
 /* ===== ROLE-BASED BODY STYLES ===== */
 body.role-admin {
   background: #f5f5f5;
+  overflow-x: hidden;
 }
 
 body.role-cliente {
@@ -616,7 +629,7 @@ body.role-public {
 #main-content {
   display: flex;
   min-width: 100vw;
-  min-height: calc(100vh - 70px); 
+  min-height: 100vh; 
   background-color: var(--color-black);
 
 }

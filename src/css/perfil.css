@@ -1,4 +1,4 @@
-@import url('select2.min.css');
+
 /* Selects y opciones para editar perfil */
 select {
   width: 100%;
@@ -159,42 +159,7 @@ select::-webkit-scrollbar-thumb {
   border-radius: 4px;
 }
 
-/* Ajustes visuales para Select2 en el formulario de perfil */
-.select2-container {
-  width: 100% !important;
-  max-width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
-  font-size: 1rem;
-}
-.select2-selection {
-  background: #222 !important;
-  color: var(--color-white) !important;
-  border-radius: 8px !important;
-  border: none !important;
-  min-height: 40px;
-  font-family: var(--font-text);
-}
-.select2-selection__rendered {
-  color: var(--color-white) !important;
-  padding-left: 0.7rem !important;
-}
-.select2-dropdown {
-  background: #181818 !important;
-  color: var(--color-white) !important;
-  border-radius: 8px !important;
-  box-sizing: border-box;
-  width: 100% !important;
-  min-width: 0;
-  max-width: 100%;
-  font-size: 1rem;
-}
-.select2-results__option {
-  color: var(--color-white) !important;
-  white-space: normal;
-  word-break: break-word;
-  font-size: 1rem;
-}
+
 @media screen and (max-width: 1024px) {
   .perfil__container {
     flex-direction: column;
@@ -272,13 +237,6 @@ select::-webkit-scrollbar-thumb {
     overflow-x: hidden;
     box-sizing: border-box;
   }
-  .select2-selection,
-  .select2-dropdown {
-    font-size: 0.9rem;
-    min-height: 36px;
-  }
-  .select2-results__option {
-    font-size: 0.9rem;
-  }
+
 }
 

@@ -7,18 +7,7 @@ export default async function editarPerfilController() {
   const form = document.getElementById('editarPerfilForm');
   const mensaje = document.getElementById('editarPerfilMensaje');
   const idUsuario = parseInt(localStorage.getItem('id_usuario'));
-  if (!idUsuario || isNaN(idUsuario)) {
-    location.hash = 'login';
-    return;
-  }
-
-  // Elementos selects
-  const $departamento = document.getElementById('departamento');
-  const $municipio = document.getElementById('ciudad');
-
-  // Cargar datos actuales y selects
-  let departamentos = [];
-  let municipios = [];
+  
   let id_departamento_actual = null;
   let id_municipio_actual = null;
   let id_direccion = null;
@@ -36,90 +25,171 @@ export default async function editarPerfilController() {
     document.getElementById('observaciones').value = direccion.observaciones || '';
     id_departamento_actual = direccion.id_departamento || null;
     id_municipio_actual = direccion.id_municipio || null;
-    await cargarDepartamentosYMunicipios(id_departamento_actual, id_municipio_actual);
+    // await cargarDepartamentosYMunicipios(id_departamento_actual, id_municipio_actual);
   } catch (err) {
     mensaje.textContent = 'Error al cargar datos: ' + err.message;
     mensaje.style.color = 'red';
     mensaje.hidden = false;
   }
+  
+  
+  // Elementos
+  const departamentoSelect = document.getElementById('departamento');
+  const ciudadSelect = document.getElementById('ciudad');
+  // const form = document.querySelector('.form__group');
+  // Crear input de búsqueda para departamento
+  const departamentoSearch = document.createElement('input');
+  departamentoSearch.type = 'text';
+  departamentoSearch.placeholder = 'Buscar departamento...';
+  departamentoSearch.className = 'register__input';
+  departamentoSelect.parentNode.insertBefore(departamentoSearch, departamentoSelect);
+  
+  // Crear input de búsqueda para ciudad
+  const ciudadSearch = document.createElement('input');
+  ciudadSearch.type = 'text';
+  ciudadSearch.placeholder = 'Buscar ciudad...';
+  ciudadSearch.className = 'register__input';
+  ciudadSelect.parentNode.insertBefore(ciudadSearch, ciudadSelect);
 
-  // Cargar departamentos y municipio con Select2 robusto
-  async function cargarDepartamentosYMunicipios(idDepartamentoActual, idMunicipioActual) {
-    // Cargar departamentos
-    const departamentos = await get('departamentos/listarRegistro');
-    $departamento.innerHTML = '<option value="">Seleccione departamento</option>' +
-      departamentos.map(dep => `<option value="${dep.id_departamento}">${dep.nombre}</option>`).join('');
-    // Inicializar Select2 después de cargar departamentos
-    if (window.$ && $.fn.select2) {
-      $('#departamento').select2('destroy');
-      $('#departamento').select2({
-        width: 'resolve',
-        dropdownAutoWidth: true,
-        theme: 'classic',
-        placeholder: 'Seleccione departamento',
-        allowClear: true,
-        dropdownParent: $('#departamento').closest('.perfil__group')
-      });
-      if (idDepartamentoActual) {
-        $('#departamento').val(idDepartamentoActual).trigger('change');
-      }
-    }
-    if (idDepartamentoActual) {
-      await cargarMunicipios(idDepartamentoActual, idMunicipioActual);
-    } else {
-      await cargarMunicipios('', '');
+  let departamentos = [];
+  let municipios = [];
+  let idMunicipioSeleccionado = '';
+  
+  // Cargar departamentos
+  async function fetchDepartamentos() {
+    try {
+      const res = await fetch('http://localhost:8080/helder/api/departamentos/listarRegistro');
+      departamentos = await res.json();
+      console.log(departamentos);
+      
+    } catch (err) {
+      error('Error al cargar departamentos.');
+      console.error(err);
     }
   }
+  
+  // Mostrar coincidencias en el select de departamento
+  function mostrarDepartamentos(filtro) {
+    departamentoSelect.innerHTML = '';
+    const opciones = departamentos
+    .filter(dep => dep.nombre.toLowerCase().includes(filtro.toLowerCase()))
+    .slice(0, 10);
+    opciones.forEach(dep => {
+      const opt = document.createElement('option');
+      opt.value = dep.id_departamento;
+      opt.textContent = dep.nombre;
+      departamentoSelect.appendChild(opt);
+      //mostrar el departamento y municipio con el que viene el usuario
+    });
+    
 
-  async function cargarMunicipios(idDep, idMunicipioActual) {
-    if (!idDep) {
-      $municipio.innerHTML = '<option value="">Seleccione municipio</option>';
-      if (window.$ && $.fn.select2) {
-        $('#ciudad').select2('destroy');
-        $('#ciudad').select2({
-          width: 'resolve',
-          dropdownAutoWidth: true,
-          theme: 'classic',
-          placeholder: 'Seleccione municipio',
-          allowClear: true,
-          dropdownParent: $('#ciudad').closest('.perfil__group')
-        });
+    
+    departamentoSelect.size = opciones.length > 0 ? opciones.length : 1;
+    departamentoSelect.style.display = filtro ? 'block' : 'none';
+
+    // Selección con click
+    departamentoSelect.onclick = function(e) {
+      if (e.target && e.target.nodeName === 'OPTION') {
+        departamentoSelect.value = e.target.value;
+        departamentoSearch.value = e.target.textContent;
+        departamentoSelect.style.display = 'none';
+        departamentoSelect.dispatchEvent(new Event('change'));
       }
+    };
+  }
+
+  // Cargar municipios según departamento
+  async function fetchMunicipios(idDepartamento) {
+    if (!idDepartamento) {
+      ciudadSelect.innerHTML = '';
+      ciudadSelect.style.display = 'none';
       return;
     }
-    const municipios = await get(`municipios/departamento/${idDep}`);
-    $municipio.innerHTML = '<option value="">Seleccione municipio</option>' +
-      municipios.map(mun => `<option value="${mun.id_municipio}">${mun.nombre_municipio}</option>`).join('');
-    // Reinicializar Select2 después de cargar las opciones
-    if (window.$ && $.fn.select2) {
-      $('#ciudad').select2('destroy');
-      $('#ciudad').select2({
-        width: 'resolve',
-        dropdownAutoWidth: true,
-        theme: 'classic',
-        placeholder: 'Seleccione municipio',
-        allowClear: true,
-        dropdownParent: $('#ciudad').closest('.perfil__group')
-      });
-      if (idMunicipioActual) {
-        $('#ciudad').val(idMunicipioActual).trigger('change');
-      }
+    try {
+      const res = await fetch(`http://localhost:8080/helder/api/municipios/departamento/${idDepartamento}`);
+      municipios = await res.json();
+      console.log(municipios);
+      
+    } catch (err) {
+      error('Error al cargar municipios.');
+      console.error(err);
     }
   }
 
-  // Evento para cargar municipios al cambiar departamento
-  $departamento.addEventListener('change', async (e) => {
-    const idDep = e.target.value;
-    await cargarMunicipios(idDep, '');
-    $municipio.value = '';
-    $('#ciudad').val('').trigger('change');
+  // Mostrar coincidencias en el select de ciudad
+  function mostrarMunicipios(filtro) {
+    ciudadSelect.innerHTML = '';
+    const opciones = municipios
+      .filter(mun => mun.nombre_municipio.toLowerCase().includes(filtro.toLowerCase()))
+      .slice(0, 10);
+    opciones.forEach(mun => {
+      const opt = document.createElement('option');
+      opt.value = mun.id_municipio;
+      opt.textContent = mun.nombre_municipio;
+      ciudadSelect.appendChild(opt);
+    });
+    ciudadSelect.size = opciones.length > 0 ? opciones.length : 1;
+    ciudadSelect.style.display = filtro ? 'block' : 'none';
+
+    // Selección con click
+    ciudadSelect.onclick = function(e) {
+      if (e.target && e.target.nodeName === 'OPTION') {
+        ciudadSelect.value = e.target.value;
+        ciudadSearch.value = e.target.textContent;
+        ciudadSelect.style.display = 'none';
+        idMunicipioSeleccionado = e.target.value;
+        ciudadSelect.dispatchEvent(new Event('change'));
+      }
+    };
+  }
+
+  // Eventos de búsqueda y selección
+  departamentoSearch.addEventListener('input', e => {
+    mostrarDepartamentos(e.target.value);
+  });
+  departamentoSelect.addEventListener('change', async () => {
+    departamentoSelect.style.display = 'none';
+    departamentoSearch.value = departamentoSelect.options[departamentoSelect.selectedIndex]?.text || '';
+    await fetchMunicipios(departamentoSelect.value);
+    ciudadSearch.value = '';
+    mostrarMunicipios('');
+    ciudadSearch.focus();
+  });
+  ciudadSearch.addEventListener('input', e => {
+    mostrarMunicipios(e.target.value);
+  });
+  ciudadSelect.addEventListener('change', () => {
+    ciudadSelect.style.display = 'none';
+    ciudadSearch.value = ciudadSelect.options[ciudadSelect.selectedIndex]?.text || '';
+    idMunicipioSeleccionado = ciudadSelect.value;
   });
 
-  // Validación en tiempo real
-  setTimeout(() => {
-    validarCamposEnTiempoReal(form);
-  }, 100);
+ // Inicializar departamentos al cargar
+fetchDepartamentos().then(() => {
+  mostrarDepartamentos('');
+  // Seleccionar el departamento actual si existe
+  if (id_departamento_actual) {
+    departamentoSelect.value = id_departamento_actual;
+    departamentoSearch.value = departamentos.find(dep => dep.id_departamento === id_departamento_actual)?.nombre || '';
+    // Cargar municipios del departamento seleccionado
+    fetchMunicipios(id_departamento_actual).then(() => {
+      mostrarMunicipios('');
+      // Seleccionar el municipio actual si existe
+      if (id_municipio_actual) {
+        ciudadSelect.value = id_municipio_actual;
+        ciudadSearch.value = municipios.find(mun => mun.id_municipio === id_municipio_actual)?.nombre_municipio || '';
+      }
+    });
+  }
+});
 
+  // Validación en tiempo real
+  if (!form) return;
+  validarCamposEnTiempoReal(form);
+
+
+
+  
   // Listener para actualizar contraseña (fuera del submit)
   const $btnActualizarContrasena = document.getElementById('btnActualizarContrasena');
   const $nuevaContrasena = document.getElementById('nuevaContrasena');
@@ -165,7 +235,8 @@ export default async function editarPerfilController() {
       mensaje.hidden = false;
       return;
     }
-    if (!$departamento.value || !$municipio.value) {
+    // Usar los selects correctos
+    if (!departamentoSelect.value || !ciudadSelect.value) {
       mensaje.textContent = 'Debes seleccionar departamento y municipio.';
       mensaje.style.color = 'red';
       mensaje.hidden = false;
@@ -179,13 +250,13 @@ export default async function editarPerfilController() {
       });
       // Actualizar dirección
       console.log( "direccion: ",form.direccion.value.trim(),
-        "id_municipio: ",$municipio.value,
+        "id_municipio: ",ciudadSelect.value,
         "codigo_postal: ",form.codigo_postal.value.trim(),
         "observaciones:" ,form.observaciones.value.trim());
     
       await put(`direcciones/${id_direccion}`, {
         direccion: form.direccion.value.trim(),
-        id_municipio: $municipio.value,
+        id_municipio: ciudadSelect.value,
         id_usuario: idUsuario,
         codigo_postal: form.codigo_postal.value.trim(),
         observaciones: form.observaciones.value.trim() ? form.observaciones.value.trim() : null
@@ -197,25 +268,5 @@ export default async function editarPerfilController() {
     }
   });
 
-  // Inicializar Select2 en los selects después de cargar los datos
-  setTimeout(() => {
-    if (window.$ && $.fn.select2) {
-      $('#departamento').select2({
-        width: 'resolve',
-        dropdownAutoWidth: true,
-        theme: 'classic',
-        placeholder: 'Seleccione departamento',
-        allowClear: true,
-        dropdownParent: $('#departamento').closest('.perfil__group')
-      });
-      $('#ciudad').select2({
-        width: 'resolve',
-        dropdownAutoWidth: true,
-        theme: 'classic',
-        placeholder: 'Seleccione municipio',
-        allowClear: true,
-        dropdownParent: $('#ciudad').closest('.perfil__group')
-      });
-    }
-  }, 300);
+  
 }

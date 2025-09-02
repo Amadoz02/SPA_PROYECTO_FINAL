@@ -19,7 +19,6 @@
     "jspdf-autotable": "^5.0.2",
     "lucide": "^0.535.0",
     "remixicon": "^4.6.0",
-    "Select2": "^3.5.7",
     "sweetalert2": "^11.22.2"
   }
 }

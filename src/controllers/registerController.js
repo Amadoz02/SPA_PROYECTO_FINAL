@@ -154,7 +154,6 @@ export default function registerController() {
     const nombre = form.nombre.value.trim();
     const correo = form.correo.value.trim();
     const contrasenas = form.contrasena.value.trim();
-    const departamento = form.departamento.value;
     const id_municipio = idMunicipioSeleccionado;
     const codigo_postal = form.codigo_postal.value.trim();
     const direccion = form.direccion.value.trim();
