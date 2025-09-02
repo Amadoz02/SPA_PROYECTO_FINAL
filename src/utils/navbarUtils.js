@@ -73,52 +73,64 @@ export function loadNavbar() {
     }
 
     navbarContent.innerHTML = html;
-        // Mostrar barra de búsqueda solo en cliente/home
-        if (window.location.hash === '#/cliente/home') {
-                document.getElementById('home-search-form').style.display = '';
-        }
-        // Inicializar iconos de Lucide
-        if (window.lucide) {
-                window.lucide.createIcons();
-        }
-        // Actualizar contadores del navbar tras renderizarlo
-        setTimeout(() => {
-                if (typeof updateNavbarCounters === 'function') {
-                        updateNavbarCounters();
-                } else if (window.updateNavbarCounters) {
-                        window.updateNavbarCounters();
-                }
-        }, 1);
+    // Agregar overlay para menú hamburguesa en cliente
 
-       // Script para menú hamburguesa
-setTimeout(() => {
-    const hamburger = document.getElementById('navbar-hamburger');
-    const nav = document.querySelector('.home__nav');
-
-    if (!hamburger || !nav) {
-        console.warn('Menú hamburguesa no cargado aún.');
-        return;
+    if (userRole === 'cliente' || userRole === 'Cliente') {
+        let overlay = document.querySelector('.menu-overlay');
+        if (!overlay) {
+            overlay = document.createElement('div');
+            overlay.className = 'menu-overlay';
+            document.body.appendChild(overlay);
+        }
+        overlay.classList.remove('open');
     }
-
-    function closeMenu() {
-        nav.classList.remove('open');
-        hamburger.classList.remove('open');
+    // Mostrar barra de búsqueda solo en cliente/home
+    if (window.location.hash === '#/cliente/home') {
+        document.getElementById('home-search-form').style.display = '';
     }
-
-    hamburger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        nav.classList.toggle('open');
-        hamburger.classList.toggle('open');
-    });
-
-    document.addEventListener('click', function (e) {
-        if (nav.classList.contains('open') && !nav.contains(e.target) && e.target !== hamburger) {
-            closeMenu();
+    // Inicializar iconos de Lucide
+    if (window.lucide) {
+        window.lucide.createIcons();
+    }
+    // Actualizar contadores del navbar tras renderizarlo
+    setTimeout(() => {
+        if (typeof updateNavbarCounters === 'function') {
+            updateNavbarCounters();
+        } else if (window.updateNavbarCounters) {
+            window.updateNavbarCounters();
         }
-    });
+    }, 1);
 
-    window.addEventListener('hashchange', closeMenu);
-}, 50); // Aumenta el tiempo si aún falla
+    // Script para menú hamburguesa
+    setTimeout(() => {
+        const hamburger = document.getElementById('navbar-hamburger');
+        const nav = document.querySelector('.home__nav');
+        const overlay = document.querySelector('.menu-overlay');
+        if (!hamburger || !nav) {
+            console.warn('Menú hamburguesa no cargado aún.');
+            return;
+        }
+        function closeMenu() {
+            nav.classList.remove('open');
+            hamburger.classList.remove('open');
+            if (overlay) overlay.classList.remove('open');
+        }
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            nav.classList.toggle('open');
+            hamburger.classList.toggle('open');
+            if (overlay) overlay.classList.toggle('open');
+        });
+        if (overlay) {
+            overlay.addEventListener('click', closeMenu);
+        }
+        document.addEventListener('click', function (e) {
+            if (nav.classList.contains('open') && !nav.contains(e.target) && e.target !== hamburger) {
+                closeMenu();
+            }
+        });
+        window.addEventListener('hashchange', closeMenu);
+    }, 50); // Aumenta el tiempo si aún falla
 
     
 }
@@ -138,7 +150,6 @@ export async function updateNavbarCounters() {
         const cartCount = Array.isArray(carrito) ? carrito.length : (carrito?.length || 0);
         const cartCountElement = document.getElementById('cart-count');
         if (cartCountElement) cartCountElement.textContent = cartCount;
-
         // Favoritos
         const favoritos = await get(`favoritos/usuario/${idUsuario}`);
         const favCount = Array.isArray(favoritos) ? favoritos.length : (favoritos?.length || 0);
@@ -147,17 +158,4 @@ export async function updateNavbarCounters() {
     } catch (err) {
         console.error('Error actualizando contadores navbar:', err);
     }
-}
-
-// Función para manejar logout
-export function setupLogoutHandler() {
-    document.addEventListener('click', (e) => {
-        if (e.target.id === 'logoutBtn' || e.target.closest('#logoutBtn')) {
-            e.preventDefault();
-            localStorage.clear();
-            sessionStorage.clear();
-            location.hash = '/bienvenida';
-            loadNavbar(); // Recargar navbar para mostrar versión pública
-        }
-    });
 }

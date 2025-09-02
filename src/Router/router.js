@@ -1,7 +1,7 @@
 // Archivo principal del router SPA
 // Se encargará de gestionar la navegación y cargar las rutas
 import Swal from 'sweetalert2/dist/sweetalert2.js'
-import { loadNavbar, setupLogoutHandler } from '../utils/navbarUtils.js';
+import { loadNavbar } from '../utils/navbarUtils.js';
 
 import { routes } from './routes.js';
 
@@ -36,14 +36,15 @@ export function router() {
         });
         return;
     }
-
+     
+    
     // Cargar navbar según el rol solo si hay sesión
     const navbar = document.getElementById('main-navbar');
     const mainContent = document.getElementById('main-content');
-
+    
     if (token) {
         loadNavbar();
-        setupLogoutHandler();
+        
         if (navbar) navbar.style.display = 'block';
         if (mainContent) mainContent.style.gridColumn = '';
     } else {
@@ -51,7 +52,7 @@ export function router() {
         if (navbar) navbar.style.display = 'none';
         if (mainContent) mainContent.style.gridColumn = '1 / -1';
     }
-
+    
     if (route) {
         // Validar rol (case-insensitive y soporta variantes)
         if (route.role && route.role.toLowerCase() !== String(userRole).toLowerCase()) {
@@ -73,21 +74,25 @@ export function router() {
             return;
         }
         fetch(route.view)
-            .then(res => res.text())
-            .then(html => {
-                if (mainContent) {
-                    mainContent.innerHTML = html;
-                }
-                if (route.controller) {
-                    import(route.controller).then(mod => {
-                        if (mod.default) mod.default();
-                    });
-                }
-            });
+        .then(res => res.text())
+        .then(html => {
+            if (mainContent) {
+                mainContent.innerHTML = html;
+            }
+            if (route.controller) {
+                import(route.controller).then(mod => {
+                    if (mod.default) mod.default();
+                });
+            }
+        });
     } else {
         if (mainContent) {
             mainContent.innerHTML = '<h2>404 - Página no encontrada</h2>';
         }
+    }
+    if (publicRoutes.includes(route.path)){
+        navbar.style.display = 'none';
+         mainContent.style.gridColumn = '1 / -1';
     }
 }
 

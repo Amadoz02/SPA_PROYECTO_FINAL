@@ -1,30 +1,48 @@
+@import url('select2.min.css');
 /* Selects y opciones para editar perfil */
 select {
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
   overflow-y: auto;
   max-height: 120px;
   font-size: 1rem;
-  box-shadow: none;
-  outline: none;
   margin-bottom: 8px;
   transition: border-color 0.2s;
-}
-
-select:focus {
-  border-color: #00bcd4;
+  white-space: normal;
+  word-break: break-word;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  display: block;
+  position: relative;
+  z-index: 1;
 }
 
 option {
   background: #181818;
   color: #fff;
   font-size: 1rem;
-  
-}
-.perfil__group label {
-  margin-bottom: 4px;
+  white-space: normal;
+  word-break: break-word;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
   display: block;
+  box-sizing: border-box;
 }
-/* === PERFIL === */
+
+/* Forzar que el select y las opciones nunca sobresalgan horizontalmente */
+.perfil__group select,
+.perfil__group option {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  white-space: normal;
+  word-break: break-word;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}
 
 .perfil__container {
   background: rgba(0,0,0,0.85);
@@ -73,6 +91,10 @@ textarea {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 .perfil__group label {
   color: var(--color-white);
@@ -125,7 +147,7 @@ select {
   font-weight: 600;
 }
 
-/* Para navegadores WebKit */
+/* Para navegadores WebKit: scrollbar y ancho */
 select::-webkit-scrollbar {
   width: 6px;
 }
@@ -136,6 +158,43 @@ select::-webkit-scrollbar-thumb {
   background-color: #888;
   border-radius: 4px;
 }
+
+/* Ajustes visuales para Select2 en el formulario de perfil */
+.select2-container {
+  width: 100% !important;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+.select2-selection {
+  background: #222 !important;
+  color: var(--color-white) !important;
+  border-radius: 8px !important;
+  border: none !important;
+  min-height: 40px;
+  font-family: var(--font-text);
+}
+.select2-selection__rendered {
+  color: var(--color-white) !important;
+  padding-left: 0.7rem !important;
+}
+.select2-dropdown {
+  background: #181818 !important;
+  color: var(--color-white) !important;
+  border-radius: 8px !important;
+  box-sizing: border-box;
+  width: 100% !important;
+  min-width: 0;
+  max-width: 100%;
+  font-size: 1rem;
+}
+.select2-results__option {
+  color: var(--color-white) !important;
+  white-space: normal;
+  word-break: break-word;
+  font-size: 1rem;
+}
 @media screen and (max-width: 1024px) {
   .perfil__container {
     flex-direction: column;
@@ -144,9 +203,9 @@ select::-webkit-scrollbar-thumb {
   }
 
   .bloque {
-    max-width: 600px;
-    min-width: 300px;
-    padding: 1rem 0;
+    /* max-width: 700px; */
+    min-width: 85%;
+    padding: 0.5rem 0;
   }
 
   .perfil__form {
@@ -170,6 +229,12 @@ select::-webkit-scrollbar-thumb {
     width: 100%;
     font-size: 1rem;
   }
+
+  select {
+    font-size: 0.95rem;
+    max-width: 100%;
+    min-width: 0;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -190,6 +255,30 @@ select::-webkit-scrollbar-thumb {
 
   .perfil__button {
     padding: 0.6rem 0;
+  }
+
+  select {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+    max-width: 100%;
+    min-width: 0;
+  }
+  option {
+    font-size: 0.9rem;
+    max-width: 100%;
+    white-space: normal;
+    word-break: break-word;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+  .select2-selection,
+  .select2-dropdown {
+    font-size: 0.9rem;
+    min-height: 36px;
+  }
+  .select2-results__option {
+    font-size: 0.9rem;
   }
 }
 

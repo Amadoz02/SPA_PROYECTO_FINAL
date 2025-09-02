@@ -325,20 +325,57 @@
 
 @media screen and (max-width: 600px) {
   .home__sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
     padding: 0.5rem 0.2rem;
     font-size: 0.95rem;
-    flex-direction: row;
+    width: 100vw;
+    box-sizing: border-box;
+  }
+  .home__menu {
+    display: flex;
+    flex-direction: column;
     gap: 0.5rem;
-    overflow-x: auto;
+    width: 100%;
   }
-  .sidebar-checkbox-label {
+  .sidebar-group {
+    display: flex;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .sidebar-filter-btn,
+  #filtrarBtn,
+  #refreshfiltrarBtn {
+    min-width: 90px;
+    max-width: 120px;
     font-size: 0.95rem;
-    gap: 0.4rem;
-    padding: 0.2rem 0.3rem;
+    padding: 0.4rem 0.7rem;
+    margin: 0;
+    border-radius: 6px;
   }
-  .sidebar-list {
-    padding: 0.4rem 0 0.4rem 0.3rem;
-    border-radius: 8px;
+  #filtrarBtn, #refreshfiltrarBtn {
+    display: inline-block;
+    width: 48%;
+    margin-right: 2%;
+    margin-bottom: 0.2rem;
+  }
+  #refreshfiltrarBtn {
+    margin-right: 0;
+  }
+  /* Contenedor de botones para alinearlos */
+  .sidebar-btns {
+    display: flex;
+    flex-direction: row;
+    gap: 2%;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 0.5rem;
   }
   .home__main {
     padding: 0.5rem 0.2rem;
@@ -349,6 +386,7 @@
     padding: 0.7rem 0;
   }
   .product-card {
-    max-width: 98vw;
+    max-width: 300px;
+    min-width: 240px;
   }
 }

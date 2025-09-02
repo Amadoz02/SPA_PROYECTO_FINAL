@@ -31,6 +31,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* overflow-x: hidden; */
   
 }
 .navbar-hamburger.open span {
@@ -94,12 +95,12 @@
     gap: 0.5rem;
     padding: 1rem 2rem;
     box-shadow: 0 2px 10px rgba(0,0,0,0.12);
-    display: none;
+    display: none !important;
     z-index: 1100;
+    transition: all 0.3s;
   }
-  /* Forzar visibilidad del menú hamburguesa cuando está abierto */
   .home__nav.open {
-    display: flex !important; /* Se fuerza el display para evitar conflictos con otros estilos */
+    display: flex !important;
   }
   .navbar-hamburger {
     display: block;
@@ -117,9 +118,7 @@ span{
 }
 
 /*LOGIN STYLES*/
-.body--login {
-  background-image: url('../resources/img24.jpg');
-}
+
 .login__button {
   font-weight: 700;
   
@@ -140,11 +139,13 @@ span{
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 100vh;
+  min-height: fit-content;
+  max-height:100%;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 100%;
 }
 .body--register::before {
   content: "";
@@ -154,7 +155,7 @@ span{
   z-index: 0;
 }
 .register__container {
-  margin: 1% 0 0 0;
+  margin: 2% 0  2% 0;
   background-color: rgba(0, 0, 0, 0.85);
   padding: 3rem 2.5rem;
   border-radius: 20px;
@@ -312,6 +313,25 @@ button.btn--Notalert:hover {
     width: 100%;
     font-size: 1rem;
   }
+  .home__nav-link{
+    min-width: 80%;
+    display: flex;
+   
+    justify-content: center;
+    justify-self: center;
+  }
+  .sidebar-list{
+    display: flex;
+    min-width: 80%;
+    flex-direction: row;
+    
+    flex-wrap: wrap;
+  }
+  .sidebar-filter-item{
+    display: flex;
+
+    min-width: fit-content;
+  }
 }
 
 /* Smartphones */
@@ -319,7 +339,13 @@ button.btn--Notalert:hover {
   .welcome__content {
     padding: 1.5rem;
   }
+  .home__nav-link{
+    display: flex;
+    min-width: 80%;
+    justify-content: center;
+    justify-self: center;
 
+  }
   .welcome__title {
     font-size: 2rem;
   }
@@ -387,6 +413,7 @@ button.btn--Notalert:hover {
   background: var(--color-secondary);
   color: var(--color-white);
   gap: 2rem;
+  width: 100vw;
 }
 
 .home__logo {
@@ -442,9 +469,12 @@ button.btn--Notalert:hover {
   transition: background-color var(--transition-fast);
   font-family: var(--font-text);
   font-weight: 500;
+  max-width: fit-content;
+  min-height: 100%;
 }
 
 .home__nav-link:hover {
+  box-shadow: 1px 1px 15px var(--color-primary);
   background-color: var(--color-primary);
 }
 
@@ -535,7 +565,13 @@ button.btn--Notalert:hover {
   .home__search {
     max-width: 100%;
   }
-  
+  .body--register{
+    min-height: calc(100vh - 52px);
+  }
+  .welcome__content{
+    min-width: 90vw;
+    min-height: 50vh;
+  }
   .home__nav {
     flex-wrap: wrap;
     justify-content: center;
@@ -565,6 +601,8 @@ body.role-admin {
 }
 
 body.role-cliente {
+  min-width: 100vw;
+  overflow-x: hidden;
   background: #ffffff;
   padding: 0  ;
 }
@@ -576,16 +614,42 @@ body.role-public {
 
 /* Main content area */
 #main-content {
-  min-height: calc(100vh - 120px); 
+  display: flex;
+  min-width: 100vw;
+  min-height: calc(100vh - 70px); 
   background-color: var(--color-black);
 
 }
+.welcome{
+  /* display: flex; */
 
+  min-width: 100%;
+}
 /* Footer */
 footer {
-  background: var(--color-secondary);
+  background: var(--color-primary);
   color: var(--color-white);
   text-align: center;
   padding: 1rem;
+  z-index: 2000;
   margin-top: auto;
+  min-width: 100vw;
+}
+
+/* Overlay para menú hamburguesa */
+.menu-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.45);
+  /* max-width: 30vw; */
+
+  /* z-index: 1099; */
+}
+.menu-overlay.open {
+  display: block;
+  max-width: 30vw;
 }

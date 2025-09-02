@@ -5,8 +5,9 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 100vh;
   position: relative;
+  min-width: 100%;
+  max-height: calc(100vh - 51px);
 }
 .body--welcome::before {
   content: "";

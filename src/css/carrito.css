@@ -7,10 +7,11 @@ body.role-cliente {
 }
 
 #main-content {
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   align-items: flex-start;
-  min-height: 80vh;
+  min-height:   100%;
+  top: 0;
 }
 .text{
   color: var(--color-white);

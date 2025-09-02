@@ -10,11 +10,15 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 100vh;
+
+  min-height: calc(100vh - 51px);
+  min-height: calc(100vh - 51px);
+
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 100%;
 }
 .body--login::before {
   content: "";

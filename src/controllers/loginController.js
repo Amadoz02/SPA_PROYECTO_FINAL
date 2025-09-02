@@ -1,12 +1,11 @@
 import {info, success, confirm, error} from '../utils/alert.js';
 import { router } from '../Router/router.js';
-import { loadNavbar, setupLogoutHandler } from '../utils/navbarUtils.js';
+import { loadNavbar } from '../utils/navbarUtils.js';
 
 export default function loginController() {
   const form = document.querySelector(".form__group");
   if (!form) return;
 
-  setupLogoutHandler();
 
   loadNavbar();
 

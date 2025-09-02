@@ -26,8 +26,6 @@ export default async function editarPerfilController() {
     const usuario = await get(`usuarios/${idUsuario}`);
     const direcciones = await get(`direcciones/usuario/${idUsuario}`);
     id_direccion = direcciones.length > 0 ? direcciones[0].id_direccion : null;
-    console.log("id_direccion:", id_direccion);
-    
     const direccion = direcciones.length > 0 ? direcciones[0] : {};
     const roles = await get(`roles/${usuario.id_rol}`);
     document.getElementById('nombre').value = usuario.nombre || '';
@@ -38,42 +36,84 @@ export default async function editarPerfilController() {
     document.getElementById('observaciones').value = direccion.observaciones || '';
     id_departamento_actual = direccion.id_departamento || null;
     id_municipio_actual = direccion.id_municipio || null;
-
-    // Cargar departamentos
-    departamentos = await get('departamentos/listarRegistro');
-    console.log("departamentos:", departamentos);
-    $departamento.innerHTML = '<option value="">Seleccione departamento</option>' +
-      departamentos.map(dep => `<option value="${dep.id_departamento}">${dep.nombre}</option>`).join('');
-    if (id_departamento_actual) {
-      $departamento.value = id_departamento_actual;
-      await cargarMunicipios(id_departamento_actual);
-      if (id_municipio_actual) {
-        $municipio.value = id_municipio_actual;
-      }
-    }
+    await cargarDepartamentosYMunicipios(id_departamento_actual, id_municipio_actual);
   } catch (err) {
     mensaje.textContent = 'Error al cargar datos: ' + err.message;
     mensaje.style.color = 'red';
     mensaje.hidden = false;
   }
 
+  // Cargar departamentos y municipio con Select2 robusto
+  async function cargarDepartamentosYMunicipios(idDepartamentoActual, idMunicipioActual) {
+    // Cargar departamentos
+    const departamentos = await get('departamentos/listarRegistro');
+    $departamento.innerHTML = '<option value="">Seleccione departamento</option>' +
+      departamentos.map(dep => `<option value="${dep.id_departamento}">${dep.nombre}</option>`).join('');
+    // Inicializar Select2 después de cargar departamentos
+    if (window.$ && $.fn.select2) {
+      $('#departamento').select2('destroy');
+      $('#departamento').select2({
+        width: 'resolve',
+        dropdownAutoWidth: true,
+        theme: 'classic',
+        placeholder: 'Seleccione departamento',
+        allowClear: true,
+        dropdownParent: $('#departamento').closest('.perfil__group')
+      });
+      if (idDepartamentoActual) {
+        $('#departamento').val(idDepartamentoActual).trigger('change');
+      }
+    }
+    if (idDepartamentoActual) {
+      await cargarMunicipios(idDepartamentoActual, idMunicipioActual);
+    } else {
+      await cargarMunicipios('', '');
+    }
+  }
+
+  async function cargarMunicipios(idDep, idMunicipioActual) {
+    if (!idDep) {
+      $municipio.innerHTML = '<option value="">Seleccione municipio</option>';
+      if (window.$ && $.fn.select2) {
+        $('#ciudad').select2('destroy');
+        $('#ciudad').select2({
+          width: 'resolve',
+          dropdownAutoWidth: true,
+          theme: 'classic',
+          placeholder: 'Seleccione municipio',
+          allowClear: true,
+          dropdownParent: $('#ciudad').closest('.perfil__group')
+        });
+      }
+      return;
+    }
+    const municipios = await get(`municipios/departamento/${idDep}`);
+    $municipio.innerHTML = '<option value="">Seleccione municipio</option>' +
+      municipios.map(mun => `<option value="${mun.id_municipio}">${mun.nombre_municipio}</option>`).join('');
+    // Reinicializar Select2 después de cargar las opciones
+    if (window.$ && $.fn.select2) {
+      $('#ciudad').select2('destroy');
+      $('#ciudad').select2({
+        width: 'resolve',
+        dropdownAutoWidth: true,
+        theme: 'classic',
+        placeholder: 'Seleccione municipio',
+        allowClear: true,
+        dropdownParent: $('#ciudad').closest('.perfil__group')
+      });
+      if (idMunicipioActual) {
+        $('#ciudad').val(idMunicipioActual).trigger('change');
+      }
+    }
+  }
+
   // Evento para cargar municipios al cambiar departamento
   $departamento.addEventListener('change', async (e) => {
     const idDep = e.target.value;
-    await cargarMunicipios(idDep);
+    await cargarMunicipios(idDep, '');
     $municipio.value = '';
+    $('#ciudad').val('').trigger('change');
   });
-
-  async function cargarMunicipios(idDep) {
-    if (!idDep) {
-      $municipio.innerHTML = '<option value="">Seleccione municipio</option>';
-      return;
-    }
-    municipios = await get(`municipios/departamento/${idDep}`);
-    console.log("municipios:", municipios);
-    $municipio.innerHTML = '<option value="">Seleccione municipio</option>' +
-      municipios.map(mun => `<option value="${mun.id_municipio}">${mun.nombre_municipio}</option>`).join('');
-  }
 
   // Validación en tiempo real
   setTimeout(() => {
@@ -156,4 +196,26 @@ export default async function editarPerfilController() {
       error('Error al actualizar perfil: ' + err.message);
     }
   });
+
+  // Inicializar Select2 en los selects después de cargar los datos
+  setTimeout(() => {
+    if (window.$ && $.fn.select2) {
+      $('#departamento').select2({
+        width: 'resolve',
+        dropdownAutoWidth: true,
+        theme: 'classic',
+        placeholder: 'Seleccione departamento',
+        allowClear: true,
+        dropdownParent: $('#departamento').closest('.perfil__group')
+      });
+      $('#ciudad').select2({
+        width: 'resolve',
+        dropdownAutoWidth: true,
+        theme: 'classic',
+        placeholder: 'Seleccione municipio',
+        allowClear: true,
+        dropdownParent: $('#ciudad').closest('.perfil__group')
+      });
+    }
+  }, 300);
 }
