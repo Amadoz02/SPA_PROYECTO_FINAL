@@ -16,6 +16,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_left_alt");
 :root {
   --color-black: #000;
+  --color-filtro: rgba(196, 196, 196, 0);
   --color-white: #fff;
   --color-primary: #00b0a8;
   --color-accent: #f3c622;
@@ -324,13 +325,7 @@ button.btn--Notalert:hover {
     width: 100%;
     font-size: 1rem;
   }
-  .home__nav-link{
-    min-width: 80%;
-    display: flex;
-   
-    justify-content: center;
-    justify-self: center;
-  }
+  
   .sidebar-list{
     display: flex;
     min-width: 80%;
@@ -352,6 +347,7 @@ button.btn--Notalert:hover {
   .welcome__content {
     padding: 1.5rem;
   }
+  .admin-header nav a,
   .home__nav-link{
     display: flex;
     min-width: 80%;
@@ -474,7 +470,7 @@ button.btn--Notalert:hover {
   align-items: center;
   gap: 1.5rem;
 }
-
+.admin-header nav a,
 .home__nav-link {
   color: var(--color-white);
   text-decoration: none;
@@ -486,7 +482,7 @@ button.btn--Notalert:hover {
   max-width: fit-content;
   min-height: 100%;
 }
-
+.admin-header nav a:hover,
 .home__nav-link:hover {
   box-shadow: 1px 1px 15px var(--color-primary);
   background-color: var(--color-primary);

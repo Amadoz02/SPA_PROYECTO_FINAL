@@ -159,12 +159,12 @@ export const routes = [
         path: '/cliente/perfil',
         view: '/src/views/cliente/perfil/index.html',
         controller: '/src/views/cliente/perfil/perfilController.js',
-        role: 'cliente' && 'admin'
+        role: null
     },
     {
         path: '/cliente/perfil/editar',
         view: '/src/views/cliente/perfil/editar/editar.html',
         controller: '/src/views/cliente/perfil/editar/editarcontroller.js',
-        role: 'cliente' && 'admin'
+        role:  null
     }
 ];

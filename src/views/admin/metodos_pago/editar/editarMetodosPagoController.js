@@ -27,23 +27,28 @@ export default async function editarMetodosPagoController() {
 
     container.innerHTML = `
       <h2>Editar Método de Pago</h2>
-      <form id="editarMetodoForm" class="admin-form">
-        <div class="form-group">
-          <label for="nombre">Nombre del Método:</label>
-          <input type="text" id="nombre" name="nombre" required value="${metodo.nombre || ''}" placeholder="Ej: Tarjeta de Crédito, Transferencia Bancaria">
-        </div>
+      <form id="editarMetodoForm" class="form-producto">
+        <div class="form-grid">
+          <div class="form-section">
+            <h4>Información del Método</h4>
+            <div class="form-group">
+              <label for="nombre">Nombre del Método:</label>
+              <input type="text" id="nombre" name="nombre" required value="${metodo.nombre || ''}" placeholder="Ej: Tarjeta de Crédito, Transferencia Bancaria">
+            </div>
 
-        <div class="form-group">
-          <label for="estado">Estado:</label>
-          <select id="estado" name="estado" required>
-            <option value="Activo" ${metodo.nombre_estado === 'Activo' ? 'selected' : ''}>Activo</option>
-            <option value="Inactivo" ${metodo.nombre_estado === 'Inactivo' ? 'selected' : ''}>Inactivo</option>
-          </select>
+            <div class="form-group">
+              <label for="estado">Estado:</label>
+              <select id="estado" name="estado" required>
+                <option value="Activo" ${metodo.nombre_estado === 'Activo' ? 'selected' : ''}>Activo</option>
+                <option value="Inactivo" ${metodo.nombre_estado === 'Inactivo' ? 'selected' : ''}>Inactivo</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <div class="form-actions">
-          <button type="submit" class="btn-primary">Actualizar Método</button>
-          <button type="button" id="btnCancelar" class="btn-secondary">Cancelar</button>
+          <button type="button" id="btnCancelar" class="btn-cancelar">Cancelar</button>
+          <button type="submit" class="btn-agregar">Actualizar Método</button>
         </div>
       </form>
     `;

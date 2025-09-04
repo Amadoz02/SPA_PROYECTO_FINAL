@@ -168,16 +168,6 @@
   align-items: center;
 }
 
-.home__nav-link {
-  color: var(--color-white);
-  text-decoration: none;
-  font-weight: 600;
-  transition: color var(--transition-fast);
-}
-
-.home__nav-link:hover {
-  color: var(--color-light);
-}
 
 /* === BUSCADOR === */
 .home__search {

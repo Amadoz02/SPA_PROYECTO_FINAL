@@ -10,6 +10,16 @@
   top: 0;
   right: 0;
 }
+section.admin-section--admin{
+  background-color: var(--color-filtro);
+}
+.admin-nav ul{
+  justify-self: center;
+  align-self: center;
+}
+section.admin-section--admin h2{
+  color: var(--color-primary);
+}
 .txt-link{
   text-decoration: none;
   font-size: 1rem;
@@ -38,7 +48,12 @@ th{
   font-weight: 500;
   font-size: 1.2rem;
 }
-
+.admin-section .modal-content div h4{
+  font-size: var(--font-text);
+  font-weight: 500;
+  font-family: var(--font-text);
+  color: var(--color-bg);
+}
 .admin-main {
   padding: 2rem;
   min-width: fit-content;

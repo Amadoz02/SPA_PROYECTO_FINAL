@@ -8,23 +8,28 @@ export default async function crearMetodosPagoController() {
 
   container.innerHTML = `
     <h2>Crear Nuevo Método de Pago</h2>
-    <form id="crearMetodoForm" class="admin-form">
-      <div class="form-group">
-        <label for="nombre">Nombre del Método:</label>
-        <input type="text" id="nombre" name="nombre" required placeholder="Ej: Tarjeta de Crédito, Transferencia Bancaria">
-      </div>
+    <form id="crearMetodoForm" class="form-producto">
+      <div class="form-grid">
+        <div class="form-section">
+          <h4>Información del Método</h4>
+          <div class="form-group">
+            <label for="nombre">Nombre del Método:</label>
+            <input type="text" id="nombre" name="nombre" required placeholder="Ej: Tarjeta de Crédito, Transferencia Bancaria">
+          </div>
 
-      <div class="form-group">
-        <label for="estado">Estado:</label>
-        <select id="estado" name="estado" required>
-          <option value="Activo">Activo</option>
-          <option value="Inactivo">Inactivo</option>
-        </select>
+          <div class="form-group">
+            <label for="estado">Estado:</label>
+            <select id="estado" name="estado" required>
+              <option value="Activo">Activo</option>
+              <option value="Inactivo">Inactivo</option>
+            </select>
+          </div>
+        </div>
       </div>
 
       <div class="form-actions">
-        <button type="submit" class="btn-primary">Crear Método</button>
-        <button type="button" id="btnCancelar" class="btn-secondary">Cancelar</button>
+        <button type="button" id="btnCancelar" class="btn-cancelar">Cancelar</button>
+        <button type="submit" class="btn-agregar">Crear Método</button>
       </div>
     </form>
   `;
