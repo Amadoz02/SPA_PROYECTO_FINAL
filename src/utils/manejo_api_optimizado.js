@@ -120,34 +120,49 @@ export const get = async (endpoint) => {
 /**
  * Realiza una petición POST
  * @param {string} endpoint - Endpoint de la API
- * @param {Object} objeto - Datos a enviar
+ * @param {Object|FormData} objeto - Datos a enviar (puede ser objeto o FormData)
  * @returns {Promise<Object>} - Respuesta del servidor
  */
-export const post = async (endpoint, objeto,id_Usuario=null) => {
+export const post = async (endpoint, objeto, id_Usuario = null) => {
   try {
     const token = localStorage.getItem('token');
+    const isFormData = objeto instanceof FormData;
+
+    const headers = {
+      'usuarioId': id_Usuario ? id_Usuario : '',
+      ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+    };
+
+    // No establecer Content-Type si es FormData, dejar que el navegador lo maneje
+    if (!isFormData) {
+      headers['Content-Type'] = 'application/json';
+    }
+
     const response = await fetch(url + endpoint, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'usuarioId': id_Usuario ? id_Usuario : '',
-        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-      },
-      body: JSON.stringify(objeto)
+      headers: headers,
+      body: isFormData ? objeto : JSON.stringify(objeto)
     });
+
     try {
       return await handleResponse(response);
     } catch (err) {
       if (response.status === 401 && err.message.includes('Token')) {
         const newToken = await refreshToken();
+
+        const retryHeaders = {
+          'usuarioId': id_Usuario ? id_Usuario : '',
+          'Authorization': `Bearer ${newToken}`
+        };
+
+        if (!isFormData) {
+          retryHeaders['Content-Type'] = 'application/json';
+        }
+
         const retryResponse = await fetch(url + endpoint, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'usuarioId': id_Usuario ? id_Usuario : '',
-            'Authorization': `Bearer ${newToken}`
-          },
-          body: JSON.stringify(objeto)
+          headers: retryHeaders,
+          body: isFormData ? objeto : JSON.stringify(objeto)
         });
         return await handleResponse(retryResponse);
       }

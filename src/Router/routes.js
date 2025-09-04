@@ -99,6 +99,18 @@ export const routes = [
         controller: '/src/views/admin/ventas/editar/editarVentasController.js',
         role: 'admin'
     },
+    {
+        path: '/admin/perfil',
+        view: '/src/views/cliente/perfil/index.html',
+        controller: '/src/views/cliente/perfil/perfilController.js',
+        role: 'admin'
+    },
+    {
+        path: '/admin/perfil/editar',
+        view: '/src/views/cliente/perfil/editar/editar.html',
+        controller: '/src/views/cliente/perfil/editar/editarcontroller.js',
+        role: 'admin'
+    },
     // Rutas CLIENTE
     {
         path: '/cliente/home',
@@ -115,13 +127,13 @@ export const routes = [
     },
     {
         path: '/login',
-        view: '/public/views/public/login.html',
+        view: '/views/public/login.html',
         controller: '/src/controllers/loginController.js',
         role: null
     },
     {
         path: '/registro',
-        view: '/public/views/public/register.html',
+        view: '/views/public/register.html',
         controller: '/src/controllers/registerController.js',
         role: null
     },
@@ -147,12 +159,12 @@ export const routes = [
         path: '/cliente/perfil',
         view: '/src/views/cliente/perfil/index.html',
         controller: '/src/views/cliente/perfil/perfilController.js',
-        role: 'cliente'
+        role: 'cliente' && 'admin'
     },
     {
         path: '/cliente/perfil/editar',
         view: '/src/views/cliente/perfil/editar/editar.html',
         controller: '/src/views/cliente/perfil/editar/editarcontroller.js',
-        role: 'cliente'
+        role: 'cliente' && 'admin'
     }
 ];

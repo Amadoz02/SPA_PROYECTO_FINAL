@@ -11,7 +11,7 @@ body.role-cliente {
   justify-content: center;
   align-items: flex-start;
   min-height:   100%;
-  top: 0;
+  
 }
 .text{
   color: var(--color-white);
@@ -27,7 +27,7 @@ body.role-cliente {
   box-shadow: 0 4px 24px rgba(0,0,0,0.18);
   padding: 2.5rem 2.5rem 1.5rem 2.5rem;
   margin-top: 2rem;
-  min-width: 700px;
+  min-width: 800px;
   max-width: 100%;
   width: 100%;
   display: flex;
@@ -209,77 +209,35 @@ body.role-cliente {
 }
 
 /* Responsive para móviles */
-@media screen and (max-width: 768px) {
-  
-  .role-cliente{
-    padding: 1rem;
-    min-height: 100vh;
-  }
-  footer{
-    font-size: 0.6rem;
-  }
+@media (max-width: 768px) {
   #cart-grid {
     padding: 1rem;
-    min-width: unset;
-    max-width: 100vw;
-    overflow-x: auto;
-    min-height: fit-content;
-  }
-  .main-content{
-    padding: 1rem;
-    min-height: 100%;
+    min-width: 90vw;
+    max-width: 98vw;
   }
   .cart-item {
-    display: grid;
-    grid-template-areas:
-      "img title remove"
-      "img size remove"
-      "img quantity remove"
-      "img price remove"
-      "img total remove";
-    grid-template-columns: 70px 1fr 30px;
-    grid-template-rows: repeat(5, auto);
-    gap: 6px;
-    align-items: center;
+    grid-template-columns: 60px 1.5fr 1fr 1fr 30px;
     padding: 0.7rem;
-    font-size: 0.95rem;
-    width: 100%;
-    box-sizing: border-box;
-    min-width: 0;
-    
-    justify-items: center;
-
+    font-size: 1rem;
   }
-  .cart-item__image { grid-area: img; }
-  .cart-item__title { grid-area: title; }
-  .cart-item__size { grid-area: size; }
-  .cart-item__quantity { grid-area: quantity; }
-  .cart-item__price { grid-area: price; }
-  .cart-item__total { grid-area: total; }
-  .cart-item__remove { grid-area: remove; justify-self: end; align-self: start; }
   .cart-container {
-    min-width: 100vw;
-    max-width: 100vw;
-    /* max-height: 700px; */
-    padding: 0 0.2rem 2rem 0.2rem;
+    max-width: 98vw;
+    padding: 0 0.5rem 2rem 0.5rem;
   }
   .cart-summary-block {
     flex-direction: column;
     gap: 1rem;
     align-items: flex-start;
-    width: 100%;
   }
   #checkout-btn {
     padding: 0.7rem 1.2rem;
     font-size: 1rem;
-    width: 100%;
-    box-sizing: border-box;
   }
   #cart-total {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin: 0;
   }
   .txt {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 }

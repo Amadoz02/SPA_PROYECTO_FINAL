@@ -200,7 +200,7 @@ export default function registerController() {
       success("¡Registro exitoso!", "Ahora puedes iniciar sesión.");
       form.reset();
       setTimeout(() => {
-        window.location.hash = 'login';
+        window.location.hash = '#/login';
       }, 1200);
     } catch (err) {
       console.error("Error durante el registro:", err);

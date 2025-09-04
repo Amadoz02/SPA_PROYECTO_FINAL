@@ -13,7 +13,10 @@ export function loadNavbar() {
         html = `
             <div class="admin-header">
                 <h1>Panel de Administración</h1>
-                <nav>
+                <button class="navbar-hamburger" id="navbar-hamburger" aria-label="Abrir menú">
+                  <span></span>
+                </button>
+                <nav class="admin-nav">
                     <ul>
                         <li><a href="#/admin/dashboard" id="nav-admin-dashboard">Dashboard</a></li>
                         <li><a href="#/admin/productos/listar" id="nav-admin-productos">Productos</a></li>
@@ -21,8 +24,8 @@ export function loadNavbar() {
                         <li><a href="#/admin/usuarios/listar" id="nav-admin-usuarios">Usuarios</a></li>
                         <li><a href="#/admin/ventas/listar" id="nav-admin-ventas">Ventas</a></li>
                         <li><a href="#/admin/metodos_pago/listar" id="nav-admin-metodos-pago">Métodos de Pago</a></li>
-                        <li><a href="#/cliente/perfil" id="nav-admin-perfil">Mi Perfil</a></li>
-                        <li><a href="#" id="logoutBtn">Cerrar Sesión</a></li>
+                        <li><a href="#/admin/perfil" id="nav-admin-perfil">Mi Perfil</a></li>
+                        <li><a href="#" id="logout-btn">Cerrar Sesión</a></li>
                     </ul>
                 </nav>
             </div>
@@ -73,9 +76,9 @@ export function loadNavbar() {
     }
 
     navbarContent.innerHTML = html;
-    // Agregar overlay para menú hamburguesa en cliente
+    // Agregar overlay para menú hamburguesa en cliente y admin
 
-    if (userRole === 'cliente' || userRole === 'Cliente') {
+    if (userRole === 'cliente' || userRole === 'Cliente' || userRole === 'admin' || userRole === 'SuperAdministrador') {
         let overlay = document.querySelector('.menu-overlay');
         if (!overlay) {
             overlay = document.createElement('div');
@@ -104,7 +107,7 @@ export function loadNavbar() {
     // Script para menú hamburguesa
     setTimeout(() => {
         const hamburger = document.getElementById('navbar-hamburger');
-        const nav = document.querySelector('.home__nav');
+        const nav = document.querySelector('.home__nav') || document.querySelector('.admin-nav');
         const overlay = document.querySelector('.menu-overlay');
         if (!hamburger || !nav) {
             console.warn('Menú hamburguesa no cargado aún.');
@@ -130,7 +133,7 @@ export function loadNavbar() {
             }
         });
         window.addEventListener('hashchange', closeMenu);
-    }, 50); // Aumenta el tiempo si aún falla
+    }, 500); // Aumenta el tiempo para asegurar carga completa
 
     
 }
@@ -159,3 +162,8 @@ export async function updateNavbarCounters() {
         console.error('Error actualizando contadores navbar:', err);
     }
 }
+    document.getElementById('logout-btn')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      localStorage.clear();
+      location.hash = '/bienvenida';
+    });

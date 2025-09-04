@@ -57,7 +57,7 @@ export default async function listCategoriasTallasController() {
     contTallas.innerHTML = `
       <div class="table-container">
       <div class="table-header">
-        <button class="btn-agregar" id="btn-agregar-talla">
+        <button class="btn-agregar" id="btn-agregar">
           <i class="fas fa-plus"></i>  Agregar Talla  
         </button>
       </div>

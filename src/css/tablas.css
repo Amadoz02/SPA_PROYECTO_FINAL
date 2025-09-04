@@ -1,46 +1,7 @@
-/* .admin-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-}
 
-.admin-table th,
-.admin-table td {
-  border: 1px solid #ccc;
-  padding: 0.5rem;
-  text-align: left;
-}
-
-.btn-agregar {
-  margin-bottom: 1rem;
-  padding: 0.5rem 1rem;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.btn-editar {
-  margin-right: 0.5rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 0.3rem 0.6rem;
-  cursor: pointer;
-}
-
-.btn-eliminar {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  padding: 0.3rem 0.6rem;
-  cursor: pointer;
-} */
 
 :root {
   --color-bg: #f9f9f9;
-  --color-primary: #2c3e50;
-  --color-accent: #3498db;
   --color-danger: #e74c3c;
   --color-success: #2ecc71;
   --color-border: #dcdcdc;
@@ -49,7 +10,9 @@
   --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-
+.btn-agregar-secondary{
+  background-color: var(--color-success);
+}
 .galeria-content {
   max-width: 600px;
   width: 95%;
@@ -96,17 +59,7 @@
   padding: 0.3rem 0.6rem;
   cursor: pointer;
 }
-.btn-agregar-talla {
-  margin: 2px;
-  border-radius: 5px;
-  margin-right: 0.5rem;
-  background-color: #1762b8;
-  color: white;
-  border: none;
-  padding: 0.3rem 0.6rem;
-  cursor: pointer;
 
-}
 /* Modal general */
 #galeriaModal {
   position: fixed;
@@ -245,7 +198,7 @@
 .btn-editar:hover {
   background-color: #2980b9;
 }
-
+/* 
 .btn-eliminar {
   background-color: var(--color-danger);
   color: white;
@@ -253,7 +206,7 @@
 
 .btn-eliminar:hover {
   background-color: #c0392b;
-}
+} */
 h3 {
   font-family: var(--font-title);
   color: var(--color-primary);
@@ -303,4 +256,49 @@ h3 {
   width: min-content;
   justify-self: center;
 
+}
+
+/* Estilos para el select */
+.talla-select {
+  width: 100%;
+  padding: 6px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  appearance: none; /* Quita estilo por defecto */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+/* Estilos para el desplegable del select al abrir */
+.talla-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+/* Opciones dentro del select */
+.talla-select option {
+  padding: 8px;
+}
+/* Estilos para el input de stock */
+.talla-stock {
+  width: 80px;
+  padding: 6px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.talla-stock:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+.preview-imagenes{
+  margin-bottom: 1rem;
 }

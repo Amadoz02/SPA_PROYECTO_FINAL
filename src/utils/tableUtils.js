@@ -53,70 +53,69 @@ export function renderTable(container, data, columns, options = {}) {
   const tbody = document.createElement("tbody");
   data.forEach(item => {
     const row = document.createElement("tr");
-    // <- aquí ponemos el data-id
     row.setAttribute("data-id", item.id_producto);
 
-columns.forEach(col => {
-  const td = document.createElement("td");
+    columns.forEach(col => {
+      const td = document.createElement("td");
 
-  if (col.key === "imagenes") {
-    td.innerHTML = ""; // Limpia el contenido previo
+      if (col.key === "imagenes") {
+        td.innerHTML = ""; // Limpia el contenido previo
 
-    const imagenes = Array.isArray(item.imagenes) ? item.imagenes : [];
+        const imagenes = Array.isArray(item.imagenes) ? item.imagenes : [];
 
-    imagenes.forEach(imgObj => {
-      if (imgObj && imgObj.url_imagen) {
-        const img = document.createElement("img");
-        img.src = imgObj.url_imagen;
-        img.alt = imgObj.descripcion || "Imagen de producto";
-        img.style.width = "50px";
-        img.style.height = "50px";
-        img.style.objectFit = "cover";
-        img.style.marginRight = "5px";
-        img.style.borderRadius = "4px";
-        td.appendChild(img);
-        img.style.cursor = "pointer";
-        img.addEventListener("click", () => {
-        window.open(imgObj.url_imagen, "_blank");
+        imagenes.forEach(imgObj => {
+          if (imgObj && imgObj.url_imagen) {
+            const img = document.createElement("img");
+            img.src = imgObj.url_imagen;
+            img.alt = imgObj.descripcion || "Imagen de producto";
+            img.style.width = "50px";
+            img.style.height = "50px";
+            img.style.objectFit = "cover";
+            img.style.marginRight = "5px";
+            img.style.borderRadius = "4px";
+            td.appendChild(img);
+            img.style.cursor = "pointer";
+            img.addEventListener("click", () => {
+            window.open(imgObj.url_imagen, "_blank");
+            });
+
+          }
         });
 
-      }
-    });
+        if (td.childNodes.length === 0) {
+          td.textContent = "Sin imágenes";
+        }
 
-    if (td.childNodes.length === 0) {
-      td.textContent = "Sin imágenes";
+      } else if (col.key === "tallas") {
+      const tallas = Array.isArray(item.tallas_detalle) ? item.tallas_detalle : [];
+
+      if (tallas.length === 0) {
+        td.textContent = "—";
+      } else {
+        tallas.forEach(tp => {
+          const div = document.createElement("div");
+          div.className = "talla-item";
+          div.textContent = `${tp.talla} (${tp.stock})`;
+          td.appendChild(div);
+        });
+      }
+    } else {
+      td.textContent = item[col.key] ?? "";
     }
 
-  } else if (col.key === "tallas") {
-  const tallas = Array.isArray(item.tallas_detalle) ? item.tallas_detalle : [];
-
-  if (tallas.length === 0) {
-    td.textContent = "—";
-  } else {
-    tallas.forEach(tp => {
-      const div = document.createElement("div");
-      div.className = "talla-item";
-      div.textContent = `${tp.talla} (${tp.stock})`;
-      td.appendChild(div);
+      row.appendChild(td);
     });
-  }
-} else {
-  td.textContent = item[col.key] ?? "";
-}
-
-  row.appendChild(td);
-});
 
 
-    // botones de acción
+    // botones de acción SOLO en modo listado (no edición)
     const tdAcciones = document.createElement("td");
-
     const editBtn = document.createElement("button");
     editBtn.textContent = "✏️";
     editBtn.className = "btn-editar";
     editBtn.addEventListener("click", () => {
       options.onEdit && options.onEdit(item);
     });
+    tdAcciones.appendChild(editBtn);
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "🗑️";
@@ -124,28 +123,9 @@ columns.forEach(col => {
     deleteBtn.addEventListener("click", () => {
       options.onDelete && options.onDelete(item);
     });
-
-    const btnImagenes = document.createElement("button");
-    btnImagenes.textContent = "🖼️ Imagen";
-    btnImagenes.className = "btn-imagenes";
-    btnImagenes.addEventListener("click", () => abrirGaleriaModal(item));
-    tdAcciones.appendChild(btnImagenes);
-
-    // Botón para agregar nueva talla
-    if (options.onAddTalla) {
-      const addTallaBtn = document.createElement("button");
-      addTallaBtn.textContent = "👕Talla";
-      addTallaBtn.className = "btn-agregar-talla";
-      addTallaBtn.addEventListener("click", () => {
-        options.onAddTalla(item);
-      });
-      tdAcciones.appendChild(addTallaBtn);
-    }
-
-    tdAcciones.appendChild(editBtn);
     tdAcciones.appendChild(deleteBtn);
-    row.appendChild(tdAcciones);
 
+    row.appendChild(tdAcciones);
     tbody.appendChild(row);
   });
 
@@ -156,7 +136,6 @@ columns.forEach(col => {
 
 export function renderEditableRow(item, columns, row, options) {
   row.innerHTML = "";
-
   columns.forEach(col => {
     const td = document.createElement("td");
 
@@ -274,9 +253,28 @@ export function renderEditableRow(item, columns, row, options) {
     row.appendChild(td);
   });
 
-  // Acciones Guardar / Cancelar
+  // Acciones Guardar / Cancelar + Imagenes/Tallas SOLO en edición
   const tdAcciones = document.createElement("td");
 
+  // Botón Imagen
+  const btnImagenes = document.createElement("button");
+  btnImagenes.textContent = "🖼️ Imagen";
+  btnImagenes.className = "btn-imagenes";
+  btnImagenes.addEventListener("click", () => abrirGaleriaModal(item));
+  tdAcciones.appendChild(btnImagenes);
+
+  // Botón Talla
+  if (options.onAddTalla) {
+    const addTallaBtn = document.createElement("button");
+    addTallaBtn.textContent = "👕Talla";
+    addTallaBtn.className = "btn-agregar";
+    addTallaBtn.addEventListener("click", () => {
+      options.onAddTalla(item);
+    });
+    tdAcciones.appendChild(addTallaBtn);
+  }
+
+  // Guardar
   const saveBtn = document.createElement("button");
   saveBtn.textContent = "💾 Guardar";
   saveBtn.className = "btn-editar";
@@ -320,23 +318,24 @@ export function renderEditableRow(item, columns, row, options) {
 
     options.onSave && options.onSave(item, updated);
   });
+  tdAcciones.appendChild(saveBtn);
 
+  // Cancelar
   const cancelBtn = document.createElement("button");
   cancelBtn.textContent = "❌ Cancelar";
   cancelBtn.className = "btn-eliminar";
   cancelBtn.addEventListener("click", () => {
     renderTable(options.container, options.data, columns, options);
   });
-
-  tdAcciones.appendChild(saveBtn);
   tdAcciones.appendChild(cancelBtn);
+
   row.appendChild(tdAcciones);
 }
 
 export function renderSimpleTable(container, data, columns, { title, onEdit, onDelete, idKey = "id" }) {
   container.innerHTML = `
     <h3>${title || "Tabla Simple"}</h3>
-    <table class="simple-table">
+    <table class="admin-table">
       <thead>
         <tr>
           ${columns.map(col => `<th>${col.label}</th>`).join('')}
@@ -359,6 +358,77 @@ export function renderSimpleTable(container, data, columns, { title, onEdit, onD
       </tbody>
     </table>
   `;
+
+  container.querySelectorAll('.btn-editar').forEach(btn => {
+    btn.addEventListener('click', () => onEdit(btn.dataset.id));
+  });
+
+  container.querySelectorAll('.btn-eliminar').forEach(btn => {
+    btn.addEventListener('click', () => onDelete(btn.dataset.id));
+  });
+}
+
+// Optimized table with pagination for large datasets
+export function renderPaginatedTable(container, data, columns, options = {}) {
+  const {
+    title = "Tabla Paginada",
+    onEdit,
+    onDelete,
+    idKey = "id",
+    pageSize = 20,
+    currentPage = 1
+  } = options;
+
+  const totalPages = Math.ceil(data.length / pageSize);
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  const currentData = data.slice(startIndex, endIndex);
+
+  container.innerHTML = `
+    <h3>${title}</h3>
+    <div class="table-controls">
+      <div class="table-info">
+        Mostrando ${startIndex + 1}-${Math.min(endIndex, data.length)} de ${data.length} registros
+      </div>
+      <div class="pagination-controls">
+        <button class="btn-page" data-page="${currentPage - 1}" ${currentPage === 1 ? 'disabled' : ''}>← Anterior</button>
+        <span class="page-info">Página ${currentPage} de ${totalPages}</span>
+        <button class="btn-page" data-page="${currentPage + 1}" ${currentPage === totalPages ? 'disabled' : ''}>Siguiente →</button>
+      </div>
+    </div>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          ${columns.map(col => `<th>${col.label}</th>`).join('')}
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${currentData.map(item => `
+          <tr data-id="${item[idKey]}">
+            ${columns.map(col => {
+              const value = item[col.key];
+              return `<td>${col.render ? col.render(value, item) : value}</td>`;
+            }).join('')}
+            <td>
+              <button class="btn-editar" data-id="${item[idKey]}">✏️</button>
+              <button class="btn-eliminar" data-id="${item[idKey]}">🗑️</button>
+            </td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+
+  // Add event listeners for pagination
+  container.querySelectorAll('.btn-page').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const newPage = parseInt(e.target.dataset.page);
+      if (newPage >= 1 && newPage <= totalPages) {
+        renderPaginatedTable(container, data, columns, { ...options, currentPage: newPage });
+      }
+    });
+  });
 
   container.querySelectorAll('.btn-editar').forEach(btn => {
     btn.addEventListener('click', () => onEdit(btn.dataset.id));

@@ -81,8 +81,8 @@ export const confirm = (titulo, mensaje) => {
     cancelButtonText: 'Cancelar',
     reverseButtons: true,
     customClass: {
-      confirmButton: 'btn btn--Yesalert',
-      cancelButton: 'btn btn--Notalert',
+       confirmButton: 'btn--Yesalert',
+      cancelButton: 'btn--Notalert',
       title: 'text-primary',
       icon: 'text-warning'
     },

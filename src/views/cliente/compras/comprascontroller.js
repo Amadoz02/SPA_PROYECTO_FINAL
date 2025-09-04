@@ -10,10 +10,8 @@ const idUser = Number(localStorage.getItem('id_usuario'));
 
 export default async function comprasController(id_usuario = idUser, ids = null) {
 
-  const comprasUsuario = await get(`ventas/usuario/${id_usuario}`);
-      console.log("Compras del usuario", comprasUsuario);
   // Elementos del DOM
-  console.log("Iniciando comprasController con id_usuario:", id_usuario );
+  console.log("Iniciando comprasController con id_usuario:", id_usuario, "ids:", ids);
   const $list = document.getElementById('comprasList');
   const $no = document.getElementById('noCompras');
   const $spinner = document.getElementById('loadingSpinner');
@@ -58,10 +56,13 @@ async function cargarCompras() {
           : [];
         compras.push(...comprasUsuario);
       }
-    } else {
+    } else if (id_usuario && !isNaN(id_usuario)) {
       const comprasUsuario = await get(`ventas/usuario/${id_usuario}`);
       console.log("Compras del usuario", comprasUsuario);
       compras = Array.isArray(comprasUsuario) ? comprasUsuario : [];
+    } else {
+      console.warn("ID de usuario no válido:", id_usuario);
+      compras = [];
     }
 
     page = 1;

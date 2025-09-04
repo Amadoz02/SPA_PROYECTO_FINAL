@@ -11,6 +11,7 @@
 @import url(./admin.css);
 @import url(./tablas.css);
 @import url(./tallas-radio.css);
+@import url(./tallas.css);
 
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_left_alt");
 :root {
@@ -84,7 +85,7 @@
 
 /* RESPONSIVE NAVBAR */
 @media (max-width: 780px) {
-  .home__nav {
+  .home__nav, .admin-nav {
     position: absolute;
     top: 100%;
     right: 0;
@@ -99,7 +100,7 @@
     z-index: 1100;
     transition: all 0.3s;
   }
-  .home__nav.open {
+  .home__nav.open, .admin-nav.open {
     display: flex !important;
   }
   .navbar-hamburger {
@@ -386,6 +387,7 @@ button.btn--Notalert:hover {
   padding: 1rem 2rem;
   background: var(--color-secondary);
   color: var(--color-white);
+  position: relative;
 }
 
 .admin-header h1 {
@@ -605,12 +607,14 @@ button.btn--Notalert:hover {
     flex-wrap: wrap;
     justify-content: center;
   }
+  
 }
 
 /* ===== ROLE-BASED BODY STYLES ===== */
 body.role-admin {
   background: #f5f5f5;
   overflow-x: hidden;
+  padding: 0;
 }
 
 body.role-cliente {

@@ -10,6 +10,13 @@
   top: 0;
   right: 0;
 }
+.txt-link{
+  text-decoration: none;
+  font-size: 1rem;
+  color: var(--color-white);
+  width: 100%;
+  height: 100%;
+}
 
 .admin-header nav ul {
   list-style: none;
@@ -48,8 +55,10 @@ th{
   background-color: var(--color-white);
   border-radius: 8px;
   box-shadow: 0 2px 10px var(--color-overlay);
+  min-width: 100%;
+  min-height: 100vh;
 }
-
+.admin-section h4,
 .admin-section h2,
 .admin-section h3 {
   font-family: var(--font-title);
@@ -58,6 +67,16 @@ th{
   font-size: 2rem;
 }
 
+
+.admin-section label {
+  font-family: var(--font-text);
+  color: var(--color-secondary);
+  font-size: 1.2rem;
+}
+
+.form-section input{
+  font-size: 1rem;
+}
 /* ==== BOTÓN AGREGAR ==== */
 .btn-agregar {
   background-color: var(--color-primary);
@@ -69,6 +88,8 @@ th{
   cursor: pointer;
   transition: var(--transition-fast);
   margin: 1rem;
+  font-size: 1.3rem;
+  max-width: fit-content;
 }
 
 .btn-agregar:hover {
@@ -90,6 +111,7 @@ th{
   background-color: var(--color-secondary);
   color: var(--color-white);
   font-family: var(--font-title);
+  width: 100%;
 }
 
 .admin-table th,
@@ -97,6 +119,8 @@ th{
   padding: 0.8rem;
   border-bottom: 1px solid #ddd;
   text-align: left;
+  /* width: 100%; */
+
 }
 
 .admin-table tbody tr:hover {
@@ -113,6 +137,8 @@ th{
   cursor: pointer;
   transition: var(--transition-fast);
   margin-right: 0.5rem;
+  font-size: 1rem;
+  max-height: fit-content;
 }
 
 .btn-editar {
@@ -131,4 +157,166 @@ th{
 
 .btn-eliminar:hover {
   background-color: #a71d2a;
+}
+.talla-select{
+  margin: 0;
+}
+.talla-estado{
+  min-width: 70px;
+  margin: 0;
+}
+.form-section select option{
+  background-color: var(--color-white);
+  color: var(--color-black);
+  border-radius: 10px;
+  border: none;
+}
+
+
+.btn-files {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--color-accent);
+  color: white;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+.btn-files:hover {
+  background-color: var(--color-overlay);
+}
+
+/* Media queries para tablas responsivas */
+@media (max-width: 950px) {
+  .form-grid{
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+  }
+  .form-section{
+    min-width: 450px;
+  }
+   .admin-section .form-grid {
+      grid-template-columns: 1fr;
+  }
+  .admin-table,
+  .simple-table {
+    overflow-x: auto;
+    white-space: nowrap;
+    display: block;
+  
+  }
+
+  .admin-table th,
+  .admin-table td,
+  .simple-table th,
+  .simple-table td {
+    white-space: nowrap;
+    min-width: 120px;
+    padding: 0.8rem 0.5rem;
+  }
+
+  .admin-table thead,
+  .simple-table thead {
+    display: table-header-group;
+  }
+
+  .admin-table tbody,
+  .simple-table tbody {
+    display: table-row-group;
+  }
+
+  .admin-table tr,
+  .simple-table tr {
+    display: table-row;
+  }
+}
+.preview-imagenes div{
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+  min-width: 300px;
+  justify-content: center;
+  align-items: center;
+}
+/* Media queries para tablas responsivas */
+@media screen and (max-width: 480px) {
+  .admin-section{
+    padding: 1rem;
+    transition: all 0.3s ease;
+    max-width: 470px;
+    min-width: 340px;
+
+  }
+  .form-section{
+    max-width: 90%;
+    min-width: 340px;
+  }
+  #tallasContainer {
+    max-width: 470px;
+    min-width: 340px;
+    
+    overflow-x: scroll;
+  }
+  .form-actions {
+    max-width: 98%;
+    justify-content: center;
+    align-items: center;
+    min-width: 340px;
+    align-self: center;
+
+  }
+  .btn-agregar {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0;
+  }
+  .btn-cancelar,
+  .btn-agregar {
+    font-size: 1rem;
+ 
+    height: 50px;
+  }
+  .form-grid {
+    
+    min-width: 340px;
+
+  }
+  .admin-table,
+  .simple-table {
+    overflow-x: auto;
+    white-space: nowrap;
+    display: block;
+  
+  }
+
+  .admin-table th,
+  .admin-table td,
+  .simple-table th,
+  .simple-table td {
+    white-space: nowrap;
+    min-width: 90px;
+    padding: 0.8rem 0.5rem;
+  }
+
+  .admin-table thead,
+  .simple-table thead {
+    display: table-header-group;
+  }
+
+  .admin-table tbody,
+  .simple-table tbody {
+    display: table-row-group;
+  }
+
+  .admin-table tr,
+  .simple-table tr {
+    display: table-row;
+  }
 }
