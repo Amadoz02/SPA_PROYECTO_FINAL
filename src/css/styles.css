@@ -278,7 +278,7 @@ button.btn--Notalert{
   display: flex;
   margin: 0 50px 0 0;
   font-size: 1.5rem;
-  background-color: var(--color-secondary);
+  background-color: #cfcfcf;
 }
 button.btn--Yesalert:hover,
 button.btn--Notalert:hover {

@@ -57,28 +57,3 @@
   font-size: 16px;
 }
 
-.btn--Yesalert {
-  background-color: #007bff !important;
-  color: white !important;
-  border: none !important;
-  padding: 10px 20px !important;
-  border-radius: 4px !important;
-  cursor: pointer !important;
-}
-
-.btn--Notalert {
-  background-color: #dc3545 !important;
-  color: white !important;
-  border: none !important;
-  padding: 10px 20px !important;
-  border-radius: 4px !important;
-  cursor: pointer !important;
-}
-
-.text-primary {
-  color: #007bff !important;
-}
-
-.text-warning {
-  color: #ffc107 !important;
-}
