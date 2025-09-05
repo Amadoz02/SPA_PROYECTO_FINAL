@@ -125,7 +125,7 @@ export default async function listAllVentasController() {
             modal.className = 'modal';
             modal.innerHTML = `
                 <div class="modal-content">
-                    <span class="modal-close">&times;</span>
+                    <span class="modal-close"><i class="material-icons">close</i></span>
                     <div id="tempComprasList"></div>
                 </div>
             `;

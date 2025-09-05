@@ -313,7 +313,7 @@ export default class NuevoProductoController {
       console.log("Guardando tallas y stocks:", tallasSeleccionadas);
       
       for (const talla of tallasSeleccionadas) {
-        await post('tallas_productos', {
+        await post('tallas-productos', {
           id_producto: idProducto,
           id_talla: talla.id_talla,
           stock: talla.stock,

@@ -8,7 +8,7 @@ export default async function crearMetodosPagoController() {
 
   container.innerHTML = `
     <h2>Crear Nuevo Método de Pago</h2>
-    <form id="crearMetodoForm" class="form-producto">
+    <form id="crearMetodoForm" class="form-producto" novalidate>
       <div class="form-grid">
         <div class="form-section">
           <h4>Información del Método</h4>
@@ -63,7 +63,8 @@ export default async function crearMetodosPagoController() {
 
     } catch (err) {
       console.error("Error al crear método de pago:", err);
-      error("Error al crear el método de pago", "error");
+      await error(err,"No se pudo crear el método de pago:",);
+      
     }
   });
 

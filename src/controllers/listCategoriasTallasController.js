@@ -5,14 +5,12 @@ import { editarItem, eliminarItem, crearItem } from "../utils/crudUtils.js";
 export default async function listCategoriasTallasController() {
   const contCategorias = document.getElementById("categorias-container");
   const contTallas = document.getElementById("tallas-container");
-  const contTallasProductos = document.getElementById("tallas-productos-container");
-  if (!contCategorias || !contTallas || !contTallasProductos) return;
+
 
   const cargarDatos = async () => {
     const [categorias, tallas, tallasProductos] = await Promise.all([
       get("categorias"),
       get("tallas"),
-      get("tallas_productos")
     ]);
 
     // 🟦 Categorías
@@ -130,12 +128,12 @@ function renderTablaFiltrada(productoSeleccionado = "") {
       idKey: "id_talla_producto",
       onEdit: async (id) => {
         const tp = datosFiltrados.find(t => t.id_talla_producto === parseInt(id));
-        const result = await editarItem("tallas_productos", tp);
+        const result = await editarItem("tallas-productos", tp);
         if (result) cargarDatos(); // Puedes mejorar esto para mantener el filtro activo
       },
       onDelete: async (id) => {
         const tp = datosFiltrados.find(t => t.id_talla_producto === parseInt(id));
-        const result = await eliminarItem("tallas_productos", id, `la talla "${tp?.talla}" del producto "${tp?.nombre_producto}"`);
+        const result = await eliminarItem("tallas-productos", id, `la talla "${tp?.talla}" del producto "${tp?.nombre_producto}"`);
         if (result) cargarDatos();
       }
     }

@@ -43,13 +43,19 @@
   cursor: pointer;
   color: #666;
   padding: 0;
-  width: 30px;
-  height: 30px;
+  min-width: 30px;
+  min-height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
+button>i{
+  min-height: 20px;
+  min-width: 20px;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-bg);
+}
 .modal-close:hover {
   color: #333;
 }

@@ -22,7 +22,7 @@ async function agregarNuevaTalla(producto) {
     // Obtener todas las tallas disponibles
     const [tallasDisponibles, tallasProducto] = await Promise.all([
       get("tallas"),
-      get(`tallas_productos/producto/${producto.id_producto}`)
+      get(`tallas-productos/producto/${producto.id_producto}`)
     ]);
 
     // Filtrar tallas que no están asignadas al producto
@@ -88,7 +88,7 @@ async function agregarNuevaTalla(producto) {
       }
 
       try {
-        await post('tallas_productos', {
+        await post('tallas-productos', {
           id_producto: producto.id_producto,
           id_talla: id_talla,
           stock: stock,
@@ -127,7 +127,7 @@ export default async function listProductosController() {
     
     const productosEnriquecidos = await Promise.all(productos.map(async (p) => {
       try {
-        const tallasProducto = await get(`tallas_productos/producto/${p.id_producto}`);
+        const tallasProducto = await get(`tallas-productos/producto/${p.id_producto}`);
         const activas = Array.isArray(tallasProducto)
           ? tallasProducto.filter(tp => tp.estado === 'Activo')
           : [];
@@ -168,7 +168,7 @@ export default async function listProductosController() {
                 await put(`productos/${original.id_producto}`, updated);
 
                 for (const tp of updated.tallas_actualizadas || []) {
-                  await put(`tallas_productos/${tp.id_talla_producto}`, { stock: tp.stock });
+                  await put(`tallas-productos/${tp.id_talla_producto}`, { stock: tp.stock });
                 }
 
                 success("Producto actualizado correctamente", "success");

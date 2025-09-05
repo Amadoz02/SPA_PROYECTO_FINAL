@@ -17,7 +17,7 @@ export function showProductModal(product) {
   // Contenido del modal
   modalContent.innerHTML = `
     <button class="modal-close">
-      <i data-lucide="x"></i>
+      <i data-lucide="x" class="icon"></i>
     </button>
     <h3 class="modal-title">${product.nombre || 'Detalles del producto'}</h3>
 

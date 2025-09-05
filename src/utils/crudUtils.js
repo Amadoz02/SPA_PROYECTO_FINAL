@@ -57,7 +57,7 @@ export async function editarItem(endpoint, itemOriginal) {
     if (!nuevoNombre) return;
     formData = { ...itemOriginal, talla: nuevoNombre.trim() };
 
-  } else if (endpoint === 'tallas_productos') {
+  } else if (endpoint === 'tallas-productos') {
     const { value: estadoSeleccionado } = await Swal.fire({
       title: 'Editar Estado',
       html: `
@@ -137,7 +137,7 @@ export async function editarItem(endpoint, itemOriginal) {
       case 'metodos':
         idKey = 'id_metodo';
         break;
-      case 'tallas_productos':
+      case 'tallas-productos':
         idKey = 'id_talla_producto';
         break;
       default:

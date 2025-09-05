@@ -38,8 +38,9 @@ export default async function listarMetodosPagoController() {
       onDelete: async (id) => {
         const metodo = metodosPago.find(m => m.id_metodo == id);
         const confirmDelete = await confirm(`¿Estás seguro de que deseas eliminar el método de pago "${metodo.nombre}"?`);
-
-        if (confirmDelete) {
+        console.log(confirmDelete);
+        
+        if (confirmDelete.isConfirmed) {
           try {
             await del(`metodos/${id}`);
             success("Método de pago eliminado correctamente", "success");

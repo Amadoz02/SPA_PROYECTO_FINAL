@@ -18,9 +18,10 @@ export function loadNavbar() {
                 </button>
                 <nav class="admin-nav">
                     <ul>
-                        <li><a href="#/admin/dashboard" id="nav-admin-dashboard">Dashboard</a></li>
+                        
                         <li><a href="#/admin/productos/listar" id="nav-admin-productos">Productos</a></li>
-                        <li><a href="#/admin/categorias/listar" id="nav-admin-categorias">Categorías y Tallas</a></li>
+                        <li><a href="#/admin/categorias/listar" id="nav-admin-categorias">Categorías</a></li>
+                         <li><a href="#/admin/tallas/listar" id="nav-admin-tallas">Tallas</a></li>
                         <li><a href="#/admin/usuarios/listar" id="nav-admin-usuarios">Usuarios</a></li>
                         <li><a href="#/admin/ventas/listar" id="nav-admin-ventas">Ventas</a></li>
                         <li><a href="#/admin/metodos_pago/listar" id="nav-admin-metodos-pago">Métodos de Pago</a></li>
@@ -99,6 +100,7 @@ export function loadNavbar() {
     setTimeout(() => {
         if (typeof updateNavbarCounters === 'function') {
             updateNavbarCounters();
+            
         } else if (window.updateNavbarCounters) {
             window.updateNavbarCounters();
         }

@@ -22,6 +22,24 @@ export const routes = [
         role: 'admin'
     },
     {
+        path: '/admin/tallas/listar',
+        view: '/src/views/admin/tallas/listar/index.html',
+        controller: '/src/views/admin/tallas/listar/listarTallascontroller.js',
+        role: 'admin'
+    },
+    {
+        path: '/admin/tallas/crear',
+        view: '/src/views/admin/tallas/crear/index.html',
+        controller: '/src/views/admin/tallas/crear/crearTallasController.js',
+        role: 'admin'
+    },
+    {
+        path: '/admin/tallas/editar',
+        view: '/src/views/admin/tallas/editar/index.html',
+        controller: '/src/views/admin/tallas/editar/editarTallasController.js',
+        role: 'admin'
+    },
+    {
         path: '/admin/dashboard',
         view: '/src/views/admin/dashboard/index.html',
         controller: '/src/views/admin/dashboard/dashboardController.js',

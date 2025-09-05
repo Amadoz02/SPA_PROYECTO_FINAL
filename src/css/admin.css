@@ -55,14 +55,19 @@ th{
   color: var(--color-bg);
 }
 .admin-main {
+  color: var(--color-white);
+  
   padding: 2rem;
   min-width: fit-content;
-  max-width: 100%;
+  max-width: 100vw;
   height: 100vh;
-  background-color: var(--color-overlay);
+  background-color: var(--color-primary);
  
 }
 
+.admin-dashboard{
+  width: 100vw;
+}
 /* ==== CONTENEDOR GENERAL ==== */
 .admin-section {
   font-family: var(--font-text);

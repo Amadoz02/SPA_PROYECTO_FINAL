@@ -63,7 +63,7 @@ export function router() {
                 confirmButtonText: 'Volver'
             }).then(() => {
                 if (String(userRole).toLowerCase().includes('admin' || 'SuperAdministrador')) {
-                    navigateTo('/admin/dashboard');
+                    navigateTo('#/admin/productos/listar');
                 } else if (String(userRole).toLowerCase().includes('cliente')) {
                     navigateTo('/cliente/home');
                 } else {

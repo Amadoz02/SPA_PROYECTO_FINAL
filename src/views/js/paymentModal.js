@@ -24,7 +24,7 @@ export class PaymentModal {
         <div class="modal-content">
           <div class="modal-header">
             <h2>Confirmar Compra</h2>
-            <button class="modal-close"><i data-lucide="x"></i></button>
+            <button class="modal-close" aria-label="Cerrar"><i data-lucide="x" ></i></button>
           </div>
           <div class="modal-body">
             <div class="payment-section">
@@ -56,7 +56,7 @@ export class PaymentModal {
   
   async loadPaymentMethods() {
     try {
-      const response = await get('metodos');
+      const response = await get('metodos/activos');
       console.log('Métodos de pago recibidos:', response);
       
       // Manejar diferentes estructuras de respuesta
@@ -74,14 +74,6 @@ export class PaymentModal {
     } catch (error) {
       console.error('Error al cargar métodos de pago:', error);
       // Métodos de respaldo solo si no hay datos
-      if (this.paymentMethods.length === 0) {
-        this.paymentMethods = [
-          { id: 1, nombre: 'Tarjeta de Crédito' },
-          { id: 2, nombre: 'Tarjeta de Débito' },
-          { id: 3, nombre: 'Transferencia Bancaria' },
-          { id: 4, nombre: 'PayPal' }
-        ];
-      }
       this.renderPaymentMethods();
     }
   }

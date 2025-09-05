@@ -89,44 +89,11 @@ export default async function listProductosController() {
         );
 
         if (confirmDelete) {
-          try {
-            console.log(`Intentando eliminar producto ID: ${producto.id_producto}`);
-
-            // Verificar si el producto tiene tallas asociadas
-            try {
-              const tallasProducto = await get(`tallas-productos/producto/${producto.id_producto}`);
-              if (Array.isArray(tallasProducto) && tallasProducto.length > 0) {
-                const confirmDeleteTallas = await confirm(
-                  `El producto tiene ${tallasProducto.length} talla(s) asociada(s). ¿Deseas eliminar también las tallas?`
-                );
-                if (!confirmDeleteTallas) {
-                  error("Eliminación cancelada por el usuario", "info");
-                  return;
-                }
-              }
-            } catch (e) {
-              console.warn("Error al verificar tallas:", e);
-            }
-
-            // Verificar si el producto tiene imágenes asociadas
-            try {
-              const imagenesProducto = await get(`imagenes/producto/${producto.id_producto}`);
-              if (Array.isArray(imagenesProducto) && imagenesProducto.length > 0) {
-                const confirmDeleteImagenes = await confirm(
-                  `El producto tiene ${imagenesProducto.length} imagen(es) asociada(s). ¿Deseas eliminar también las imágenes?`
-                );
-                if (!confirmDeleteImagenes) {
-                  error("Eliminación cancelada por el usuario", "info");
-                  return;
-                }
-              }
-            } catch (e) {
-              console.warn("Error al verificar imágenes:", e);
-            }
-
+          
+          try{
             await del(`productos/${producto.id_producto}`);
             success("Producto eliminado correctamente", "success");
-            listProductosController(); // recargar la tabla
+            listProductosController(); 
           } catch (err) {
             console.error("Error al eliminar producto:", err);
             console.error("Detalles del error:", err);
@@ -134,7 +101,7 @@ export default async function listProductosController() {
             // Manejar errores específicos del backend
             if (err.message) {
               if (err.message.includes("ventas asociadas") || err.message.includes("foreign key")) {
-                error("No se puede eliminar el producto porque tiene ventas o registros relacionados", "warning");
+                error("No se puede eliminar el producto porque tiene ventas o registros relacionados", "Hey");
               } else if (err.message.includes("Error interno")) {
                 error("Error interno del servidor al eliminar el producto. Revisa los logs del backend.", "error");
               } else {

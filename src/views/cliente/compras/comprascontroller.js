@@ -238,7 +238,7 @@ async function cargarCompras() {
       $modalDetails.innerHTML = `
         <div class="detalle-compra">
           <div class="detalle-header">
-            <button class="modal-close" aria-label="Cerrar">&times;</button>
+            <button class="modal-close" aria-label="Cerrar"><i data-lucide="x"></i></button>
             <h3>Compra #${compra?.id_venta ?? compra?.id}</h3>
             <span class="detalle-fecha">${formatDate(compra?.fecha)}</span>
           </div>
@@ -370,6 +370,9 @@ async function cargarCompras() {
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;');
   }
+
+  
+  
 
 
 }

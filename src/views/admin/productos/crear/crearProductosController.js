@@ -22,7 +22,7 @@ export class CrearProductoController {
     try {
       const [categorias, tallas, generos] = await Promise.all([
         get("categorias/activas"),
-        get("tallas"),
+        get("tallas/Activas"),
         get("generos")
       ]);
 
@@ -101,13 +101,28 @@ export class CrearProductoController {
   }
 
   agregarTalla() {
+    // Obtener tallas ya seleccionadas en el DOM (existentes y nuevas)
+    const tallasSeleccionadasEnDOM = Array.from(document.querySelectorAll('#tallasBody .talla-select'))
+      .map(select => parseInt(select.value))
+      .filter(id => id > 0);
+
+    // Filtrar tallas disponibles (no seleccionadas)
+    const tallasDisponibles = this.tallas.filter(talla =>
+      !tallasSeleccionadasEnDOM.includes(talla.id_talla)
+    );
+
+    if (tallasDisponibles.length === 0) {
+      error("No hay tallas disponibles para agregar", "warning");
+      return;
+    }
+
     const tallasBody = document.getElementById('tallasBody');
     const row = document.createElement('tr');
     row.innerHTML = `
       <td>
         <select class="talla-select" required>
           <option value="">Seleccione talla</option>
-          ${this.tallas.map(talla => `<option value="${talla.id_talla}">${talla.talla}</option>`).join('')}
+          ${tallasDisponibles.map(talla => `<option value="${talla.id_talla}">${talla.talla}</option>`).join('')}
         </select>
       </td>
       <td>

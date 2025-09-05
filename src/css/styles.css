@@ -47,7 +47,9 @@
   transform: rotate(-45deg);
   top: 0;
 }
-
+.bloque--registro{
+  display: block  ;
+}
 /* HAMBURGER MENU STYLES */
 .navbar-hamburger {
   display: none;

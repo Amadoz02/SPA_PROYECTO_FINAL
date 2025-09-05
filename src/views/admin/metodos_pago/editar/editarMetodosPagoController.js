@@ -27,7 +27,7 @@ export default async function editarMetodosPagoController() {
 
     container.innerHTML = `
       <h2>Editar Método de Pago</h2>
-      <form id="editarMetodoForm" class="form-producto">
+      <form id="editarMetodoForm" class="form-producto" novalidate>
         <div class="form-grid">
           <div class="form-section">
             <h4>Información del Método</h4>
@@ -39,8 +39,8 @@ export default async function editarMetodosPagoController() {
             <div class="form-group">
               <label for="estado">Estado:</label>
               <select id="estado" name="estado" required>
-                <option value="Activo" ${metodo.nombre_estado === 'Activo' ? 'selected' : ''}>Activo</option>
-                <option value="Inactivo" ${metodo.nombre_estado === 'Inactivo' ? 'selected' : ''}>Inactivo</option>
+                <option value="1" ${metodo.nombre_estado === 'Activo' ? 'selected' : ''}>Activo</option>
+                <option value="2" ${metodo.nombre_estado === 'Inactivo' ? 'selected' : ''}>Inactivo</option>
               </select>
             </div>
           </div>
@@ -61,7 +61,7 @@ export default async function editarMetodosPagoController() {
       e.preventDefault();
 
       const nombre = document.getElementById("nombre").value.trim();
-      const estado = document.getElementById("estado").value;
+      const id_estado = document.getElementById("estado").value;
 
       if (!nombre) {
         error("El nombre del método es obligatorio", "error");
@@ -69,7 +69,7 @@ export default async function editarMetodosPagoController() {
       }
 
       try {
-        await put(`metodos/${metodoId}`, { nombre, estado });
+        await put(`metodos/${metodoId}`, { nombre, id_estado });
         success("Método de pago actualizado correctamente", "success");
 
         // Limpiar localStorage y redirigir
