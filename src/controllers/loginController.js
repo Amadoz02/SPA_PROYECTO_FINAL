@@ -42,7 +42,7 @@ export default function loginController() {
 
         // Redirigir según el rol
         if (result.usuario.rol.nombre === "admin" || result.usuario.rol.nombre === "SuperAdministrador") {
-          location.hash = "#/admin/productos/listar'";
+          location.hash = "#/admin/productos/listar";
         } else if (result.usuario.rol.nombre === "cliente") {
           location.hash = "/cliente/home";
         } else {

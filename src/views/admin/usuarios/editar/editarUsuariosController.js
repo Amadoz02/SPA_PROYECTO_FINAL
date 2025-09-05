@@ -44,7 +44,7 @@ export default async function initEditarUsuario() {
     if (idUsuario == idUsuarioActual) {
       esEdicionPropia = true;
       info("no puedes editarte", "ve al apartado de perfil y gestiona tu perfil")
-      window.location.replace("#/admin/productos/listar'")
+      window.location.replace("#/admin/productos/listar")
     }
   } catch (err) {
     mensaje.textContent = 'Error al cargar datos: ' + err.message;

@@ -55,16 +55,26 @@ export function router() {
     
     if (route) {
         // Validar rol (case-insensitive y soporta variantes)
-        if (route.role && route.role.toLowerCase() !== String(userRole).toLowerCase()) {
+        const userRoleLower = String(userRole).toLowerCase();
+        const routeRoleLower = route.role ? route.role.toLowerCase() : null;
+        let hasAccess = true;
+        if (routeRoleLower) {
+            if (routeRoleLower === 'admin') {
+                hasAccess = ['admin', 'superadministrador'].includes(userRoleLower);
+            } else {
+                hasAccess = routeRoleLower === userRoleLower;
+            }
+        }
+        if (!hasAccess) {
             Swal.fire({
                 icon: 'error',
                 title: 'Acceso denegado',
                 text: 'No tienes permisos para acceder a esta sección.',
                 confirmButtonText: 'Volver'
             }).then(() => {
-                if (String(userRole).toLowerCase().includes('admin' || 'SuperAdministrador')) {
+                if (['admin', 'superadministrador'].includes(userRoleLower)) {
                     navigateTo('#/admin/productos/listar');
-                } else if (String(userRole).toLowerCase().includes('cliente')) {
+                } else if (userRoleLower.includes('cliente')) {
                     navigateTo('/cliente/home');
                 } else {
                     console.log("Rol no reconocido, redirigiendo a bienvenida.");
