@@ -68,7 +68,7 @@
   max-height: 90vh;
   overflow: hidden;
   padding: 24px;
- 
+ justify-self: center;
   position: relative;
   border: 1px solid var(--color-primary);
   color: var(--color-white);

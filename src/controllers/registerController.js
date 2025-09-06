@@ -164,7 +164,7 @@ export default function registerController() {
         nombre,
         correo,
         contrasena: contrasenas,
-        id_rol: 3,
+        id_rol: 1,
         id_estado: 1
       };
 

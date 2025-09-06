@@ -1,3 +1,4 @@
+
 // comprasController.js
 import { API_BASE_URL } from '../../../utils/manejo_api_optimizado.js';
 import { error as alertError } from '../../../utils/alert.js';
@@ -105,6 +106,8 @@ async function cargarCompras() {
   }
 
   function cardHTML(c) {
+    console.log(c);
+    
     const fecha = formatDate(c.fecha);
     const total = formatMoney(c.total);
     const metodo = c?.metodoPago?.nombre || '—';
@@ -116,7 +119,7 @@ async function cargarCompras() {
       <div class="compra-card">
         <div class="compra-header">
           <span>#${id}</span>
-          <span>${fecha}</span>
+          <span class="txt-fecha">${fecha}</span>
           <span>${c.estadoVenta.estado}</span>
         </div>
         <div class="compra-body">
@@ -238,7 +241,7 @@ async function cargarCompras() {
       $modalDetails.innerHTML = `
         <div class="detalle-compra">
           <div class="detalle-header">
-            <button class="modal-close" aria-label="Cerrar"><i data-lucide="x"></i></button>
+            <button class="modal-close" aria-label="Cerrar"><i class="material-icons">close</i></button>
             <h3>Compra #${compra?.id_venta ?? compra?.id}</h3>
             <span class="detalle-fecha">${formatDate(compra?.fecha)}</span>
           </div>
@@ -353,8 +356,14 @@ async function cargarCompras() {
   $modalDetails.innerHTML = '';
 }
   function formatDate(value) {
-    const d = new Date(value);
-    return isNaN(d) ? '—' : d.toLocaleDateString('es-CO');
+    if (!value) return '—';
+    const cleanValue = value.replace('[UTC]', '');
+    const d = new Date(cleanValue);
+    if (isNaN(d)) return '—';
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = d.getFullYear();
+    return `${day}-${month}-${year}`;
   }
   function toNumber(n) {
     const x = Number(n);

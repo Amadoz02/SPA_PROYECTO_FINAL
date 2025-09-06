@@ -11,80 +11,19 @@
 @import url(./admin.css);
 @import url(./tablas.css);
 @import url(./tallas-radio.css);
-@import url(./tallas.css);
+@import url(./componentes.css);
 
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_left_alt");
-:root {
-  --color-black: #000;
-  --color-filtro: rgba(196, 196, 196, 0);
-  --color-white: #fff;
-  --color-primary: #00b0a8;
-  --color-accent: #f3c622;
-  --color-secondary: #0a3d3c;
-  --color-error: #c70000;
-  --color-overlay: rgba(0, 0, 0, 0.45);
-  --color-contrast: #3096af;
-  --font-title: 'Bebas Neue', sans-serif;
-  --font-text: 'Urbanist', sans-serif;
-  --transition-fast: 0.3s ease;
-}
+
 /* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* overflow-x: hidden; */
-  
 }
-.navbar-hamburger.open span {
-  background: transparent;
-}
-.navbar-hamburger.open span::before {
-  transform: rotate(45deg);
-  top: 0;
-}
-.navbar-hamburger.open span::after {
-  transform: rotate(-45deg);
-  top: 0;
-}
-.bloque--registro{
-  display: block  ;
-}
-/* HAMBURGER MENU STYLES */
-.navbar-hamburger {
-  display: none;
-  position: absolute;
-  right: 1.5rem;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 1200;
-}
-.navbar-hamburger span,
-.navbar-hamburger span:before,
-.navbar-hamburger span:after {
-  display: block;
-  background: var(--color-white);
-  height: 3px;
-  width: 28px;
-  border-radius: 2px;
-  position: relative;
-  transition: all 0.3s;
-}
-.navbar-hamburger span:before {
-  content: '';
-  position: absolute;
-  top: -9px;
-  left: 0;
-}
-.navbar-hamburger span:after {
-  content: '';
-  position: absolute;
-  top: 9px;
-  left: 0;
-}
+
+
+
 
 /* RESPONSIVE NAVBAR */
 @media (max-width: 780px) {
@@ -110,9 +49,7 @@
     display: block;
   }
 }
-span{
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
+
 
 .error-msg {
   color: red;
@@ -160,14 +97,19 @@ span{
 }
 .register__container {
   margin: 2% 0  2% 0;
-  background-color: rgba(0, 0, 0, 0.85);
+  color: var(--color-black);
   padding: 3rem 2.5rem;
   border-radius: 20px;
-  max-width: 500px;
+  /* max-width: 500px; */
   width: 100%;
   z-index: 1;
   opacity: 1;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+.bloque--registro{
+  width: 40%;
+  color: var(--color-black);
+
 }
 .register__group {
   display: flex;
@@ -297,15 +239,17 @@ button.btn--Notalert:hover {
   gap: 20px;
 }
 
+
 /* Tablets */
 @media (max-width: 768px) {
   
 .compras-section{
   min-width: 90vw;
-  margin: 2rem 10px;
+  padding: 2rem 10px;
+  /* background-image: none; */
 }
 .compra-body{
-  gap: 1rem;
+  gap: 1.2rem;
 }
 
 
@@ -618,8 +562,9 @@ body.role-admin {
 body.role-cliente {
   min-width: 100vw;
   overflow-x: hidden;
-  background: #ffffff;
   padding: 0  ;
+  font-family: var(--font-text);
+  background: var(--color-black);
 }
 
 body.role-public {
@@ -632,7 +577,8 @@ body.role-public {
   display: flex;
   min-width: 100vw;
   min-height: 100vh; 
-  background-color: var(--color-black);
+  /* background-color: var(--color-black); */
+  box-shadow: inset 1px 1px 100px var(--color-secondary);
 
 }
 .welcome{

@@ -1,87 +1,27 @@
-/* BUTTON */
-.btn {
-    display: flex;
-    width: 90%;
-    max-width: 95%;
-  align-self: center;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
-  color: var(--color-black);
-  padding: 0.9rem 2.5rem;
-  border: none;
-  border-radius: 12px;
-  font-weight: 900;
-  font-size: 1.3rem;
-  text-align: center;
-  cursor: pointer;
-  justify-content: center;
-  text-decoration: none;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&family=Shadows+Into+Light&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&family=Shadows+Into+Light&display=swap');
+:root {
+  --color-black: #000;
+  --color-filtro: rgba(0, 0, 0, 0);
+  --color-white: #fff;
+  --color-primary: #00b0a8;
+  --color-accent: #f3c622;
+  --color-secondary: #0a3d3c;
+  --color-error: #c70000;
+  --color-overlay: rgba(0, 0, 0, 0.45);
+  --color-contrast: #3096af;
+    --color-bg: #f9f9f9;
+  --color-danger: #e74c3c;
+  --color-success: #2ecc71;
+  --color-border: #dcdcdc;
+  --color-text: #333;
+  --radius: 6px;
+  --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  --font-title: 'Bebas Neue', sans-serif;
+  --font-text: 'Urbanist', sans-serif;
+  --transition-fast: 0.3s ease;
 }
 
-.btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
-}
- a.btn--back{
-  position: fixed;
-  left: 3%;
-  top: 5%;
-  z-index: 1;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  padding: 0;
-  margin: 0;
-  font-weight: 600;
-  background: var(--color-accent);
-  align-items: center;
 
-}
 
-/* BODY STYLES */
-.body {
-  font-family: var(--font-text);
-  color: var(--color-white);
-  position: relative;
-  min-height: 100vh;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-/* DARK OVERLAY */
-.body::before {
-  /* Solo aplica overlay en login/register, no en home SPA */
-}
-
-.btn-delete{
-  background-color: var(--color-accent);
-  border: none;
-  border-radius: 12px;
-  padding: 5px;
-  font-weight: 900;
-  font-size: 0.8rem;
-  text-align: center;
-  cursor: pointer;
-  justify-content: center;
-  text-decoration: none;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
-}
-.btn-edit{
-  background-color: var(--color-primary);
-  border: none;
-  border-radius: 12px;
-  padding: 5px;
-  font-weight: 900;
-  font-size: 0.8rem;
-  text-align: center;
-  cursor: pointer;
-  justify-content: center;
-  text-decoration: none;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
-}
-.btn-edit:hover, .btn-delete:hover{
-  background-color: var(--color-secondary);
-  color: var(--color-accent);
-  transition: 0.5s;
-}

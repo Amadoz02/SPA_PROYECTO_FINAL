@@ -1,18 +1,8 @@
 
 
 /* --- Carrito Moderno con variables :root --- */
-body.role-cliente {
-  font-family: var(--font-text);
-  background: var(--color-black);
-}
+ 
 
-#main-content {
-  /* display: flex; */
-  justify-content: center;
-  align-items: flex-start;
-  min-height:   100%;
-  
-}
 .text{
   color: var(--color-white);
   font-size: 1.1rem;
@@ -239,5 +229,27 @@ body.role-cliente {
   }
   .txt {
     font-size: 1.1rem;
+  }
+}
+
+/* Para pantallas muy pequeñas, apilar elementos */
+@media (max-width: 480px) {
+  .cart-item {
+    grid-template-columns: 1fr 260px;
+    gap: 15px;
+    padding: 0.5rem;
+    text-align: center;
+  }
+  .cart-item__image {
+    justify-self: center;
+  }
+  .cart-item__title, .cart-item__category {
+    text-align: center;
+  }
+  .cart-item__quantity {
+    justify-self: center;
+  }
+  .cart-item__remove {
+    justify-self: center;
   }
 }

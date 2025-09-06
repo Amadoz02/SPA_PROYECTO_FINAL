@@ -2,7 +2,8 @@
  * Modal de pago para el carrito de compras
  * Muestra métodos de pago disponibles y permite seleccionar uno
  */
- import { confirm } from '../../utils/alert.js';
+
+import { confirm, info } from '../../utils/alert.js';
 import { get,post,put,del } from '../../utils/manejo_api_optimizado.js';
     //  const { get } = await import('../../utils/manejo_api_optimizado.js');
 export class PaymentModal {
@@ -24,12 +25,12 @@ export class PaymentModal {
         <div class="modal-content">
           <div class="modal-header">
             <h2>Confirmar Compra</h2>
-            <button class="modal-close" aria-label="Cerrar"><i data-lucide="x" ></i></button>
+            <button class="modal-close" aria-label="Cerrar"><i data-lucide="x" class="icon"></i></button>
           </div>
           <div class="modal-body">
             <div class="payment-section">
               <h3>Método de Pago</h3>
-              <select id="payment-method-select" class="payment-dropdown">
+              <select id="payment-method-select" class="payment-dropdown form__input register__input">
                 <option value="">Selecciona un método de pago</option>
               </select>
             </div>
@@ -138,7 +139,7 @@ export class PaymentModal {
     const selectedMethod = document.getElementById('payment-method-select').value;
     
     if (!selectedMethod) {
-      alert('Por favor selecciona un método de pago');
+      await info('Por favor selecciona un método de pago');
       return;
     }
 

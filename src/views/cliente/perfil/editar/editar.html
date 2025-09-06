@@ -17,18 +17,7 @@
         <label for="rol">Rol</label>
         <input type="text" id="rol" name="rol" readonly>
       </div>
-      <hr>
-      <hr>
-      <h3 class="perfil__subtitle">Cambiar Contraseña</h3>
-      <div class="perfil__group">
-        <label for="nuevaContrasena">Nueva Contraseña</label>
-        <input type="password" id="nuevaContrasena" name="nuevaContrasena" placeholder="Mínimo 6 caracteres">
-      </div>
-      <div class="perfil__group">
-        <label for="confirmarContrasena">Confirmar Nueva Contraseña</label>
-        <input type="password" id="confirmarContrasena" name="confirmarContrasena" placeholder="Repite la nueva contraseña">
-      </div>
-      <button type="button" id="btnActualizarContrasena" class="perfil__button perfil__button--secondary">Actualizar Contraseña</button>
+      <button type="button" id="btnCambiarContrasena" class="perfil__button perfil__button--secondarys">Cambiar mi Contraseña</button>
       
     </div>
     <div class="bloque">
@@ -62,5 +51,27 @@
         <div id="editarPerfilMensaje" class="perfil__mensaje" hidden></div>
     </div>
   </form>
+</div>
+
+<!-- Modal para cambiar contraseña -->
+<div id="cambiarContrasenaModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeModal"><i class="material-icons">close</i></span>
+    <h2>Cambiar Contraseña</h2>
+    <form id="cambiarContrasenaForm">
+      <div class="perfil__group">
+        <label for="nuevaContrasena">Nueva Contraseña</label>
+        <input type="password" id="nuevaContrasena" name="nuevaContrasena" placeholder="Mínimo 6 caracteres" required>
+      </div>
+      <div class="perfil__group">
+        <label for="confirmarContrasena">Confirmar Nueva Contraseña</label>
+        <input type="password" id="confirmarContrasena" name="confirmarContrasena" placeholder="Repite la nueva contraseña" required>
+      </div>
+      <div class="modal-buttons">
+        <button type="button" id="btnCancelar" class="perfil__button perfil__button--secondary">Cancelar</button>
+        <button type="submit" class="perfil__button perfil__button--primary">Guardar</button>
+      </div>
+    </form>
+  </div>
 </div>
 

@@ -190,37 +190,59 @@ fetchDepartamentos().then(() => {
 
 
   
-  // Listener para actualizar contraseña (fuera del submit)
-  const $btnActualizarContrasena = document.getElementById('btnActualizarContrasena');
-  const $nuevaContrasena = document.getElementById('nuevaContrasena');
-  const $confirmarContrasena = document.getElementById('confirmarContrasena');
-  $btnActualizarContrasena?.addEventListener('click', async () => {
-    mensaje.hidden = true;
-    const nueva = $nuevaContrasena.value.trim();
-    const confirmar = $confirmarContrasena.value.trim();
+  // Modal para cambiar contraseña
+  const modal = document.getElementById('cambiarContrasenaModal');
+  const btnCambiarContrasena = document.getElementById('btnCambiarContrasena');
+  const closeModal = document.getElementById('closeModal');
+  const btnCancelar = document.getElementById('btnCancelar');
+  const cambiarContrasenaForm = document.getElementById('cambiarContrasenaForm');
+
+  // Abrir modal
+  btnCambiarContrasena?.addEventListener('click', () => {
+    modal.style.display = 'block';
+  });
+
+  // Cerrar modal
+  closeModal?.addEventListener('click', () => {
+    modal.style.display = 'none';
+    cambiarContrasenaForm.reset();
+  });
+
+  btnCancelar?.addEventListener('click', () => {
+    modal.style.display = 'none';
+    cambiarContrasenaForm.reset();
+  });
+
+  // Cerrar modal al hacer click fuera
+  window.addEventListener('click', (event) => {
+    if (event.target === modal) {
+      modal.style.display = 'none';
+      cambiarContrasenaForm.reset();
+    }
+  });
+
+  // Enviar formulario del modal
+  cambiarContrasenaForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const nueva = document.getElementById('nuevaContrasena').value.trim();
+    const confirmar = document.getElementById('confirmarContrasena').value.trim();
     if (!nueva || !confirmar) {
-      mensaje.textContent = 'Debes ingresar y confirmar la nueva contraseña.';
-      mensaje.style.color = 'red';
-      mensaje.hidden = false;
+      error('Debes ingresar y confirmar la nueva contraseña.');
       return;
     }
     if (nueva.length < 6) {
-      mensaje.textContent = 'La contraseña debe tener al menos 6 caracteres.';
-      mensaje.style.color = 'red';
-      mensaje.hidden = false;
+      error('La contraseña debe tener al menos 6 caracteres.');
       return;
     }
     if (nueva !== confirmar) {
-      mensaje.textContent = 'Las contraseñas no coinciden.';
-      mensaje.style.color = 'red';
-      mensaje.hidden = false;
+      error('Las contraseñas no coinciden.');
       return;
     }
     try {
       await patch(`usuarios/${idUsuario}`, { contrasena: nueva });
       success('Contraseña actualizada correctamente');
-      $nuevaContrasena.value = '';
-      $confirmarContrasena.value = '';
+      modal.style.display = 'none';
+      cambiarContrasenaForm.reset();
     } catch (err) {
       error('Error al actualizar la contraseña: ' + err.message);
     }

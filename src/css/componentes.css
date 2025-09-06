@@ -1,0 +1,155 @@
+
+/* HAMBURGER MENU STYLES */
+.navbar-hamburger {
+  display: none;
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1200;
+}
+.navbar-hamburger span,
+.navbar-hamburger span:before,
+.navbar-hamburger span:after {
+  display: block;
+  background: var(--color-white);
+  height: 3px;
+  width: 28px;
+  border-radius: 2px;
+  position: relative;
+  transition: all 0.3s;
+}
+.navbar-hamburger span:before {
+  content: '';
+  position: absolute;
+  top: -9px;
+  left: 0;
+}
+.navbar-hamburger span:after {
+  content: '';
+  position: absolute;
+  top: 9px;
+  left: 0;
+}
+.navbar-hamburger.open span {
+  background: transparent;
+}
+.navbar-hamburger.open span::before {
+  transform: rotate(45deg);
+  top: 0;
+}
+.navbar-hamburger.open span::after {
+  transform: rotate(-45deg);
+  top: 0;
+}
+
+
+/*SCROLLBAR*/
+::-webkit-scrollbar{
+
+  width: 5px;
+}
+::-webkit-scrollbar-thumb{
+ 
+}
+/* Para navegadores WebKit: scrollbar y ancho */
+
+::-webkit-scrollbar-track {
+  background: #222;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+
+/* BUTTON */
+.btn {
+    display: flex;
+    width: 90%;
+    max-width: 95%;
+  align-self: center;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  color: var(--color-black);
+  padding: 0.9rem 1rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 900;
+  font-size: 1.3rem;
+  text-align: center;
+  cursor: pointer;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+}
+ a.btn--back{
+  position: fixed;
+  left: 3%;
+  top: 5%;
+  z-index: 1;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  margin: 0;
+  font-weight: 600;
+  background: var(--color-accent);
+  align-items: center;
+
+}
+
+/* BODY STYLES */
+.body {
+  font-family: var(--font-text);
+  color: var(--color-white);
+  position: relative;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+/* DARK OVERLAY */
+.body::before {
+  /* Solo aplica overlay en login/register, no en home SPA */
+}
+
+.btn-delete{
+  background-color: var(--color-accent);
+  border: none;
+  border-radius: 12px;
+  padding: 5px;
+  font-weight: 900;
+  font-size: 0.8rem;
+  text-align: center;
+  cursor: pointer;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+.btn-edit{
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 12px;
+  padding: 5px;
+  font-weight: 900;
+  font-size: 0.8rem;
+  text-align: center;
+  cursor: pointer;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+.btn-edit:hover, .btn-delete:hover{
+  background-color: var(--color-secondary);
+  color: var(--color-accent);
+  transition: 0.5s;
+}

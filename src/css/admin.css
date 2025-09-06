@@ -98,6 +98,7 @@ th{
   font-size: 1rem;
 }
 /* ==== BOTÓN AGREGAR ==== */
+.btn-cancelar,
 .btn-agregar {
   background-color: var(--color-primary);
   color: var(--color-white);
@@ -110,6 +111,13 @@ th{
   margin: 1rem;
   font-size: 1.3rem;
   max-width: fit-content;
+}
+button.btn-cancelar{
+  background-color: var(--color-text);
+}
+.btn-cancelar:hover{
+  transition: var(--transition-fast);
+  background-color: var(--color-accent);
 }
 
 .btn-agregar:hover {
@@ -291,6 +299,9 @@ th{
     min-width: 340px;
     align-self: center;
 
+  }
+  #tabla-categorias{
+    flex-direction: start;
   }
   .btn-agregar {
     font-size: 1rem;

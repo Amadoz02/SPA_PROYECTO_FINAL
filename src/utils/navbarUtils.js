@@ -1,5 +1,6 @@
 // Utilidad para cargar el navbar según el rol del usuario
 export function loadNavbar() {
+        
     const navbarContent = document.getElementById('navbar-content');
     if (!navbarContent) return;
     

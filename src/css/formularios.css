@@ -65,6 +65,10 @@
   gap: 1.2rem;
   padding: 3px;
 }
+form.form__group--admin{
+  flex-direction: row;
+  width: 100%;
+}
 
 .form__label {
   font-weight: 600;
@@ -99,6 +103,13 @@
   color: var(--color-accent);
 }
 
+#cambiarContrasenaForm .perfil__group{
+  margin-bottom: 15px;
+  gap: 5px;
+}
+#cambiarContrasenaForm .perfil__button{
+  width: 100%;
+}
 @keyframes fadeInLeft {
   0% {
     transform: translateX(-30px);

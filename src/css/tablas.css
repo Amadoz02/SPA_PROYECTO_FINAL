@@ -1,15 +1,4 @@
 
-
-:root {
-  --color-bg: #f9f9f9;
-  --color-danger: #e74c3c;
-  --color-success: #2ecc71;
-  --color-border: #dcdcdc;
-  --color-text: #333;
-  --radius: 6px;
-  --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
 .btn-agregar-secondary{
   background-color: var(--color-success);
 }
@@ -215,10 +204,10 @@ h3 {
   justify-self: center;
 }
 .table-header{
-  display: flex;
-  width: 50vw;
-  justify-self: center;
-  margin-bottom: 20px;
+  display: inline-flex;
+  /* width: 50vw; */
+  /* justify-self: center;   */
+  margin-bottom: 5px;
 }
 .talla-item {
   padding: 4px 6px;

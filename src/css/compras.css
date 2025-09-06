@@ -1,10 +1,17 @@
 /* ==== SECCIÓN COMPRAS ==== */
 .compras-section {
-  padding: 1rem;
   min-width: 700px;
-  max-width: 1200px;
-  margin: auto;
+  width: 100vw;
+  padding: 1% 10%;
   font-family: Arial, sans-serif;
+  box-shadow: inset 1px 1px 100px var(--color-secondary);
+}
+
+.txt-fecha{
+  font-size: 1rem;
+  color: var(--color-secondary);
+  font-family: "Schibsted Grotesk", sans-serif;
+  
 }
 
 .compras-section h2 {
@@ -15,32 +22,7 @@
   color: var(--color-white);
 }
 /* ==== FILTROS ==== */
-.filtros-compras {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 1.5rem;
-}
 
-.filtros-compras input[type="date"] {
-  padding: 0.4rem;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
-
-.filtros-compras button {
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  border: none;
-  background: #007bff;
-  color: white;
-  cursor: pointer;
-}
-
-.filtros-compras button:hover {
-  background: #0056b3;
-}
 
 /* ==== SPINNER ==== */
 .spinner {
@@ -67,9 +49,16 @@
 .compra-card {
   border: 1px solid #ccc;
   border-radius: 6px;
+  justify-self: center;
+  margin: 0 15%;
   padding: 1rem;
-  background: #fff;
-  transition: box-shadow 0.2s ease;
+  background: var(--color-white);
+  transition: var(--transition-fast);
+  font-size: 1.1rem;
+}
+.compra-card span{
+  min-width: fit-content;
+    font-family: "Schibsted Grotesk", sans-serif;
 }
 
 .compra-card:hover {
@@ -80,12 +69,16 @@
   display: flex;
   justify-content: space-between;
   font-weight: bold;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .compra-body {
   display: flex;
   justify-content: space-between;
   margin-top: 0.5rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .compra-footer {

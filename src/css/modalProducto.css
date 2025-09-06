@@ -119,14 +119,14 @@
 
 .form-actions {
   display: flex;
-  justify-content: flex-end;
+
   gap: 10px;
   margin-top: 20px;
   padding-top: 20px;
   border-top: 1px solid #dee2e6;
 }
 
-.btn-cancelar,
+
 .btn-guardar {
   font-size: 1.3rem;
       border: none;
@@ -139,19 +139,12 @@
     max-width: fit-content;
 }
 
-.btn-cancelar {
-  background-color: #6c757d;
-  color: white;
-}
 
 .btn-guardar {
   background-color: #007bff;
   color: white;
 }
 
-.btn-cancelar:hover {
-  background-color: #505355;
-}
 
 .btn-guardar:hover {
   background-color: #0056b3;
