@@ -53,6 +53,7 @@ export default async function listarMetodosPagoController() {
       },
       idKey: "id_metodo"
     });
+    document.querySelector("table").classList.add("admin-table--aux");  
 
   } catch (error) {
     console.error("Error al cargar métodos de pago:", error);

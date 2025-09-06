@@ -8,6 +8,10 @@ export default async function editarPerfilController() {
   const mensaje = document.getElementById('editarPerfilMensaje');
   const idUsuario = parseInt(localStorage.getItem('id_usuario'));
   
+      if(localStorage.getItem("id_rol") == "2" || localStorage.getItem("id_rol") == "3"){
+    document.querySelector(".perfil__container").classList.add("perfil__container--admin");
+    
+  }
   let id_departamento_actual = null;
   let id_municipio_actual = null;
   let id_direccion = null;

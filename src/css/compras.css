@@ -51,10 +51,13 @@
   border-radius: 6px;
   justify-self: center;
   margin: 0 15%;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   background: var(--color-white);
   transition: var(--transition-fast);
   font-size: 1.1rem;
+  box-shadow: 0 2px 15px rgba(8, 8, 8, 0.219);
+  width: 75%;
+
 }
 .compra-card span{
   min-width: fit-content;
@@ -62,8 +65,11 @@
 }
 
 .compra-card:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  box-shadow:   px 0px 10px var(--color-black);
+
 }
+
 
 .compra-header {
   display: flex;

@@ -1,4 +1,57 @@
 
+
+/* MODAL VENTAS ADMIN */
+
+.admin-section #compraModal  .modal-content{
+  background-color: var(--color-secondary)
+   
+}
+
+/* vista perfil admin*/
+
+#main-content div.perfil__container--admin{
+  /* background-color: var(--color-white); */
+  background-color: var(--color-white);
+
+  color: var(--color-black);
+}
+#main-content div.perfil__container--admin .bloque label{
+
+  color: var(--color-black);
+  font-size: 1.1rem;
+  font-weight: 400;
+  font-family: "Schibsted Grotesk", sans-serif;
+}
+#main-content div.perfil__container--admin .bloque{
+
+  /* background-color: var(--color-filtro); */
+  border-radius: 10px;
+  
+}
+#main-content div.perfil__container--admin .bloque textarea,
+#main-content div.perfil__container--admin .bloque input{
+  background-color: var(--color-fondo-admin-perfil);
+
+  /* background-color: var(--color-white); */
+  color: var(--color-black);
+  
+}
+#main-content div.perfil__container--admin .bloque .perfil__subtitle,
+#main-content div.perfil__container--admin .bloque .perfil__title{
+  color: var(--color-secondary);
+  font-size: 2rem;
+}
+.admin-section #compraModal  .modal-content .detalle-header h3{
+  color: var(--color-accent);
+} 
+.admin-section .modal-content div h4{
+  font-size: var(--font-text);
+  font-weight: 600;
+  font-family: var(--font-text);
+  color: var(--color-accent);
+  /* padding-bottom: 0; */
+  margin-bottom: 10px;
+}
 /* HAMBURGER MENU STYLES */
 .navbar-hamburger {
   display: none;

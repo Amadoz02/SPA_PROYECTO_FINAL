@@ -35,3 +35,8 @@
   font-size: 16px;
 }
 
+#editar-categoria-container{
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+}

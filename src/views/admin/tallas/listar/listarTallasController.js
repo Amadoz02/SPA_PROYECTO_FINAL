@@ -74,6 +74,7 @@ export default async function listTallasController() {
     document.getElementById("btn-agregar-talla").addEventListener("click", () => {
       window.location.hash = "#/admin/tallas/crear";
     });
+    document.querySelector("table").classList.add("admin-table--aux");
 
   };
 

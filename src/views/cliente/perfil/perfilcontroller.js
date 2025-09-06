@@ -10,6 +10,10 @@ export default async function perfilcontroller() {
     location.hash = 'login';
     return;
   }
+    if(localStorage.getItem("id_rol") == "2" || localStorage.getItem("id_rol") == "3"){
+    document.querySelector(".perfil__container").classList.add("perfil__container--admin");
+    
+  }
   async function cargarDatos() {
     try {
       const usuario = await manejoApi.get(`usuarios/${idUsuario}`);
@@ -41,4 +45,5 @@ export default async function perfilcontroller() {
     success('Contraseña actualizada correctamente');
   });
   await cargarDatos();
+
 }

@@ -74,6 +74,7 @@ export default async function listCategoriasTallasController() {
     document.getElementById("btn-agregar-categoria").addEventListener("click", () => {
       window.location.hash = "#/admin/categorias/crear";
     });
+    document.querySelector("table").classList.add("admin-table--aux");
 
   };
 

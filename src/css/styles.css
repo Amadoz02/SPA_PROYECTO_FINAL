@@ -326,10 +326,11 @@ button.btn--Notalert:hover {
 
 /* Admin Header Styles */
 .admin-header {
-  padding: 1rem 2rem;
+  padding: 0.7rem 2rem;
   background: var(--color-secondary);
   color: var(--color-white);
   position: relative;
+  width: 100vw;
 }
 
 .admin-header h1 {

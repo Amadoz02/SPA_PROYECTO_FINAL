@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&family=Shadows+Into+Light&display=swap');
 :root {
   --color-black: #000;
-  --color-filtro: rgba(0, 0, 0, 0);
+  --color-filtro: rgba(0, 0, 0, 0.26);
   --color-white: #fff;
   --color-primary: #00b0a8;
   --color-accent: #f3c622;
@@ -16,6 +16,7 @@
   --color-success: #2ecc71;
   --color-border: #dcdcdc;
   --color-text: #333;
+  --color-fondo-admin-perfil:#dadada;
   --radius: 6px;
   --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   --font-title: 'Bebas Neue', sans-serif;

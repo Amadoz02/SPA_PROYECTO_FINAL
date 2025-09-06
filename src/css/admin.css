@@ -10,15 +10,16 @@
   top: 0;
   right: 0;
 }
-section.admin-section--admin{
-  background-color: var(--color-filtro);
-}
+
 .admin-nav ul{
   justify-self: center;
   align-self: center;
 }
 section.admin-section--admin h2{
-  color: var(--color-primary);
+  color: var(--color-secondary);
+}
+section.admin-section--admin #pageInfo{
+  color: var(--color-black);
 }
 .txt-link{
   text-decoration: none;
@@ -48,12 +49,7 @@ th{
   font-weight: 500;
   font-size: 1.2rem;
 }
-.admin-section .modal-content div h4{
-  font-size: var(--font-text);
-  font-weight: 500;
-  font-family: var(--font-text);
-  color: var(--color-bg);
-}
+
 .admin-main {
   color: var(--color-white);
   
@@ -134,19 +130,30 @@ button.btn-cancelar{
   overflow: hidden;
   box-shadow: 0 1px 4px var(--color-overlay);
 }
+.admin-table--aux{
+    margin: 0 auto;
+    font-family: "Schibsted Grotesk", sans-serif;
+    font-size: 1.1rem;
+    width: 70%;
 
-.admin-table thead {
+  }
+table.admin-table thead {
+  display: table-header-group;
   background-color: var(--color-secondary);
   color: var(--color-white);
   font-family: var(--font-title);
   width: 100%;
+}
+table.admin-table tbody {
+/* display: table-column; */
+width: 100%;
 }
 
 .admin-table th,
 .admin-table td {
   padding: 0.8rem;
   border-bottom: 1px solid #ddd;
-  text-align: left;
+  text-align: center;
   /* width: 100%; */
 
 }
@@ -218,7 +225,7 @@ button.btn-cancelar{
 }
 
 /* Media queries para tablas responsivas */
-@media (max-width: 950px) {
+@media (max-width: 920px) {
   .form-grid{
     align-content: center;
     justify-content: center;
@@ -231,13 +238,21 @@ button.btn-cancelar{
    .admin-section .form-grid {
       grid-template-columns: 1fr;
   }
+
+  .admin-section #metodos-pago-container table.admin-table--aux,
+  #tabla-tallas table.admin-table--aux, 
+  #tabla-categorias table.admin-table--aux{
+    overflow-x: auto;
+    white-space: nowrap;
+    display:  table;
+  }
   .admin-table,
   .simple-table {
     overflow-x: auto;
     white-space: nowrap;
-    display: block;
-  
+    display:  block;
   }
+ 
 
   .admin-table th,
   .admin-table td,
@@ -251,16 +266,37 @@ button.btn-cancelar{
   .admin-table thead,
   .simple-table thead {
     display: table-header-group;
+    width: 100%;
   }
 
   .admin-table tbody,
   .simple-table tbody {
     display: table-row-group;
+    width: 100%;
+
   }
 
   .admin-table tr,
   .simple-table tr {
     display: table-row;
+  }
+}
+
+@media (max-width: 600px){
+  .admin-table--aux {
+    width: 100%;
+  }
+    .admin-section #metodos-pago-container table.admin-table--aux,
+  #tabla-tallas table.admin-table--aux, 
+  #tabla-categorias table.admin-table--aux{
+    overflow-x: auto;
+    white-space: nowrap;
+    display:  block;
+
+  }
+  .compra-card{
+    width: 95%;
+    margin: auto;
   }
 }
 .preview-imagenes div{
@@ -326,6 +362,7 @@ button.btn-cancelar{
     display: block;
   
   }
+ 
 
   .admin-table th,
   .admin-table td,
